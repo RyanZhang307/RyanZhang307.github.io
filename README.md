@@ -1,6 +1,6 @@
 # RyanZhang307.github.io
 
-这是 Ryan Zhang 的 GitHub Pages 个人主页。
+这是 Ryan Zhang 的 GitHub Pages 个人主页。当前视觉方向参考 Fuwari：个人侧栏、文章信息流、柔和卡片和浅/深色切换。
 
 线上地址：
 
@@ -67,12 +67,13 @@ https://ryanzhang307.github.io
 
 ## 文件结构
 
-- `index.html`：首页介绍、项目、联系方式
+- `index.html`：Fuwari 风格首页、个人侧栏、文章入口、项目入口
 - `resume.html`：简历内容
 - `blog/index.html`：博客列表
 - `blog/first-note.html`：第一篇文章
 - `assets/styles.css`：整体视觉样式
-- `assets/hero-notes.svg`：首页首屏视觉图
+- `assets/main.js`：年份、导航阴影和浅/深色切换
+- `assets/hero-notes.svg`：首页视觉图
 - `tools/dev-server.mjs`：本地预览服务器
 - `tools/check-site.mjs`：本地链接检查
 
