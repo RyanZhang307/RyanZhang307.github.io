@@ -18,120 +18,134 @@
         <span>Ryan Zhang</span>
       </a>
       <nav class="nav-links" aria-label="主要导航">
-        <a href="#projects">项目</a>
+        <a href="index.html" aria-current="page">首页</a>
+        <a href="blog/">文章</a>
         <a href="resume.html">简历</a>
-        <a href="blog/">博客</a>
-        <a href="#reading">读书</a>
+        <a href="#projects">项目</a>
       </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true">
+          <span class="theme-switch-knob"></span>
+        </span>
+      </button>
     </header>
 
-    <main>
-      <section class="hero">
-        <img class="hero-image" src="assets/hero-notes.svg" alt="桌面、书本与笔记本组成的学习场景">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Personal site and notes</p>
+    <main class="site-shell">
+      <aside class="profile-sidebar" aria-label="个人信息">
+        <section class="profile-card card">
+          <img class="profile-avatar" src="https://github.com/RyanZhang307.png" alt="Ryan Zhang 的 GitHub 头像">
           <h1>Ryan Zhang</h1>
-          <p class="hero-copy">把技术、语言学习、阅读和日常思考整理成长期可复用的作品。</p>
-          <div class="hero-actions">
-            <a class="button primary" href="resume.html">查看简历</a>
-            <a class="button secondary" href="blog/">阅读文章</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section intro-section">
-        <div class="section-inner two-column">
-          <div>
-            <p class="section-kicker">关于我</p>
-            <h2>一个持续搭建自己知识系统的人。</h2>
-          </div>
-          <div class="intro-copy">
-            <p>这里会记录我的项目、学习路线、读书笔记和阶段性想法。主页先保持轻量，方便在 GitHub Pages 上稳定运行，后续可以逐步扩展成完整博客。</p>
-            <p>目前重点关注个人效率、编程实践、语言学习和长期写作。</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section muted" id="projects">
-        <div class="section-inner">
-          <div class="section-heading">
-            <p class="section-kicker">Projects</p>
-            <h2>近期项目</h2>
-          </div>
-          <div class="card-grid">
-            <article class="project-card">
-              <div class="card-label">Web App</div>
-              <h3>日语学习应用</h3>
-              <p>从词汇与例句表格生成的日语学习工具，包含闪卡、测验、例句阅读和进度记录。</p>
-              <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
-            </article>
-            <article class="project-card">
-              <div class="card-label">Portfolio</div>
-              <h3>个人主页</h3>
-              <p>用于展示简历、文章、笔记和长期作品的 GitHub Pages 站点。</p>
-              <a href="resume.html">查看结构</a>
-            </article>
-            <article class="project-card">
-              <div class="card-label">Writing</div>
-              <h3>学习与写作记录</h3>
-              <p>把书、课程、项目和思考沉淀成可检索的文章，形成个人知识库。</p>
-              <a href="blog/">进入博客</a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-inner split-list">
-          <div>
-            <p class="section-kicker">Writing</p>
-            <h2>最新文章</h2>
-          </div>
-          <div class="article-list">
-            <a class="article-row" href="blog/first-note.html">
-              <span>第一篇记录：为什么把学习放到网页上</span>
-              <time datetime="2026-08-01">2026.08.01</time>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section muted" id="reading">
-        <div class="section-inner">
-          <div class="section-heading">
-            <p class="section-kicker">Bookshelf</p>
-            <h2>读书与笔记</h2>
-          </div>
-          <div class="note-grid">
-            <article>
-              <h3>技术</h3>
-              <p>记录编程、工具、产品和系统化方法。</p>
-            </article>
-            <article>
-              <h3>语言学习</h3>
-              <p>记录日语学习路径、词汇复盘和输入材料。</p>
-            </article>
-            <article>
-              <h3>思考</h3>
-              <p>记录阶段性总结、生活观察和长期计划。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section contact-section">
-        <div class="section-inner contact-panel">
-          <div>
-            <p class="section-kicker">Contact</p>
-            <h2>欢迎交流。</h2>
-          </div>
-          <div class="contact-links">
+          <p class="profile-title">学习者 / 写作者 / Web 应用实践者</p>
+          <p class="profile-copy">把项目、阅读、语言学习和阶段性思考整理成长期可维护的个人知识库。</p>
+          <div class="profile-links" aria-label="社交链接">
             <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:your-email@example.com">Email</a>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section class="mini-card card">
+          <h2>现在关注</h2>
+          <ul class="compact-list">
+            <li>日语输入与词汇复习</li>
+            <li>个人主页和博客系统</li>
+            <li>把工具项目变成作品集</li>
+          </ul>
+        </section>
+
+        <section class="mini-card card">
+          <h2>标签</h2>
+          <div class="tag-cloud">
+            <a href="blog/">学习</a>
+            <a href="blog/">项目</a>
+            <a href="blog/">读书</a>
+            <a href="blog/">思考</a>
+          </div>
+        </section>
+      </aside>
+
+      <div class="content-flow">
+        <section class="welcome-card card">
+          <div class="welcome-text">
+            <p class="eyebrow">Personal Garden</p>
+            <h2>把学习过程写成可以回看的东西。</h2>
+            <p>这里会放简历、项目、博客、读书笔记和日语学习记录。页面先保持轻量，写作和更新才是重点。</p>
+            <div class="action-row">
+              <a class="button primary" href="blog/">阅读文章</a>
+              <a class="button secondary" href="resume.html">查看简历</a>
+            </div>
+          </div>
+          <img class="welcome-visual" src="assets/hero-notes.svg" alt="桌面、书本与笔记组成的学习场景">
+        </section>
+
+        <section class="feed-section" aria-labelledby="latest-title">
+          <div class="section-heading">
+            <p class="eyebrow">Latest</p>
+            <h2 id="latest-title">最近更新</h2>
+          </div>
+          <div class="post-feed">
+            <a class="post-card card" href="blog/first-note.html">
+              <div class="post-meta">
+                <time datetime="2026-08-01">2026.08.01</time>
+                <span>随笔</span>
+              </div>
+              <h3>第一篇记录：为什么把学习放到网页上</h3>
+              <p>个人主页不只是展示，也可以成为长期积累的索引。</p>
+              <span class="post-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="feed-section" id="projects" aria-labelledby="projects-title">
+          <div class="section-heading">
+            <p class="eyebrow">Projects</p>
+            <h2 id="projects-title">项目</h2>
+          </div>
+          <div class="project-grid">
+            <article class="project-card card accent-teal">
+              <p class="project-label">Web App</p>
+              <h3>日语学习应用</h3>
+              <p>从词汇与例句表格生成的日语学习工具，包含闪卡、测验、例句阅读和本地进度记录。</p>
+              <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+            </article>
+            <article class="project-card card accent-pink">
+              <p class="project-label">Portfolio</p>
+              <h3>个人主页</h3>
+              <p>作为简历、作品、博客和读书笔记的长期入口，托管在 GitHub Pages。</p>
+              <a href="resume.html">查看简历</a>
+            </article>
+            <article class="project-card card accent-gold">
+              <p class="project-label">Writing</p>
+              <h3>学习与写作记录</h3>
+              <p>把书、课程、项目和思考沉淀成可检索、可复用、可继续更新的文章。</p>
+              <a href="blog/">进入博客</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="feed-section" aria-labelledby="notes-title">
+          <div class="section-heading">
+            <p class="eyebrow">Notes</p>
+            <h2 id="notes-title">内容方向</h2>
+          </div>
+          <div class="note-grid">
+            <article class="note-card card">
+              <span class="note-index">01</span>
+              <h3>技术实践</h3>
+              <p>记录工具、产品、代码和系统化方法。</p>
+            </article>
+            <article class="note-card card">
+              <span class="note-index">02</span>
+              <h3>语言学习</h3>
+              <p>记录日语学习路径、词汇复盘和输入材料。</p>
+            </article>
+            <article class="note-card card">
+              <span class="note-index">03</span>
+              <h3>阅读与思考</h3>
+              <p>整理读书笔记、阶段性总结和长期计划。</p>
+            </article>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="site-footer">
