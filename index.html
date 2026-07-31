@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ryan Zhang | 个人主页</title>
+    <meta name="description" content="Ryan Zhang 的个人主页，记录项目、简历、阅读、思考和学习笔记。">
+    <meta property="og:title" content="Ryan Zhang | 个人主页">
+    <meta property="og:description" content="项目、简历、阅读、思考和学习笔记。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/hero-notes.svg">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="#projects">项目</a>
+        <a href="resume.html">简历</a>
+        <a href="blog/">博客</a>
+        <a href="#reading">读书</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img class="hero-image" src="assets/hero-notes.svg" alt="桌面、书本与笔记本组成的学习场景">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Personal site and notes</p>
+          <h1>Ryan Zhang</h1>
+          <p class="hero-copy">把技术、语言学习、阅读和日常思考整理成长期可复用的作品。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="resume.html">查看简历</a>
+            <a class="button secondary" href="blog/">阅读文章</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro-section">
+        <div class="section-inner two-column">
+          <div>
+            <p class="section-kicker">关于我</p>
+            <h2>一个持续搭建自己知识系统的人。</h2>
+          </div>
+          <div class="intro-copy">
+            <p>这里会记录我的项目、学习路线、读书笔记和阶段性想法。主页先保持轻量，方便在 GitHub Pages 上稳定运行，后续可以逐步扩展成完整博客。</p>
+            <p>目前重点关注个人效率、编程实践、语言学习和长期写作。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted" id="projects">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="section-kicker">Projects</p>
+            <h2>近期项目</h2>
+          </div>
+          <div class="card-grid">
+            <article class="project-card">
+              <div class="card-label">Web App</div>
+              <h3>日语学习应用</h3>
+              <p>从词汇与例句表格生成的日语学习工具，包含闪卡、测验、例句阅读和进度记录。</p>
+              <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+            </article>
+            <article class="project-card">
+              <div class="card-label">Portfolio</div>
+              <h3>个人主页</h3>
+              <p>用于展示简历、文章、笔记和长期作品的 GitHub Pages 站点。</p>
+              <a href="resume.html">查看结构</a>
+            </article>
+            <article class="project-card">
+              <div class="card-label">Writing</div>
+              <h3>学习与写作记录</h3>
+              <p>把书、课程、项目和思考沉淀成可检索的文章，形成个人知识库。</p>
+              <a href="blog/">进入博客</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-inner split-list">
+          <div>
+            <p class="section-kicker">Writing</p>
+            <h2>最新文章</h2>
+          </div>
+          <div class="article-list">
+            <a class="article-row" href="blog/first-note.html">
+              <span>第一篇记录：为什么把学习放到网页上</span>
+              <time datetime="2026-08-01">2026.08.01</time>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted" id="reading">
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="section-kicker">Bookshelf</p>
+            <h2>读书与笔记</h2>
+          </div>
+          <div class="note-grid">
+            <article>
+              <h3>技术</h3>
+              <p>记录编程、工具、产品和系统化方法。</p>
+            </article>
+            <article>
+              <h3>语言学习</h3>
+              <p>记录日语学习路径、词汇复盘和输入材料。</p>
+            </article>
+            <article>
+              <h3>思考</h3>
+              <p>记录阶段性总结、生活观察和长期计划。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section">
+        <div class="section-inner contact-panel">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2>欢迎交流。</h2>
+          </div>
+          <div class="contact-links">
+            <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="mailto:your-email@example.com">Email</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">github.com/RyanZhang307</a>
+    </footer>
+
+    <script src="assets/main.js"></script>
+  </body>
+</html>
