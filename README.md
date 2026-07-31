@@ -12,15 +12,22 @@ https://ryanzhang307.github.io
 
 推荐使用 VS Code。
 
-方式一：使用 VS Code Live Server
+方式一：使用 VS Code Live Preview
 
 1. 用 VS Code 打开这个仓库文件夹
-2. 安装推荐插件 `Live Server`
-3. 右键 `index.html`
-4. 选择 `Open with Live Server`
-5. 修改文件并保存，浏览器会自动刷新
+2. 安装推荐插件 `Live Preview`
+3. 打开 `index.html`
+4. 点击编辑器右上角的预览按钮，或在命令面板运行 `Live Preview: Show Preview`
+5. 把预览标签页拖到右侧，就可以左边写代码、右边看网页
 
-方式二：使用内置预览脚本
+方式二：使用 VS Code Live Server
+
+1. 安装推荐插件 `Live Server`
+2. 右键 `index.html`
+3. 选择 `Open with Live Server`
+4. 修改文件并保存，浏览器会自动刷新
+
+方式三：使用内置预览脚本
 
 ```powershell
 .\preview.ps1
