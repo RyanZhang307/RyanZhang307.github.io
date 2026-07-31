@@ -8,28 +8,34 @@
     <link rel="stylesheet" href="assets/styles.css">
   </head>
   <body>
-    <header class="site-header solid">
+    <header class="site-header" data-header>
       <a class="brand" href="index.html" aria-label="Ryan Zhang 首页">
         <span class="brand-mark">RZ</span>
         <span>Ryan Zhang</span>
       </a>
       <nav class="nav-links" aria-label="主要导航">
-        <a href="index.html#projects">项目</a>
+        <a href="index.html">首页</a>
+        <a href="blog/">文章</a>
         <a href="resume.html" aria-current="page">简历</a>
-        <a href="blog/">博客</a>
-        <a href="index.html#reading">读书</a>
+        <a href="index.html#projects">项目</a>
       </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true">
+          <span class="theme-switch-knob"></span>
+        </span>
+      </button>
     </header>
 
-    <main class="page-main">
-      <section class="page-hero">
+    <main class="page-shell">
+      <section class="page-hero card">
         <p class="eyebrow">Resume</p>
         <h1>Ryan Zhang</h1>
         <p>这是在线简历页。你可以把教育经历、工作经历、项目经历和联系方式逐步补充到这里。</p>
       </section>
 
       <section class="resume-layout">
-        <aside class="resume-side">
+        <aside class="resume-side card">
+          <img class="resume-avatar" src="https://github.com/RyanZhang307.png" alt="Ryan Zhang 的 GitHub 头像">
           <h2>联系方式</h2>
           <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub</a>
           <a href="mailto:your-email@example.com">your-email@example.com</a>
@@ -37,7 +43,7 @@
           <p>Web 应用、学习工具、个人知识管理、长期写作。</p>
         </aside>
 
-        <div class="resume-content">
+        <div class="resume-content card">
           <section>
             <h2>个人简介</h2>
             <p>关注技术实践、学习方法和内容沉淀。希望把项目、笔记和思考整理成一个持续更新的公开主页。</p>
