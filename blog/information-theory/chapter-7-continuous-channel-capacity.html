@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>连续信道容量｜Channel Capacity: Continuous | Ryan Zhang</title>
+    <meta name="description" content="高斯信道、信噪比、Shannon–Hartley 定理和固定范围信道。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#7-1-introduction-引言">7.1 Introduction / 引言</a></li><li class="toc-depth-2"><a href="#7-2-channel-capacity-信道容量">7.2 Channel Capacity / 信道容量</a></li><li class="toc-depth-2"><a href="#7-3-the-gaussian-channel-高斯信道">7.3 The Gaussian Channel / 高斯信道</a></li><li class="toc-depth-2"><a href="#7-4-error-rates-of-noisy-channels-有噪信道的误码率">7.4 Error Rates of Noisy Channels / 有噪信道的误码率</a></li><li class="toc-depth-2"><a href="#7-5-using-a-gaussian-channel-高斯信道的使用">7.5 Using a Gaussian Channel / 高斯信道的使用</a></li><li class="toc-depth-2"><a href="#7-6-mutual-information-and-correlation-互信息与相关">7.6 Mutual Information and Correlation / 互信息与相关</a></li><li class="toc-depth-2"><a href="#7-7-the-fixed-range-channel-固定范围信道">7.7 The Fixed Range Channel / 固定范围信道</a></li><li class="toc-depth-2"><a href="#7-8-summary-小结">7.8 Summary / 小结</a></li><li class="toc-depth-2"><a href="#terminology-术语表">Terminology / 术语表</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 6 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 07</p>
+          <h1>连续信道容量</h1>
+          <p class="article-subtitle">Channel Capacity: Continuous</p>
+          <p class="lead">高斯信道、信噪比、Shannon–Hartley 定理和固定范围信道。</p>
+          <div class="article-content"><h2 id="7-1-introduction-引言">7.1 Introduction / 引言<a class="heading-anchor" href="#7-1-introduction-引言" aria-label="链接到本节">#</a></h2>
+<p>Continuous channels transmit real-valued signals. Their capacity depends not on the number of discrete symbols but on constraints such as signal power, noise variance, bandwidth, and allowed input range.</p>
+<blockquote>
+<p>连续信道传输实值信号。其容量不由离散符号数量决定，而取决于信号功率、噪声方差、带宽和允许输入范围等约束。</p>
+</blockquote>
+<h2 id="7-2-channel-capacity-信道容量">7.2 Channel Capacity / 信道容量<a class="heading-anchor" href="#7-2-channel-capacity-信道容量" aria-label="链接到本节">#</a></h2>
+<p>For any channel,</p>
+<blockquote>
+<p>对任意信道：</p>
+</blockquote>
+<p>$$C=\max_{p(X)}I(X;Y).$$</p>
+<p>For an additive channel (Y=X+\eta), with independent noise,</p>
+<blockquote>
+<p>对加性信道 (Y=X+\eta)，若噪声独立：</p>
+</blockquote>
+<p>$$I(X;Y)=h(Y)-h(Y\mid X)=h(Y)-h(\eta),$$
+$$C=\max_{p(X)}[h(Y)-h(\eta)].$$</p>
+<p>The noise distribution is fixed by the channel, so capacity is achieved by choosing an input distribution that maximises output entropy under the physical constraints.</p>
+<blockquote>
+<p>噪声分布由信道固定，因此要达到容量，需要在物理约束下选择使输出熵最大的输入分布。</p>
+</blockquote>
+<h2 id="7-3-the-gaussian-channel-高斯信道">7.3 The Gaussian Channel / 高斯信道<a class="heading-anchor" href="#7-3-the-gaussian-channel-高斯信道" aria-label="链接到本节">#</a></h2>
+<p>Let Gaussian noise have variance (\sigma_\eta^2=N) and input power, or variance, (\sigma_X^2=P). Gaussian input maximises output entropy because a Gaussian has maximum entropy at fixed variance.</p>
+<blockquote>
+<p>设高斯噪声方差为 (\sigma_\eta^2=N)，输入功率或方差为 (\sigma_X^2=P)。固定方差下高斯分布熵最大，因此高斯输入使输出熵最大。</p>
+</blockquote>
+<p>Since (Y=X+\eta),</p>
+<blockquote>
+<p>由于 (Y=X+\eta)：</p>
+</blockquote>
+<p>$$\sigma_Y^2=P+N,$$
+$$h(\eta)=\frac12\log(2\pi eN),\qquad h(Y)=\frac12\log[2\pi e(P+N)].$$</p>
+<p>Therefore the capacity per independent real-valued channel use is</p>
+<blockquote>
+<p>因此，每次独立实值信道使用的容量为：</p>
+</blockquote>
+<p>$$C=\frac12\log_2\left(1+\frac{P}{N}\right)\ \text{bits}.$$</p>
+<p>For bandwidth (B), the Shannon-Hartley form is</p>
+<blockquote>
+<p>对带宽 (B)，Shannon-Hartley 形式为：</p>
+</blockquote>
+<p>$$C=B\log_2\left(1+\frac{P}{N}\right)\ \text{bits/s}.$$</p>
+<p>At high signal-to-noise ratio, capacity grows only logarithmically: large increases in power yield modest increases in rate.</p>
+<blockquote>
+<p>在高信噪比下，容量只按对数增长：大幅提高功率只能带来较有限的速率提升。</p>
+</blockquote>
+<p><strong>Figure 7.1. Gaussian channel capacity as a function of signal-to-noise ratio (P/N).</strong></p>
+<blockquote>
+<p><strong>图 7.1　高斯信道容量与信噪比 (P/N) 的关系。</strong></p>
+</blockquote>
+<h2 id="7-4-error-rates-of-noisy-channels-有噪信道的误码率">7.4 Error Rates of Noisy Channels / 有噪信道的误码率<a class="heading-anchor" href="#7-4-error-rates-of-noisy-channels-有噪信道的误码率" aria-label="链接到本节">#</a></h2>
+<p>Even when rate (R&lt;C), a short or poorly designed code may have substantial error probability. For Gaussian codewords, error occurs when noise moves an output across a decision boundary. Increasing separation between codewords reduces error but allows fewer codewords within a fixed power region.</p>
+<blockquote>
+<p>即使速率 (R&lt;C)，短码或设计不佳的编码仍可能具有较高错误概率。对高斯码字，当噪声把输出推过判决边界时就会发生错误。增大码字间距可以降低错误率，但在固定功率区域内能够容纳的码字也会减少。</p>
+</blockquote>
+<p>For two equally likely scalar Gaussian signals separated by distance (d), the error probability is determined by the Gaussian tail beyond the midpoint and decreases rapidly with (d/\sigma_\eta).</p>
+<blockquote>
+<p>对两个等概率、间距为 (d) 的标量高斯信号，错误概率由越过中点的高斯尾部决定，并随 (d/\sigma_\eta) 增大而快速下降。</p>
+</blockquote>
+<p><strong>Figure 7.2. Error probability depends on overlap between noisy output distributions, even when the source rate is below capacity.</strong></p>
+<blockquote>
+<p><strong>图 7.2　即使信源速率低于容量，错误概率仍取决于含噪输出分布的重叠程度。</strong></p>
+</blockquote>
+<h2 id="7-5-using-a-gaussian-channel-高斯信道的使用">7.5 Using a Gaussian Channel / 高斯信道的使用<a class="heading-anchor" href="#7-5-using-a-gaussian-channel-高斯信道的使用" aria-label="链接到本节">#</a></h2>
+<p>Long codewords are vectors</p>
+<blockquote>
+<p>长码字表示为向量：</p>
+</blockquote>
+<p>$$\mathbf{x}=(x_1,\ldots,x_n),\qquad \mathbf{y}=\mathbf{x}+\boldsymbol{\eta}.$$</p>
+<p>If capacity is (C) bits per component, an (n)-component vector can carry up to (nC) bits and distinguish approximately</p>
+<blockquote>
+<p>若每个分量容量为 (C) 比特，(n) 维向量最多携带 (nC) 比特，并可区分约：</p>
+</blockquote>
+<p>$$m=2^{nC}$$</p>
+<p>messages. In high dimensions, noise vectors concentrate in a thin shell. Codewords can be placed so that their likely noise spheres barely overlap, explaining why long codes approach capacity with small error.</p>
+<blockquote>
+<p>条消息。在高维空间中，噪声向量集中于一个薄壳。可以放置码字，使其高概率噪声球几乎不重叠，这说明长码为什么能以很小错误率接近容量。</p>
+</blockquote>
+<p><strong>Figure 7.3. Gaussian codewords and their surrounding noise regions in signal space.</strong></p>
+<blockquote>
+<p><strong>图 7.3　信号空间中的高斯码字及其周围噪声区域。</strong></p>
+</blockquote>
+<h2 id="7-6-mutual-information-and-correlation-互信息与相关">7.6 Mutual Information and Correlation / 互信息与相关<a class="heading-anchor" href="#7-6-mutual-information-and-correlation-互信息与相关" aria-label="链接到本节">#</a></h2>
+<p>For jointly Gaussian scalar variables with correlation coefficient (\rho),</p>
+<blockquote>
+<p>对相关系数为 (\rho) 的联合高斯标量变量：</p>
+</blockquote>
+<p>$$I(X;Y)=-\frac12\log_2(1-\rho^2)
+=\frac12\log_2\frac1{1-\rho^2}.$$</p>
+<p>Equivalently,</p>
+<blockquote>
+<p>等价地：</p>
+</blockquote>
+<p>$$|\rho|=\sqrt{1-2^{-2I(X;Y)}}.$$</p>
+<p>Zero correlation implies zero mutual information only for special families such as jointly Gaussian variables. In general, nonlinear dependence can yield zero correlation but positive mutual information.</p>
+<blockquote>
+<p>只有对联合高斯等特殊分布族，零相关才意味着零互信息。一般情况下，非线性依赖可能使相关系数为零而互信息仍为正。</p>
+</blockquote>
+<p><strong>Figures 7.4-7.5. Gaussian scatter plots and curves relate correlation strength to mutual information.</strong></p>
+<blockquote>
+<p><strong>图 7.4-7.5　高斯散点图和曲线展示相关强度与互信息的关系。</strong></p>
+</blockquote>
+<h2 id="7-7-the-fixed-range-channel-固定范围信道">7.7 The Fixed Range Channel / 固定范围信道<a class="heading-anchor" href="#7-7-the-fixed-range-channel-固定范围信道" aria-label="链接到本节">#</a></h2>
+<p>Some channels constrain amplitude to a fixed interval rather than average power. For a noiseless fixed-range channel, a uniform input maximises entropy. If the source density is non-uniform, an invertible encoding (x=g(s)) can reshape it into a uniform channel-input density.</p>
+<blockquote>
+<p>有些信道限制的是固定幅度范围，而不是平均功率。对无噪固定范围信道，均匀输入使熵最大。如果信源密度非均匀，可以利用可逆编码 (x=g(s)) 把它变换为均匀的信道输入密度。</p>
+</blockquote>
+<p>Probability conservation gives</p>
+<blockquote>
+<p>概率守恒给出：</p>
+</blockquote>
+<p>$$p_X(x)=\frac{p_S(s)}{|g&#39;(s)|}.$$</p>
+<p>Choosing (g&#39;(s)\propto p_S(s)) produces constant (p_X(x)); the cumulative distribution function is therefore a natural companding transform.</p>
+<blockquote>
+<p>选择 (g&#39;(s)\propto p_S(s)) 可得到常数 (p_X(x))；因此累积分布函数是自然的压扩变换。</p>
+</blockquote>
+<p>With noise, the optimal input need not be exactly uniform because encoding must balance output entropy against noise sensitivity.</p>
+<blockquote>
+<p>存在噪声时，最优输入未必严格均匀，因为编码需要在输出熵与噪声敏感性之间权衡。</p>
+</blockquote>
+<p><strong>Figure 7.6. An encoding function maps Gaussian-distributed source values into an approximately uniform fixed-range input distribution.</strong></p>
+<blockquote>
+<p><strong>图 7.6　编码函数把高斯分布的信源值映射为近似均匀的固定范围输入分布。</strong></p>
+</blockquote>
+<h2 id="7-8-summary-小结">7.8 Summary / 小结<a class="heading-anchor" href="#7-8-summary-小结" aria-label="链接到本节">#</a></h2>
+<p>Continuous-channel capacity is the maximum mutual information under physical constraints. Gaussian inputs achieve the power-constrained Gaussian-channel capacity, while uniform inputs are optimal for noiseless fixed-range channels. Long vector codes make reliable operation near capacity possible. For Gaussian variables, mutual information has a simple relationship to correlation, but mutual information captures more general dependence.</p>
+<blockquote>
+<p>连续信道容量是在物理约束下能够达到的最大互信息。高斯输入达到功率受限高斯信道的容量，均匀输入则适用于无噪固定范围信道。长向量码使接近容量的可靠运行成为可能。对高斯变量，互信息与相关系数具有简单关系，但互信息能够描述更一般的依赖。</p>
+</blockquote>
+<h2 id="terminology-术语表">Terminology / 术语表<a class="heading-anchor" href="#terminology-术语表" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gaussian channel</td>
+<td>高斯信道</td>
+</tr>
+<tr>
+<td>signal-to-noise ratio</td>
+<td>信噪比</td>
+</tr>
+<tr>
+<td>Shannon-Hartley theorem</td>
+<td>Shannon-Hartley 定理</td>
+</tr>
+<tr>
+<td>error probability</td>
+<td>错误概率</td>
+</tr>
+<tr>
+<td>decision boundary</td>
+<td>判决边界</td>
+</tr>
+<tr>
+<td>codeword vector</td>
+<td>码字向量</td>
+</tr>
+<tr>
+<td>noise sphere</td>
+<td>噪声球</td>
+</tr>
+<tr>
+<td>correlation coefficient</td>
+<td>相关系数</td>
+</tr>
+<tr>
+<td>fixed-range channel</td>
+<td>固定范围信道</td>
+</tr>
+<tr>
+<td>companding</td>
+<td>压扩</td>
+</tr>
+</tbody></table>
+</div></div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <a href="chapter-6-continuous-mutual-information.html" rel="prev"><span>上一篇</span><strong>连续互信息</strong></a>
+      <a href="chapter-8-thermodynamic-entropy.html" rel="next"><span>下一篇</span><strong>热力学熵和信息</strong></a>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>信源编码定理｜The Source Coding Theorem | Ryan Zhang</title>
+    <meta name="description" content="无噪信道容量、霍夫曼编码、数据压缩和典型序列。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#3-1-introduction-引言">3.1 Introduction / 引言</a></li><li class="toc-depth-2"><a href="#3-2-capacity-of-a-discrete-noiseless-channel-离散无噪信道的容量">3.2 Capacity of a Discrete Noiseless Channel / 离散无噪信道的容量</a></li><li class="toc-depth-2"><a href="#3-3-shannon-s-source-coding-theorem-香农信源编码定理">3.3 Shannon's Source Coding Theorem / 香农信源编码定理</a></li><li class="toc-depth-2"><a href="#3-4-calculating-information-rates-信息速率的计算">3.4 Calculating Information Rates / 信息速率的计算</a></li><li class="toc-depth-3"><a href="#coding-for-an-8-sided-die-八面骰子的编码">Coding for an 8-Sided Die / 八面骰子的编码</a></li><li class="toc-depth-3"><a href="#coding-for-a-6-sided-die-六面骰子的编码">Coding for a 6-Sided Die / 六面骰子的编码</a></li><li class="toc-depth-2"><a href="#3-5-data-compression-数据压缩">3.5 Data Compression / 数据压缩</a></li><li class="toc-depth-2"><a href="#3-6-huffman-coding-霍夫曼编码">3.6 Huffman Coding / 霍夫曼编码</a></li><li class="toc-depth-3"><a href="#huffman-coding-of-images-图像的霍夫曼编码">Huffman Coding of Images / 图像的霍夫曼编码</a></li><li class="toc-depth-3"><a href="#huffman-coding-of-english-letters-英语字母的霍夫曼编码">Huffman Coding of English Letters / 英语字母的霍夫曼编码</a></li><li class="toc-depth-2"><a href="#3-7-the-entropy-of-english-letters-英语字母的熵">3.7 The Entropy of English Letters / 英语字母的熵</a></li><li class="toc-depth-3"><a href="#english-entropy-informal-account-英语熵-非正式说明">English Entropy: Informal Account / 英语熵：非正式说明</a></li><li class="toc-depth-3"><a href="#english-entropy-a-more-formal-account-英语熵-更形式化的说明">English Entropy: A More Formal Account / 英语熵：更形式化的说明</a></li><li class="toc-depth-3"><a href="#english-entropy-formal-account-英语熵-形式化计算">English Entropy: Formal Account / 英语熵：形式化计算</a></li><li class="toc-depth-3"><a href="#efficient-transmission-of-english-英语的高效传输">Efficient Transmission of English / 英语的高效传输</a></li><li class="toc-depth-2"><a href="#3-8-why-the-theorem-is-true-定理为什么成立">3.8 Why the Theorem is True / 定理为什么成立</a></li><li class="toc-depth-3"><a href="#why-does-the-source-generate-only-m-distinct-messages-为什么信源只生成-m-种不同消息">Why Does the Source Generate Only \(m\) Distinct Messages? / 为什么信源只生成 \(m\) 种不同消息？</a></li><li class="toc-depth-2"><a href="#3-9-kolmogorov-complexity-柯尔莫哥洛夫复杂度">3.9 Kolmogorov Complexity / 柯尔莫哥洛夫复杂度</a></li><li class="toc-depth-2"><a href="#3-10-summary-小结">3.10 Summary / 小结</a></li><li class="toc-depth-2"><a href="#terminology-used-in-this-chapter-本章术语表">Terminology Used in This Chapter / 本章术语表</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 36 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 03</p>
+          <h1>信源编码定理</h1>
+          <p class="article-subtitle">The Source Coding Theorem</p>
+          <p class="lead">无噪信道容量、霍夫曼编码、数据压缩和典型序列。</p>
+          <div class="article-content"><blockquote>
+<p>Gratiano speaks an infinite deal of nothing.</p>
+<p>葛莱西安诺说了一大堆没完没了的空话。</p>
+</blockquote>
+<p><em>Shakespeare W, 1598.</em></p>
+<h2 id="3-1-introduction-引言">3.1 Introduction / 引言<a class="heading-anchor" href="#3-1-introduction-引言" aria-label="链接到本节">#</a></h2>
+<p>Most natural signals, like sounds and images, convey information in a relatively dilute form, so that a large amount of data contains a small amount of information. There are two reasons why information is so dilute in natural signals.</p>
+<blockquote>
+<p>声音和图像等大多数自然信号都以相对稀疏的形式传递信息，因此大量数据中往往只包含少量信息。自然信号中的信息如此稀疏，主要有两个原因。</p>
+</blockquote>
+<p>First, values that are close to each other tend to have similar values, for example in images, or to be related to each other, for example in English, so that different signal values partially duplicate the information they carry.</p>
+<blockquote>
+<p>第一，彼此接近的取值往往相似，例如图像中的相邻像素；或者彼此相关，例如英语中的相邻字母。因此，不同信号值携带的信息会发生部分重复。</p>
+</blockquote>
+<p>A second, more subtle, reason involves the distribution of values in a signal. The optimal distribution for a given communication channel depends on the constraints that apply. For example, if a channel has fixed lower and upper bounds then recoding an iid signal so that all of its values occur equally often, i.e. a uniform distribution, guarantees that each binary digit carries as much information as possible, i.e. one bit. Thus, for a channel with fixed bounds, the optimal distribution is uniform.</p>
+<blockquote>
+<p>第二个原因更为微妙，与信号取值的分布有关。给定通信信道的最优分布取决于它所受到的约束。例如，如果信道具有固定的上下界，那么把独立同分布信号重新编码，使所有取值以相同频率出现，也就是形成均匀分布，就能保证每个二进制数字携带尽可能多的信息，即一比特。因此，对于取值范围固定的信道，最优分布是均匀分布。</p>
+</blockquote>
+<p>Together, these considerations suggest that a signal can be conveyed through a communication channel most efficiently if (1) it is first transformed to a signal with independent values, and (2) the values of this transformed signal have a distribution which has been optimised for that particular channel.</p>
+<blockquote>
+<p>综合上述两点，如果要让信号以最高效率通过通信信道传输，应当：（1）先把它转换成各取值彼此独立的信号；（2）使转换后信号的取值分布针对该信道得到优化。</p>
+</blockquote>
+<p><strong>Figure 3.1. The discrete noiseless channel. Data in the form of symbols from a source are encoded as codewords, for example binary numbers, before being transmitted as inputs through a communication channel. At the other end, a receiver decodes these codewords to recover the original message.</strong></p>
+<blockquote>
+<p><strong>图 3.1　离散无噪信道。信源产生的符号数据先被编码为码字，例如二进制数，再作为输入通过通信信道传输。在另一端，接收器对这些码字进行解码，以恢复原始消息。</strong></p>
+</blockquote>
+<p>The source coding theorem is so called because it is really about the coding of messages before they are transmitted through a communication channel, as in Figure 3.1. It states that messages can be recoded as described above, but it does not state how such recoding can be achieved. However, once the theorem had been proved, researchers began to search for, and soon found, coding schemes that were close to the theoretical limits defined by Shannon.</p>
+<blockquote>
+<p>之所以称为“信源编码定理”，是因为它真正讨论的是消息在通过通信信道传输之前如何编码，如图 3.1 所示。该定理说明消息可以按上述方式重新编码，却没有说明具体如何实现。定理得到证明后，研究人员开始寻找编码方案，并很快发现了接近香农理论极限的方法。</p>
+</blockquote>
+<p>Shannon&#39;s theorem is remarkable because it not only applies to all sequences in which elements are independent, but also to structured sequences like English text; that is, sequences which contain short-range and long-range dependencies between their elements. But before we can appreciate Shannon&#39;s source coding theorem, we need to know more about channel capacity, which was introduced in Chapter 2.</p>
+<blockquote>
+<p>香农定理的卓越之处在于，它不仅适用于元素相互独立的序列，也适用于英语文本这样的结构化序列，即元素之间具有短程和长程依赖关系的序列。在理解香农信源编码定理之前，我们需要进一步了解第 2 章介绍的信道容量。</p>
+</blockquote>
+<h2 id="3-2-capacity-of-a-discrete-noiseless-channel-离散无噪信道的容量">3.2 Capacity of a Discrete Noiseless Channel / 离散无噪信道的容量<a class="heading-anchor" href="#3-2-capacity-of-a-discrete-noiseless-channel-离散无噪信道的容量" aria-label="链接到本节">#</a></h2>
+<p>The capacity (C) of a discrete noiseless channel is the maximum number of bits it can communicate, usually expressed in units of bits per second or bits per symbol. Given that a binary digit can convey a maximum of one bit, a channel which communicates at the rate of (R) binary digits per second can communicate information at the rate of (C=R) bits/s, its channel capacity. Thus, channel capacity is numerically equal to the number of binary digits communicated per second. Of course, if each binary digit carries less than one bit then the channel communicates information at a lower rate (R&lt;C) bits/s. In practice, to achieve a rate (R) close to the channel capacity (C), the transmitted codewords must be used wisely.</p>
+<blockquote>
+<p>离散无噪信道的容量 (C)，是它能够传递的最大比特数，通常以比特/秒或比特/符号表示。一个二进制数字最多可以传递一比特信息，因此，以 (R) 个二进制数字/秒传输的信道，其信息传输上限为 (C=R) 比特/秒，这就是信道容量。信道容量在数值上等于每秒传递的二进制数字数。当然，如果每个二进制数字携带的信息少于一比特，实际信息速率就会降低为 (R&lt;C) 比特/秒。实践中，要使速率 (R) 接近容量 (C)，必须合理使用所传输的码字。</p>
+</blockquote>
+<p>Consider a source which generates a stream of data in the form of symbols (s_1,s_2,\ldots), with an entropy of (H(S)) bits per symbol, and a channel which transmits the corresponding encoded inputs (x_1,x_2,\ldots), where each input consists of (C) binary digits. Each symbol could, for example, consist of eight binary digits, where each binary digit carries only half a bit of information, as in the final part of Section 1.8; in the absence of any encoding, i.e. (x_i=s_i), each input would carry only (C/2) bits of information. To pre-empt the next section, Shannon&#39;s source coding theorem guarantees that for any message there exists an encoding of symbols such that each channel input of (C) binary digits can convey, on average, close to (C) bits of information.</p>
+<blockquote>
+<p>考虑一个信源，它以符号 (s_1,s_2,\ldots) 的形式生成数据流，熵为每个符号 (H(S)) 比特；另有一个信道传输相应的编码输入 (x_1,x_2,\ldots)，每个输入由 (C) 个二进制数字构成。例如，每个符号可能包含八个二进制数字，而每个二进制数字只携带半比特信息，如第 1.8 节末尾所述；如果完全不编码，即 (x_i=s_i)，每个输入只携带 (C/2) 比特信息。先预告下一节的结论：香农信源编码定理保证，对任何消息都存在一种符号编码，使每个由 (C) 个二进制数字组成的信道输入平均能够携带接近 (C) 比特的信息。</p>
+</blockquote>
+<p>This encoding process yields inputs with a specific distribution (p(X)). The shape of this distribution determines its entropy (H(X)), and therefore how much information each input carries. Thus, the capacity of a channel is defined in terms of the particular distribution (p(X)) which maximises the amount of information per input, i.e.</p>
+<blockquote>
+<p>这种编码过程产生具有特定分布 (p(X)) 的输入。分布形状决定它的熵 (H(X))，从而决定每个输入携带的信息量。因此，信道容量用使每个输入的信息量达到最大的那个分布 (p(X)) 来定义：</p>
+</blockquote>
+<p>$$
+C=\max_{p(X)}H(X)\ \text{bits per input}. \tag{3.1}
+$$</p>
+<p>This states that channel capacity (C) is achieved by the distribution (p(X)) which makes (H(X)) as large as possible. If the channel transmits one input per second, for example, then we can state this in terms of the number of bits per second,</p>
+<blockquote>
+<p>这表示，使 (H(X)) 尽可能大的分布 (p(X)) 能够达到信道容量 (C)。例如，如果信道每秒传输一个输入，就可以用每秒比特数表示：</p>
+</blockquote>
+<p>$$
+C=\max_{p(X)}H(X)\ \text{bits/s}, \tag{3.2}
+$$</p>
+<p>so that the maximum number of symbols communicated per second is</p>
+<blockquote>
+<p>因而每秒能够传递的最大符号数为：</p>
+</blockquote>
+<p>$$
+\frac{C}{H(X)}\ \text{symbols/s}. \tag{3.3}
+$$</p>
+<p>It can be shown that a uniform distribution (p(X)) maximises (H(X)).</p>
+<blockquote>
+<p>可以证明，均匀分布 (p(X)) 使 (H(X)) 达到最大。</p>
+</blockquote>
+<p>An equivalent definition of capacity was given by Shannon<sup>48</sup>. He defined the channel capacity of a noiseless channel as the logarithm of the number (N(t)) of inputs, or encoded messages, that can be communicated through the channel in a time interval (t), given by</p>
+<blockquote>
+<p>香农<sup>48</sup>还给出了一个等价定义。他把无噪信道的容量定义为：在时间间隔 (t) 内能够通过信道传递的输入，也就是编码消息，数量 (N(t)) 的对数：</p>
+</blockquote>
+<p>$$
+C=\lim_{t\to\infty}\frac{\log N(t)}{t}\ \text{bits/s}. \tag{3.4}
+$$</p>
+<p>Thus, as (t) approaches infinity, the logarithm of the number of encoded messages that can be conveyed per second approaches the channel capacity. The proviso &#39;as (t) approaches infinity&#39; is included because some messages are encoded using extremely long codewords, which are averaged out when measuring over long time periods. If we omit this nicety then channel capacity is simply the logarithm of the number of distinguishable encoded messages that could be communicated each second.</p>
+<blockquote>
+<p>因此，当 (t) 趋于无穷大时，每秒可传递编码消息数量的对数趋近于信道容量。加入“当 (t) 趋于无穷大”这一条件，是因为某些消息使用极长码字编码；在足够长的时间尺度上测量时，这些长度差异会被平均掉。如果略去这项技术细节，信道容量就是每秒可能传递的、彼此可区分的编码消息数量的对数。</p>
+</blockquote>
+<p>This definition does not refer to the number of encoded messages actually communicated per second, but to the number of different encoded messages that could be communicated per second. For example, you may be able to say one word per second, but you choose each word from a vocabulary of about (m=1{,}000) words. If we assume you are a channel then you could generate information at a maximum rate of (\log1000=9.96) bits/s, which is, by definition, your channel capacity.</p>
+<blockquote>
+<p>这个定义指的不是每秒实际传递了多少编码消息，而是每秒可能传递多少种不同的编码消息。例如，你也许每秒只能说一个词，但每个词都从大约 (m=1{,}000) 个词的词汇表中选择。如果把你看作一个信道，你生成信息的最大速率就是 (\log1000=9.96) 比特/秒；根据定义，这就是你的信道容量。</p>
+</blockquote>
+<p>However, this capacity can only be achieved if (1) you generate all words equally often, and (2) you generate words in random order, i.e. the words are iid. If you do not generate all words equally often then some words will be more frequent, making them less surprising, so that they convey less Shannon information than others. Similarly, if you do not generate words in random order then some words will be fairly predictable; in a common phrase like <em>thank you</em>, the word <em>you</em> is very predictable. By definition, predictable words are unsurprising and convey less Shannon information. Thus, any inequality in word frequency, or any redundancy between words, means that information is generated below channel capacity.</p>
+<blockquote>
+<p>不过，要达到这个容量，必须满足两个条件：（1）所有词出现得同样频繁；（2）各词按随机顺序生成，即独立同分布。如果词频不相等，一些词就会更常见、更不令人惊讶，因此携带的香农信息更少。如果词序不是随机的，一些词就容易预测；例如在常见短语 <em>thank you</em> 中，<em>you</em> 非常容易预测。根据定义，可预测的词不令人惊讶，携带的香农信息也较少。因此，词频的任何不均等或词语之间的任何冗余，都会使信息生成速率低于信道容量。</p>
+</blockquote>
+<p>Consider a channel that can convey nine binary digits per second. Each set of nine binary digits can adopt one out of (N=2^9) binary numbers, so the message actually sent in one second is chosen from (N=2^9) possible messages. Similarly, in (t) seconds a total of (9t) binary digits can be sent, and the resulting message is one out of (2^{9t}) possible messages. According to Equation 3.4, the capacity is</p>
+<blockquote>
+<p>考虑一个每秒能够传递九个二进制数字的信道。每组九个二进制数字可以取 (N=2^9) 个二进制数之一，因此一秒内实际发送的消息，是从 (N=2^9) 条可能消息中选出的。同样，在 (t) 秒内可以发送 (9t) 个二进制数字，所得消息是 (2^{9t}) 条可能消息之一。根据公式 (3.4)，信道容量为：</p>
+</blockquote>
+<p>$$
+C=\frac{\log 2^{9t}}{t}=\frac{9t}{t}=9\ \text{bits/s}. \tag{3.5}
+$$</p>
+<p>In other words, if a channel conveys nine binary digits per second then the maximum amount of information it can convey, i.e. its capacity, is an average of nine bits per second. We have not done anything new in this section, except to define channel capacity and check that it makes intuitive sense.</p>
+<blockquote>
+<p>换句话说，如果信道每秒传递九个二进制数字，它能够传递的最大信息量，也就是容量，平均为九比特/秒。本节并没有引入新的操作，只是定义了信道容量，并确认它符合直觉。</p>
+</blockquote>
+<blockquote>
+<p><strong>Key point. The capacity (C) of a noiseless channel is the maximum number of bits it can communicate per second, and is numerically equal to the number of binary digits it communicates per second.</strong></p>
+<p><strong>要点：无噪信道的容量 (C) 是它每秒能够传递的最大比特数，在数值上等于它每秒传递的二进制数字数。</strong></p>
+</blockquote>
+<h2 id="3-3-shannon-s-source-coding-theorem-香农信源编码定理">3.3 Shannon&#39;s Source Coding Theorem / 香农信源编码定理<a class="heading-anchor" href="#3-3-shannon-s-source-coding-theorem-香农信源编码定理" aria-label="链接到本节">#</a></h2>
+<p>Now that we are familiar with the core concepts of information theory, we can quote Shannon&#39;s source coding theorem in full. This is also known as Shannon&#39;s fundamental theorem for a discrete noiseless channel, and as the first fundamental coding theorem.</p>
+<blockquote>
+<p>现在我们已经熟悉信息论的核心概念，可以完整引用香农信源编码定理。它也称为“离散无噪信道的香农基本定理”或“第一编码基本定理”。</p>
+</blockquote>
+<blockquote>
+<p>Let a source have entropy (H) (bits per symbol) and a channel have a capacity (C) (bits per second). Then it is possible to encode the output of the source in such a way as to transmit at the average rate (C/H-\epsilon) symbols per second over the channel where (\epsilon) is arbitrarily small. It is not possible to transmit at an average rate greater than (C/H) [symbols/s].</p>
+<p>设一个信源的熵为 (H)（比特/符号），一个信道的容量为 (C)（比特/秒）。那么，可以对信源输出进行编码，使其通过信道以平均 (C/H-\epsilon) 个符号/秒的速率传输，其中 (\epsilon) 可以任意小。不可能以高于 (C/H) [符号/秒] 的平均速率进行传输。</p>
+</blockquote>
+<p><em>Shannon and Weaver, 1949</em><sup>50</sup>.</p>
+<p><em>[Text in square brackets has been added by the author. / 方括号中的文字由本书作者补充。]</em></p>
+<p>The Greek letter (\epsilon), epsilon, is traditionally used to denote a very small quantity. In essence, Shannon&#39;s source coding theorem states that messages from a source which generates information at the rate of (H) bits/s can be encoded so that they can be transmitted at a rate arbitrarily close to the capacity (C) of a channel, provided (H&lt;C). To modern eyes, familiar with computers, this may seem circular. However, in Shannon&#39;s day it was a revelation.</p>
+<blockquote>
+<p>希腊字母 (\epsilon) 通常表示一个很小的量。香农信源编码定理的核心含义是：只要 (H&lt;C)，以 (H) 比特/秒生成信息的信源消息就可以被编码，使其以任意接近信道容量 (C) 的速率传输。对熟悉计算机的现代人来说，这也许像是循环论证；但在香农所处的时代，这是一项具有启示性的发现。</p>
+</blockquote>
+<h2 id="3-4-calculating-information-rates-信息速率的计算">3.4 Calculating Information Rates / 信息速率的计算<a class="heading-anchor" href="#3-4-calculating-information-rates-信息速率的计算" aria-label="链接到本节">#</a></h2>
+<p>Channel capacity (C) is usually expressed in bits/s; for a binary channel this means that it communicates (C) binary digits/s. Full capacity is used only if source outcomes are encoded so that each transmitted binary digit represents an average of one bit. We consider two die examples, which avoid complications caused by variables that are not iid.</p>
+<blockquote>
+<p>信道容量 (C) 通常以比特/秒表示；对于二进制信道，这意味着每秒传输 (C) 个二进制数字。只有当信源结果被编码为每个二进制数字平均表示一比特信息时，信道容量才得到充分利用。下面用两个骰子例子强化这种直觉，并避开非独立同分布变量带来的问题。</p>
+</blockquote>
+<h3 id="coding-for-an-8-sided-die-八面骰子的编码">Coding for an 8-Sided Die / 八面骰子的编码<a class="heading-anchor" href="#coding-for-an-8-sided-die-八面骰子的编码" aria-label="链接到本节">#</a></h3>
+<p>Suppose a telephone signal is quantised each millisecond as a value from 1 to 8. Ignoring dependencies between consecutive values, this resembles outcomes from an 8-sided die. Each of the eight equally probable, independent symbols (A_S={s_1,\ldots,s_8}) can be encoded with exactly three binary digits because (3=\log8). Each outcome therefore conveys (H=3) bits/symbol.</p>
+<blockquote>
+<p>假设电话信号每毫秒被量化为 1 到 8 之间的一个值。忽略连续值之间的依赖关系，这类似于八面骰子的结果。八个等概率、相互独立的符号 (A_S={s_1,\ldots,s_8}) 均可用三个二进制数字精确编码，因为 (3=\log8)。因此，每个结果携带 (H=3) 比特/符号。</p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Symbol / 符号</th>
+<th>Codeword / 码字</th>
+<th>Symbol / 符号</th>
+<th>Codeword / 码字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(s_1=1)</td>
+<td>(x_1=000)</td>
+<td>(s_5=5)</td>
+<td>(x_5=100)</td>
+</tr>
+<tr>
+<td>(s_2=2)</td>
+<td>(x_2=001)</td>
+<td>(s_6=6)</td>
+<td>(x_6=101)</td>
+</tr>
+<tr>
+<td>(s_3=3)</td>
+<td>(x_3=010)</td>
+<td>(s_7=7)</td>
+<td>(x_7=110)</td>
+</tr>
+<tr>
+<td>(s_4=4)</td>
+<td>(x_4=011)</td>
+<td>(s_8=8)</td>
+<td>(x_8=111)</td>
+</tr>
+</tbody></table>
+</div><p><strong>Table 3.1. Each outcome (s) from an 8-sided die has a value which can be represented as a 3-digit binary codeword (x).</strong></p>
+<blockquote>
+<p><strong>表 3.1　八面骰子的每个结果 (s) 都可以表示为一个三位二进制码字 (x)。</strong></p>
+</blockquote>
+<p>If (C=3) bits/s, simple decimal-to-binary conversion, minus one, gives the required code. For example, (s_4=4) is encoded as (x_4=011) and decoded as 4. The maximum symbol rate is</p>
+<blockquote>
+<p>如果 (C=3) 比特/秒，简单地把十进制数减一后转换为二进制即可得到所需编码。例如，(s_4=4) 编码为 (x_4=011)，接收后再解码为 4。最大符号速率为：</p>
+</blockquote>
+<p>$$R=C/H \tag{3.6}$$
+$$=\frac{3\ \text{bits/s}}{3\ \text{bits/symbol}} \tag{3.7}$$
+$$=1\ \text{symbol/s}. \tag{3.8}$$</p>
+<p>This is an efficient code because information is communicated at the channel capacity. If average codeword length is (L(X)), coding efficiency is</p>
+<blockquote>
+<p>该编码以信道容量传递信息，因此是高效编码。若平均码字长度为 (L(X))，编码效率为：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{3\ \text{bits/symbol}}{3\ \text{binary digits/symbol}} \tag{3.9}$$
+$$=1\ \text{bit/binary digit}. \tag{3.10}$$</p>
+<p>Coding efficiency ranges from zero to one, so this code is maximally efficient.</p>
+<blockquote>
+<p>编码效率介于 0 和 1 之间，因此该编码达到最大效率。</p>
+</blockquote>
+<h3 id="coding-for-a-6-sided-die-六面骰子的编码">Coding for a 6-Sided Die / 六面骰子的编码<a class="heading-anchor" href="#coding-for-a-6-sided-die-六面骰子的编码" aria-label="链接到本节">#</a></h3>
+<p>For a 6-sided die, outcomes define</p>
+<blockquote>
+<p>六面骰子的结果定义字母表：</p>
+</blockquote>
+<p>$$A_S={1,2,3,4,5,6} \tag{3.11}$$
+$$={s_1,s_2,s_3,s_4,s_5,s_6}. \tag{3.12}$$</p>
+<p>Each symbol provides an average of</p>
+<blockquote>
+<p>每个符号平均提供：</p>
+</blockquote>
+<p>$$H=\log6 \tag{3.13}$$
+$$=2.58\ \text{bits/symbol}. \tag{3.14}$$</p>
+<p>In principle, each symbol can therefore be encoded with an average of 2.58 binary digits. For a channel with (C=1) bit/s, the theorem gives</p>
+<blockquote>
+<p>因此原则上，每个符号平均可用 2.58 个二进制数字编码。对于 (C=1) 比特/秒的信道，定理给出：</p>
+</blockquote>
+<p>$$R=C/H \tag{3.15}$$
+$$=\frac{1\ \text{bit/s}}{2.58\ \text{bits/symbol}} \tag{3.16}$$
+$$=0.387\ \text{symbols/s}. \tag{3.17}$$</p>
+<p>A first attempt uses three binary digits per symbol, taking the first six rows of Table 3.1. Its efficiency is only</p>
+<blockquote>
+<p>第一种尝试是采用表 3.1 的前六行，每个符号使用三个二进制数字。其效率仅为：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{2.58}{3} \tag{3.18}$$
+$$=0.86\ \text{bits/binary digit}. \tag{3.19}$$</p>
+<p>The corresponding rate is</p>
+<blockquote>
+<p>相应的传输速率为：</p>
+</blockquote>
+<p>$$R=C/H \tag{3.20}$$
+$$=\frac{0.86\ \text{bits/s}}{2.58\ \text{bits/symbol}} \tag{3.21}$$
+$$=0.333\ \text{symbols/s}, \tag{3.22}$$</p>
+<p>below the theoretical 0.387 symbols/s. A better code combines three die outcomes. There are (6^3=216) possible triplets, which can be labelled using eight binary digits because (2^8=256). Thus each symbol uses (8/3\approx2.66) binary digits, and efficiency becomes</p>
+<blockquote>
+<p>这低于理论上限 0.387 符号/秒。更好的方法把三次骰子结果合并编码。共有 (6^3=216) 种三元组，而八个二进制数字可以提供 (2^8=256) 个标签。因此，每个符号使用 (8/3\approx2.66) 个二进制数字，效率提高为：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{2.58}{2.66} \tag{3.23}$$
+$$=0.970\ \text{bits/binary digit}. \tag{3.24}$$</p>
+<p>The rate is consequently</p>
+<blockquote>
+<p>因而传输速率为：</p>
+</blockquote>
+<p>$$\frac{0.970\ \text{bits/s}}{2.58\ \text{bits/symbol}} \tag{3.25}$$
+$$=0.376\ \text{symbols/s}, \tag{3.26}$$</p>
+<p>which is much closer to the maximum.</p>
+<blockquote>
+<p>这已经非常接近最大速率。</p>
+</blockquote>
+<blockquote>
+<p><strong>Key point. If each independently chosen value represents a non-integer number of bits, efficient encoding can be obtained by combining several symbols in one binary codeword.</strong></p>
+<p><strong>要点：如果每个独立取值表示非整数比特数，可以把多个符号合并进一个二进制码字，从而获得高效编码。</strong></p>
+</blockquote>
+<h2 id="3-5-data-compression-数据压缩">3.5 Data Compression / 数据压缩<a class="heading-anchor" href="#3-5-data-compression-数据压缩" aria-label="链接到本节">#</a></h2>
+<p>The preceding examples used uniform distributions. The importance of the ideas becomes clearer for non-uniform distributions. Throwing two 6-sided dice gives an ordered pair; if the outcome value is their sum, the alphabet contains (m=11) values:</p>
+<blockquote>
+<p>前面的例子采用均匀分布。对非均匀分布而言，上述思想的重要性更加明显。掷两枚六面骰子会得到一个有序数对；若把结果值定义为两数之和，字母表包含 (m=11) 个值：</p>
+</blockquote>
+<p>$$A_S={2,3,4,5,6,7,8,9,10,11,12} \tag{3.27}$$
+$$={s_1,s_2,s_3,s_4,s_5,s_6,s_7,s_8,s_9,s_{10},s_{11}}. \tag{3.28}$$</p>
+<p>There are 36 equally probable ordered pairs. Dividing each sum&#39;s frequency by 36 gives its probability, and Equation 2.59 gives</p>
+<blockquote>
+<p>共有 36 个等概率有序数对。把每个和值的频数除以 36 得到概率，再利用公式 (2.59) 可得：</p>
+</blockquote>
+<p>$$H(S)=\sum_{i=1}^{m=11}p(s_i)\log\frac{1}{p(s_i)} \tag{3.29}$$
+$$=3.27\ \text{bits/symbol}. \tag{3.30}$$</p>
+<p><strong>Figure 3.2. (a) A pair of dice. (b) The normalised histogram of dice sums in Table 3.2 has an entropy of 3.27 bits per outcome value.</strong></p>
+<blockquote>
+<p><strong>图 3.2　（a）一对骰子。（b）表 3.2 所列骰子和值的归一化直方图，每个结果值的熵为 3.27 比特。</strong></p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th align="right">Sum</th>
+<th align="right">Frequency</th>
+<th align="right">(p)</th>
+<th align="right">(h=\log(1/p))</th>
+<th>Huffman code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(s_1)</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.03</td>
+<td align="right">5.17</td>
+<td>10000</td>
+</tr>
+<tr>
+<td>(s_2)</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">0.06</td>
+<td align="right">4.17</td>
+<td>0110</td>
+</tr>
+<tr>
+<td>(s_3)</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">0.08</td>
+<td align="right">3.59</td>
+<td>1001</td>
+</tr>
+<tr>
+<td>(s_4)</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">0.11</td>
+<td align="right">3.17</td>
+<td>001</td>
+</tr>
+<tr>
+<td>(s_5)</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">0.14</td>
+<td align="right">2.85</td>
+<td>101</td>
+</tr>
+<tr>
+<td>(s_6)</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">0.17</td>
+<td align="right">2.59</td>
+<td>111</td>
+</tr>
+<tr>
+<td>(s_7)</td>
+<td align="right">8</td>
+<td align="right">5</td>
+<td align="right">0.14</td>
+<td align="right">2.85</td>
+<td>110</td>
+</tr>
+<tr>
+<td>(s_8)</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">0.11</td>
+<td align="right">3.17</td>
+<td>010</td>
+</tr>
+<tr>
+<td>(s_9)</td>
+<td align="right">10</td>
+<td align="right">3</td>
+<td align="right">0.08</td>
+<td align="right">3.59</td>
+<td>000</td>
+</tr>
+<tr>
+<td>(s_{10})</td>
+<td align="right">11</td>
+<td align="right">2</td>
+<td align="right">0.06</td>
+<td align="right">4.17</td>
+<td>0111</td>
+</tr>
+<tr>
+<td>(s_{11})</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">0.03</td>
+<td align="right">5.17</td>
+<td>10001</td>
+</tr>
+</tbody></table>
+</div><p><strong>Table 3.2. A pair of dice has 36 possible ordered outcomes, whose sums between 2 and 12 are encoded as 11 codewords. Probability is frequency/36; the final column gives the Huffman code used in Section 3.6.</strong></p>
+<blockquote>
+<p><strong>表 3.2　一对骰子共有 36 个有序结果，其 2 到 12 的和值被编码为 11 个码字。概率等于频数除以 36；最后一列是第 3.6 节使用的霍夫曼码。</strong></p>
+</blockquote>
+<p>Although individual sums have different surprisals, the average is 3.27 bits. The theorem therefore says that each sum can be transmitted using an average of no more than about 3.27 binary digits. A fixed-length binary code needs four digits because three digits distinguish only (2^3=8) values, while four distinguish (2^4=16). Five codewords are unused, so efficiency is</p>
+<blockquote>
+<p>各和值的惊异量不同，但平均值为 3.27 比特。因此，定理说明每个和值平均只需约 3.27 个二进制数字即可传输。固定长度编码必须使用四位，因为三位只能区分 (2^3=8) 个值，而四位可区分 (2^4=16) 个值。五个码字永远不用，所以效率为：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{3.27}{4.00} \tag{3.31}$$
+$$=0.818\ \text{bits/binary digit}. \tag{3.32}$$</p>
+<p>If the 11 outcomes were equally probable, as for an imaginary 11-sided die, entropy would be</p>
+<blockquote>
+<p>如果 11 个结果等概率出现，如同一枚想象中的十一面骰子，熵将为：</p>
+</blockquote>
+<p>$$\log11=3.46\ \text{bits}. \tag{3.33}$$</p>
+<p>The actual two-dice distribution has entropy 3.27 bits and is equivalent to a fair die with</p>
+<blockquote>
+<p>实际双骰分布的熵为 3.27 比特，等价于一枚具有如下面数的公平骰子：</p>
+</blockquote>
+<p>$$m=2^{H(S)} \tag{3.34}$$
+$$=2^{3.27} \tag{3.35}$$
+$$=9.65\ \text{equally probable values}. \tag{3.36}$$</p>
+<p>This imaginary 9.65-sided die illustrates how entropy translates a non-uniform distribution into an equivalent number of equally probable outcomes.</p>
+<blockquote>
+<p>这枚想象中的 9.65 面骰子说明，熵如何把非均匀分布转换为等价的等概率结果数。</p>
+</blockquote>
+<h2 id="3-6-huffman-coding-霍夫曼编码">3.6 Huffman Coding / 霍夫曼编码<a class="heading-anchor" href="#3-6-huffman-coding-霍夫曼编码" aria-label="链接到本节">#</a></h2>
+<p>Huffman coding, invented by David Huffman in 1952, efficiently maps message symbols to codewords. Frequent symbols receive short codewords and rare symbols long ones, so the average transmitted length is small. For independent symbols, its lossless compression approaches message entropy; with binary coding, 0s and 1s occur at roughly equal frequencies.</p>
+<blockquote>
+<p>霍夫曼编码由 David Huffman 于 1952 年发明，用于把消息符号高效映射为码字。常见符号得到短码字，罕见符号得到长码字，从而缩短平均传输长度。对于相互独立的符号，它实现的无损压缩接近消息熵；采用二进制编码时，0 和 1 出现的频率大致相等。</p>
+</blockquote>
+<p>The source coding theorem for symbol codes<sup>34</sup> states that for a discrete variable (X) with entropy (H(X)), there exists a symbol code whose expected codeword length (L(X)) satisfies</p>
+<blockquote>
+<p>符号码的信源编码定理<sup>34</sup>指出，对于熵为 (H(X)) 的离散变量 (X)，存在一种符号编码，其期望码字长度 (L(X)) 满足：</p>
+</blockquote>
+<p>$$H(X)\le L(X)&lt;H(X)+1. \tag{3.37}$$</p>
+<p>Huffman coding repeatedly combines the two least probable symbols into an imaginary composite symbol whose probability is their sum. Upper and lower branches are labelled 1 and 0, and the process continues until one symbol remains. Reading branch labels from the root to each original symbol yields its codeword.</p>
+<blockquote>
+<p>霍夫曼编码反复把概率最低的两个符号合并成一个虚拟复合符号，其概率等于二者概率之和。上下分支分别标记为 1 和 0，直到只剩一个符号。沿树根到各原始符号读取分支标签，即得到对应码字。</p>
+</blockquote>
+<p><strong>Figure 3.3. Simple Huffman code for five symbols A-E. Reading from right to left in the original tree gives (A=1), (B=011), (C=010), (D=001), and (E=000).</strong></p>
+<blockquote>
+<p><strong>图 3.3　五个符号 A-E 的简单霍夫曼码。按原图从右向左读取，得到 (A=1)、(B=011)、(C=010)、(D=001)、(E=000)。</strong></p>
+</blockquote>
+<p>For the dice code in Table 3.2, if codeword (x_i) has length (L(x_i)), average length is</p>
+<blockquote>
+<p>对表 3.2 的骰子编码，若码字 (x_i) 的长度为 (L(x_i))，平均长度为：</p>
+</blockquote>
+<p>$$L(X)=\sum_{i=1}^{m=11}p(s_i)L(x_i) \tag{3.38}$$
+$$=3.31\ \text{binary digits/symbol}. \tag{3.39}$$</p>
+<p>Efficiency is</p>
+<blockquote>
+<p>编码效率为：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{3.27}{3.31} \tag{3.40}$$
+$$=0.99\ \text{bits/binary digit}. \tag{3.41}$$</p>
+<p>The average length is less than one digit above entropy, satisfying Equation 3.37. Huffman codes are also prefix codes: no codeword is the prefix of another, so boundaries between consecutive codewords are unambiguous.</p>
+<blockquote>
+<p>平均长度比熵多不到一个二进制数字，满足公式 (3.37)。霍夫曼码还是前缀码：任何码字都不是另一码字的前缀，因此连续码字之间的边界不会产生歧义。</p>
+</blockquote>
+<h3 id="huffman-coding-of-images-图像的霍夫曼编码">Huffman Coding of Images / 图像的霍夫曼编码<a class="heading-anchor" href="#huffman-coding-of-images-图像的霍夫曼编码" aria-label="链接到本节">#</a></h3>
+<p>The 127 grey-level differences in Figure 1.8 would naively require about seven digits each. Huffman coding gives average length (L=5.97), just above the measured entropy (H=5.94), hence</p>
+<blockquote>
+<p>图 1.8 中的 127 个灰度差若采用简单固定编码，每个约需七位。霍夫曼编码得到的平均长度为 (L=5.97)，仅略高于实测熵 (H=5.94)，因此：</p>
+</blockquote>
+<p>$$\frac{H(S)}{L(X)}=\frac{5.94}{5.97}=0.99\ \text{bits/binary digit}. \tag{3.42}$$</p>
+<p>This remains an over-estimate because it ignores dependencies between nearby pixels. Huffman coding efficiently encodes symbol frequencies but does not remove dependencies between nearby symbols, which matters for images and English.</p>
+<blockquote>
+<p>这仍是高估，因为它忽略了相邻像素的依赖关系。霍夫曼编码能高效利用符号频率，却不消除相邻符号之间的依赖；对图像和英语而言，这一点十分重要。</p>
+</blockquote>
+<h3 id="huffman-coding-of-english-letters-英语字母的霍夫曼编码">Huffman Coding of English Letters / 英语字母的霍夫曼编码<a class="heading-anchor" href="#huffman-coding-of-english-letters-英语字母的霍夫曼编码" aria-label="链接到本节">#</a></h3>
+<p>Using Table 3.3 and treating space as a 27th letter gives an upper bound (H=4.11) bits/letter if dependencies are ignored. Huffman coding uses 4.15 binary digits/letter, efficiency (4.11/4.15=0.990). This has roughly the entropy of 18 independent equiprobable letters because (2^{4.15}=17.8). Shannon-Fano and Huffman coding both assume independent symbols, but English letters are dependent; Shannon estimated about 1.3 bits/letter, while a statistical upper bound is about 1.75 bits/letter<sup>10</sup>.</p>
+<blockquote>
+<p>使用表 3.3，并把空格当作第 27 个字母，在忽略依赖关系时得到上界 (H=4.11) 比特/字母。霍夫曼编码平均使用 4.15 个二进制数字/字母，效率为 (4.11/4.15=0.990)。由于 (2^{4.15}=17.8)，这大致相当于 18 个独立等概率字母的熵。Shannon-Fano 编码和霍夫曼编码都假定符号相互独立，但英语字母存在依赖；香农估计英语熵约为 1.3 比特/字母，统计方法给出的上界约为 1.75 比特/字母<sup>10</sup>。</p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Letter</th>
+<th align="right">Freq. %</th>
+<th>Letter</th>
+<th align="right">Freq. %</th>
+<th>Letter</th>
+<th align="right">Freq. %</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td align="right">5.75</td>
+<td>j</td>
+<td align="right">0.06</td>
+<td>s</td>
+<td align="right">5.67</td>
+</tr>
+<tr>
+<td>b</td>
+<td align="right">1.28</td>
+<td>k</td>
+<td align="right">0.84</td>
+<td>t</td>
+<td align="right">7.06</td>
+</tr>
+<tr>
+<td>c</td>
+<td align="right">2.63</td>
+<td>l</td>
+<td align="right">3.35</td>
+<td>u</td>
+<td align="right">3.34</td>
+</tr>
+<tr>
+<td>d</td>
+<td align="right">2.85</td>
+<td>m</td>
+<td align="right">2.35</td>
+<td>v</td>
+<td align="right">0.69</td>
+</tr>
+<tr>
+<td>e</td>
+<td align="right">9.13</td>
+<td>n</td>
+<td align="right">5.96</td>
+<td>w</td>
+<td align="right">1.19</td>
+</tr>
+<tr>
+<td>f</td>
+<td align="right">1.73</td>
+<td>o</td>
+<td align="right">6.89</td>
+<td>x</td>
+<td align="right">0.73</td>
+</tr>
+<tr>
+<td>g</td>
+<td align="right">1.33</td>
+<td>p</td>
+<td align="right">1.92</td>
+<td>y</td>
+<td align="right">1.64</td>
+</tr>
+<tr>
+<td>h</td>
+<td align="right">3.13</td>
+<td>q</td>
+<td align="right">0.08</td>
+<td>z</td>
+<td align="right">0.07</td>
+</tr>
+<tr>
+<td>i</td>
+<td align="right">5.99</td>
+<td>r</td>
+<td align="right">5.08</td>
+<td>space</td>
+<td align="right">19.28</td>
+</tr>
+</tbody></table>
+</div><p><strong>Table 3.3. English letter frequencies. The non-uniform distribution and correlations mean each letter conveys only about 1.3 bits. Space is treated as an extra letter. Data from MacKay (2003)<sup>34</sup>.</strong></p>
+<blockquote>
+<p><strong>表 3.3　英语字母频率。非均匀分布以及相邻字母相关性意味着每个字母实际只传递约 1.3 比特。空格被视为额外字母。数据来自 MacKay（2003）<sup>34</sup>。</strong></p>
+</blockquote>
+<h2 id="3-7-the-entropy-of-english-letters-英语字母的熵">3.7 The Entropy of English Letters / 英语字母的熵<a class="heading-anchor" href="#3-7-the-entropy-of-english-letters-英语字母的熵" aria-label="链接到本节">#</a></h2>
+<p>How can we estimate the entropy of a Shakespeare play, or any letter sequence whose consecutive letters are not independent? The short answer is to express letter probabilities using mutually independent blocks, then use the standard entropy definition. The account below summarises Shannon&#39;s proof.</p>
+<blockquote>
+<p>怎样估计一部莎士比亚戏剧，或任意相邻字母不独立的序列的熵？简短答案是：用相互独立的字母块表示字母概率，再应用标准熵定义。下面概述香农的证明思路。</p>
+</blockquote>
+<h3 id="english-entropy-informal-account-英语熵-非正式说明">English Entropy: Informal Account / 英语熵：非正式说明<a class="heading-anchor" href="#english-entropy-informal-account-英语熵-非正式说明" aria-label="链接到本节">#</a></h3>
+<p>The probability of a letter depends on letters before and after it, so it is a conditional probability. Accurate conditional probabilities require context and are difficult to estimate. The relative frequencies in Table 3.3 and Figure 3.4 are unconditional probabilities. Entropy based only on these frequencies is too large, because conditional information makes letters more predictable.</p>
+<blockquote>
+<p>一个字母的概率取决于它前后的字母，因此属于条件概率。准确估计条件概率需要考虑上下文，而且非常困难。表 3.3 和图 3.4 中的相对频率则是无条件概率。仅根据这些频率估计的熵会偏大，因为上下文条件会使字母更容易预测。</p>
+</blockquote>
+<p><strong>Figure 3.4. Relative frequency of letters in Shakespeare&#39;s <em>Romeo and Juliet</em>. This distribution has entropy (G_1=4.12) bits/letter.</strong></p>
+<blockquote>
+<p><strong>图 3.4　莎士比亚《罗密欧与朱丽叶》中的字母相对频率。该分布的熵为 (G_1=4.12) 比特/字母。</strong></p>
+</blockquote>
+<p>The Shannon information of a letter is related to its predictability from context. Predictability increases, and uncertainty decreases, as more surrounding letters are considered. Averaged over all letters, uncertainty eventually stops decreasing at an &#39;uncertainty horizon&#39;; there the average uncertainty equals the entropy of English.</p>
+<blockquote>
+<p>字母的香农信息与根据上下文预测它的难易程度有关。考虑的周围字母越多，可预测性越高，不确定性越低。对所有字母取平均后，不确定性最终会在某个“不确定性视界”停止下降；此时的平均不确定性就是英语的熵。</p>
+</blockquote>
+<p><strong>Figure 3.5. Letter predictability should increase with increasing context. By Randall Munroe, reproduced with permission from xkcd.com.</strong></p>
+<blockquote>
+<p><strong>图 3.5　随着上下文增加，字母的可预测性应当提高。作者 Randall Munroe，经 xkcd.com 授权转载。</strong></p>
+</blockquote>
+<p><strong>Figure 3.6. Entropy per letter (G_N) decreases as the number (N) of letters considered increases, using a corpus of 70 million characters<sup>45</sup>. As (N) grows, (G_N) approaches English entropy (H).</strong></p>
+<blockquote>
+<p><strong>图 3.6　基于 7,000 万字符语料库<sup>45</sup>，每字母熵 (G_N) 随所考虑字母数 (N) 增加而降低。随着 (N) 增大，(G_N) 趋近英语熵 (H)。</strong></p>
+</blockquote>
+<p>Strictly, entropy applies to an ensemble of English sequences rather than one particular sequence, whose estimated entropy may depend on its starting letter. The ensemble is conceptually infinite, though practical estimates always use finite observations.</p>
+<blockquote>
+<p>严格来说，熵适用于英语字母序列的系综，而不是某个特定序列；后者的估计熵可能受首字母影响。系综在概念上包含无限多个序列，但实际估计总是基于有限观测。</p>
+</blockquote>
+<h3 id="english-entropy-a-more-formal-account-英语熵-更形式化的说明">English Entropy: A More Formal Account / 英语熵：更形式化的说明<a class="heading-anchor" href="#english-entropy-a-more-formal-account-英语熵-更形式化的说明" aria-label="链接到本节">#</a></h3>
+<p>Consider consecutive, non-overlapping blocks of (N) letters. For (N=1), each letter probability is estimated by relative frequency and gives first-order approximation (G_1). For (N=2), the two letters in each block constrain one another, so average uncertainty (G_2&lt;G_1). Similarly (G_3&lt;G_2). Longer blocks become increasingly independent of other blocks.</p>
+<blockquote>
+<p>考虑由 (N) 个连续且不重叠的字母组成的块。当 (N=1) 时，用相对频率估计字母概率，得到一阶近似 (G_1)。当 (N=2) 时，块内两个字母相互约束，所以平均不确定性 (G_2&lt;G_1)。同理，(G_3&lt;G_2)。随着块变长，不同块之间越来越接近独立。</p>
+</blockquote>
+<p><strong>Figure 3.7. As block size increases from (N=1) to (N=3), prediction from other letters in the same block improves, so mean surprisal per letter decreases.</strong></p>
+<blockquote>
+<p><strong>图 3.7　当块大小从 (N=1) 增加到 (N=3) 时，利用同一块内其他字母进行预测的能力增强，因此每个字母的平均惊异量下降。</strong></p>
+</blockquote>
+<p><strong>Figure 3.8. Relative frequencies of ordered letter pairs in <em>Romeo and Juliet</em>. Each column represents one ordered pair.</strong></p>
+<blockquote>
+<p><strong>图 3.8　《罗密欧与朱丽叶》中有序字母对的相对频率。每一列表示一个有序字母对。</strong></p>
+</blockquote>
+<p>Suppose a letter depends on no letter more than 10 positions away. Once (N=10), a block depends only on itself and its immediate neighbours. With many long blocks, this boundary dependence is negligible. The block length beyond which inter-letter dependence falls to zero is the correlation length (N_c). For (N&gt;N_c), blocks are effectively independent and (G_N) no longer decreases; hence (G_{N_c}=H). Shannon&#39;s infinite-block theorems therefore apply in practice once block length exceeds correlation length.</p>
+<blockquote>
+<p>假设一个字母不依赖相距超过 10 位的字母。当 (N=10) 时，一个块只依赖自身及左右相邻块。在块数量多且长度足够大时，这种边界依赖可以忽略。字母间依赖降为零时的块长度称为相关长度 (N_c)。对 (N&gt;N_c)，各块实际上相互独立，(G_N) 不再下降，因此 (G_{N_c}=H)。所以，香农以无限块长表述的定理，在实际中只要块长超过相关长度就适用。</p>
+</blockquote>
+<blockquote>
+<p><strong>Key point. As the number of letters in each block increases, the average uncertainty of each letter decreases.</strong></p>
+<p><strong>要点：每个块包含的字母越多，每个字母的平均不确定性越低。</strong></p>
+</blockquote>
+<h3 id="english-entropy-formal-account-英语熵-形式化计算">English Entropy: Formal Account / 英语熵：形式化计算<a class="heading-anchor" href="#english-entropy-formal-account-英语熵-形式化计算" aria-label="链接到本节">#</a></h3>
+<p>Using single-letter relative frequencies, including space as the 27th letter, gives</p>
+<blockquote>
+<p>使用单字母相对频率，并把空格作为第 27 个字母，得到：</p>
+</blockquote>
+<p>$$G_1=\sum_{i=1}^{m=27}p(x_i)\log\frac{1}{p(x_i)} \tag{3.43}$$
+$$=4.08\ \text{bits/letter}. \tag{3.44}$$</p>
+<p>These estimates use 70 million characters<sup>45</sup>; their frequencies differ slightly from Table 3.3. For (N=2), there are (27^2=729) ordered blocks (B_k=[x_i,y_j]). Dividing block entropy by two gives information per letter:</p>
+<blockquote>
+<p>这些估计基于 7,000 万字符<sup>45</sup>，频率与表 3.3 略有不同。当 (N=2) 时，共有 (27^2=729) 个有序块 (B_k=[x_i,y_j])。把块熵除以 2 得到每字母信息量：</p>
+</blockquote>
+<p>$$G_2=\frac{1}{2}\sum_{k=1}^{729}p(B_k)\log\frac{1}{p(B_k)} \tag{3.45}$$
+$$=\frac{1}{2}H(B) \tag{3.46}$$
+$$=3.32\ \text{bits/letter}. \tag{3.47}$$</p>
+<p>This remains an over-estimate because dependencies can extend beyond two letters. For (N=3), there are (27^3=19{,}683) triplets:</p>
+<blockquote>
+<p>这仍然是高估，因为依赖关系可能跨越两个以上的字母。当 (N=3) 时，共有 (27^3=19{,}683) 个三元组：</p>
+</blockquote>
+<p>$$G_3=\frac{1}{3}\sum_{k=1}^{19{,}683}p(B_k)\log\frac{1}{p(B_k)} \tag{3.48}$$
+$$=\frac{1}{3}H(B) \tag{3.49}$$
+$$=2.73\ \text{bits/letter}. \tag{3.50}$$</p>
+<p>Common triplets such as <em>and</em> and <em>the</em> dominate the weighted average, while rare triplets contribute little. The key insight is that a small fraction of possible subsequences are common and most are nearly absent.</p>
+<blockquote>
+<p><em>and</em>、<em>the</em> 等常见三元组主导加权平均，而罕见三元组贡献很小。关键洞见是：所有可能子序列中只有很小一部分常见，绝大多数几乎从不出现。</p>
+</blockquote>
+<p>For arbitrary block length (N),</p>
+<blockquote>
+<p>对任意块长 (N)：</p>
+</blockquote>
+<p>$$G_N=\frac{1}{N}\sum_{k=1}^{27^N}p(B_k)\log\frac{1}{p(B_k)}\ \text{bits/letter}. \tag{3.51}$$</p>
+<p>Once dependencies up to (N_c) have been included, (G_{N_c}=H). In practice estimates converge to about 1.8 bits/letter. The source coding theorem then guarantees communication using only slightly more than 1.8 binary digits per letter.</p>
+<blockquote>
+<p>一旦计入直到 (N_c) 的全部依赖关系，就有 (G_{N_c}=H)。实际估计收敛到约 1.8 比特/字母。信源编码定理于是保证，英语可以用每字母略多于 1.8 个二进制数字传输。</p>
+</blockquote>
+<h3 id="efficient-transmission-of-english-英语的高效传输">Efficient Transmission of English / 英语的高效传输<a class="heading-anchor" href="#efficient-transmission-of-english-英语的高效传输" aria-label="链接到本节">#</a></h3>
+<p>Assume (N_c=10). The number of possible 10-letter subsequences is</p>
+<blockquote>
+<p>假设 (N_c=10)。可能的十字母子序列数量为：</p>
+</blockquote>
+<p>$$m_c=27^{10} \tag{3.52}$$
+$$\approx206\times10^{12}, \tag{3.53}$$</p>
+<p>which, if equiprobable, would require</p>
+<blockquote>
+<p>如果它们等概率出现，需要：</p>
+</blockquote>
+<p>$$\log(206\times10^{12})=47.5\ \text{binary digits}. \tag{3.54}$$</p>
+<p>Shannon proved that the common subsequences form a tiny fraction of all possibilities, have collective probability near one, and are approximately equiprobable. With (H=1.8) bits/letter, the number of observed equiprobable 10-letter blocks is</p>
+<blockquote>
+<p>香农证明，常见子序列只占全部可能性的一小部分，合计概率接近 1，而且彼此近似等概率。当 (H=1.8) 比特/字母时，实际观察到的等概率十字母块数量为：</p>
+</blockquote>
+<p>$$m_H=2^{1.8\times10} \tag{3.55}$$
+$$=262{,}144, \tag{3.56}$$</p>
+<p>so each block needs only</p>
+<blockquote>
+<p>因此每个块只需要：</p>
+</blockquote>
+<p>$$\log_2 2^{1.8\times10}=18\ \text{binary digits}. \tag{3.57}$$</p>
+<p>The remaining more than 205 trillion possible blocks have collective probability near zero. Since the common 262,144 blocks are approximately equiprobable, Huffman coding offers no further saving.</p>
+<blockquote>
+<p>其余超过 205 万亿个可能块的合计概率接近零。由于常见的 262,144 个块近似等概率，霍夫曼编码无法进一步节省长度。</p>
+</blockquote>
+<p>A practical codebook can rank 10-letter blocks by frequency, assign 18-bit codewords to the 262,144 most common blocks, and give the same table to sender and receiver. A message is divided into 10-letter blocks, replaced by codewords, transmitted, and looked up at the receiver. What appears to need 47.5 digits per block, or 4.75 per letter, is sent using 18 per block, or 1.8 per letter.</p>
+<blockquote>
+<p>实际上，可以按频率排列十字母块，为最常见的 262,144 个块分配 18 位码字，并让发送端与接收端共享同一码本。消息被分成十字母块，替换为码字后传输，接收端再查表恢复。原本看似每块需要 47.5 位、每字母需要 4.75 位的消息，最终只需每块 18 位、每字母 1.8 位。</p>
+</blockquote>
+<p>Before Shannon, Morse devised a conceptually similar list of common phrases, assigning each a number. Sending the phrase number rather than the whole phrase exploited the fact that possible messages vastly outnumber messages actually used.</p>
+<blockquote>
+<p>早在香农之前，Morse 就设计过概念相近的常用短语表，为每个短语分配编号。发送短语编号而不是完整短语，利用了“可能消息数量远大于实际使用消息数量”这一事实。</p>
+</blockquote>
+<blockquote>
+<p>What&#39;s in a name? That which we call a rose<br>By any other name would smell as sweet.</p>
+<p>名字究竟有什么意义？我们称作玫瑰的花，<br>换一个名字，也依然芬芳。</p>
+</blockquote>
+<p><em>Shakespeare W, 1597.</em></p>
+<p>For communication, it is not the name itself that matters, but the number of possible words from which the name was chosen. The same block argument applies to images, music, movies, DNA and other natural sequences.</p>
+<blockquote>
+<p>对通信而言，重要的不是名称本身，而是这个名称从多少个可能词中被选出。同样的分块论证也适用于图像、音乐、电影、DNA 以及其他自然序列。</p>
+</blockquote>
+<h2 id="3-8-why-the-theorem-is-true-定理为什么成立">3.8 Why the Theorem is True / 定理为什么成立<a class="heading-anchor" href="#3-8-why-the-theorem-is-true-定理为什么成立" aria-label="链接到本节">#</a></h2>
+<p>The source coding theorem rests on the observation that most events which could occur almost certainly do not, while those that do occur have roughly equal probabilities. A counting argument gives an outline of Shannon&#39;s proof.</p>
+<blockquote>
+<p>信源编码定理建立在一个观察之上：绝大多数理论上可能发生的事件几乎肯定不会发生，而实际发生的事件彼此具有近似相同的概率。下面用计数论证概述香农证明的核心。</p>
+</blockquote>
+<p>Consider a source generating messages of (n) iid binary digits (\mathbf{s}=(s_1,\ldots,s_n)), where the stable probability of a 1 is (P). In principle it can generate (m_{\max}=2^n) messages, but in practice almost all generated messages contain about (nP) ones, by the law of large numbers, and the number (m) of distinct common messages is much smaller.</p>
+<blockquote>
+<p>考虑一个信源，它生成由 (n) 个独立同分布二进制数字构成的消息 (\mathbf{s}=(s_1,\ldots,s_n))，其中数字 1 的稳定概率为 (P)。原则上它可以生成 (m_{\max}=2^n) 条消息；但根据大数定律，实际生成的几乎所有消息都包含约 (nP) 个 1，因此常见的不同消息数量 (m) 要小得多。</p>
+</blockquote>
+<p>For illustration take (n=8):</p>
+<blockquote>
+<p>以 (n=8) 为例：</p>
+</blockquote>
+<p>$$\mathbf{s}=(s_1,s_2,s_3,s_4,s_5,s_6,s_7,s_8). \tag{3.58}$$</p>
+<p>If (P=1/8=0.125), then (nP=1), so the most common messages contain one 1 and seven 0s. There are exactly eight such messages. Their common probability is</p>
+<blockquote>
+<p>如果 (P=1/8=0.125)，则 (nP=1)，最常见的消息包含一个 1 和七个 0，共有八条。每条这种消息的概率为：</p>
+</blockquote>
+<p>$$P_1P_2\cdots P_8=0.125\times0.875^7 \tag{3.59}$$
+$$=0.049. \tag{3.60}$$</p>
+<p>The position of the 1 does not affect probability, so all eight messages are equiprobable. Although this exact claim is an approximation for short messages, it becomes overwhelmingly accurate for large (n).</p>
+<blockquote>
+<p>1 所在的位置不影响概率，因此八条消息等概率。对短消息而言，这只是近似；当 (n) 很大时，它会变得极其准确。</p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Eight-digit source sequence</th>
+<th>Three-digit codeword</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(s_1)</td>
+<td>10000000</td>
+<td>000</td>
+</tr>
+<tr>
+<td>(s_2)</td>
+<td>01000000</td>
+<td>001</td>
+</tr>
+<tr>
+<td>(s_3)</td>
+<td>00100000</td>
+<td>010</td>
+</tr>
+<tr>
+<td>(s_4)</td>
+<td>00010000</td>
+<td>011</td>
+</tr>
+<tr>
+<td>(s_5)</td>
+<td>00001000</td>
+<td>100</td>
+</tr>
+<tr>
+<td>(s_6)</td>
+<td>00000100</td>
+<td>101</td>
+</tr>
+<tr>
+<td>(s_7)</td>
+<td>00000010</td>
+<td>110</td>
+</tr>
+<tr>
+<td>(s_8)</td>
+<td>00000001</td>
+<td>111</td>
+</tr>
+<tr>
+<td>(s_{256})</td>
+<td>11111111</td>
+<td>not needed</td>
+</tr>
+</tbody></table>
+</div><p><strong>Table 3.4. Although an 8-digit source could generate 256 messages, with (P=1/8) the common messages each contain one 1. The eight common messages can be represented by eight 3-digit codewords.</strong></p>
+<blockquote>
+<p><strong>表 3.4　虽然八位信源可以生成 256 条消息，但当 (P=1/8) 时，常见消息都只包含一个 1。这八条消息可以用八个三位码字表示。</strong></p>
+</blockquote>
+<p>Eight equiprobable messages require</p>
+<blockquote>
+<p>八条等概率消息需要：</p>
+</blockquote>
+<p>$$\log8 \tag{3.61}$$
+$$=3 \tag{3.62}$$</p>
+<p>binary digits per codeword,</p>
+<blockquote>
+<p>个二进制数字，因此码字为：</p>
+</blockquote>
+<p>$$\mathbf{x}=(x_1,\ldots,x_3). \tag{3.63}$$</p>
+<p>Assuming these eight comprise essentially all generated messages, each has relative frequency</p>
+<blockquote>
+<p>假设实际生成的消息基本都属于这八条，则每条消息的相对频率为：</p>
+</blockquote>
+<p>$$p=1/m \tag{3.64}$$
+$$=0.125. \tag{3.65}$$</p>
+<p>This is distinct from Equation 3.60, the probability that a short message has one 1. Entropy is</p>
+<blockquote>
+<p>这不同于公式 (3.60) 中“短消息包含一个 1”的概率。熵为：</p>
+</blockquote>
+<p>$$H=E[\log(1/p)] \tag{3.66}$$
+$$=\log m \tag{3.67}$$
+$$=3\ \text{bits/message}. \tag{3.68}$$</p>
+<p>Thus eight-digit source messages have only three bits of effective entropy and can be recoded with three digits. If (P=0.5), all (2^n) messages are typical and (H=n); otherwise the typical set is smaller.</p>
+<blockquote>
+<p>因此，八位信源消息的有效熵只有三比特，可以重新编码为三位。若 (P=0.5)，全部 (2^n) 条消息都是典型消息且 (H=n)；否则典型集合更小。</p>
+</blockquote>
+<h3 id="why-does-the-source-generate-only-m-distinct-messages-为什么信源只生成-m-种不同消息">Why Does the Source Generate Only (m) Distinct Messages? / 为什么信源只生成 (m) 种不同消息？<a class="heading-anchor" href="#why-does-the-source-generate-only-m-distinct-messages-为什么信源只生成-m-种不同消息" aria-label="链接到本节">#</a></h3>
+<p>The number of length-(n) messages containing (n_1) ones and (n_0) zeros is the binomial coefficient</p>
+<blockquote>
+<p>长度为 (n)、包含 (n_1) 个 1 和 (n_0) 个 0 的消息数量，是二项式系数：</p>
+</blockquote>
+<p>$$C_{n,n_1}=\frac{n!}{n_1!n_0!}, \tag{3.69}$$</p>
+<p>where (n!=n(n-1)\cdots1). Summing over all possible (n_1) gives</p>
+<blockquote>
+<p>其中 (n!=n(n-1)\cdots1)。对全部可能的 (n_1) 求和得到：</p>
+</blockquote>
+<p>$$\sum_{n_1=0}^{n}C_{n,n_1}=2^n. \tag{3.70}$$</p>
+<p>For long messages almost all generated messages have (nP) ones, so</p>
+<blockquote>
+<p>对长消息而言，几乎全部实际消息都含 (nP) 个 1，因此：</p>
+</blockquote>
+<p>$$\sum_{n_1=0}^{n}C_{n,n_1}\approx C_{n,nP} \tag{3.71}$$
+$$=m, \tag{3.72}$$</p>
+<p>with (m&lt;2^n). Using natural logarithms and Stirling&#39;s approximation (\ln n!\approx n(\ln n-1)),</p>
+<blockquote>
+<p>且 (m&lt;2^n)。使用自然对数和斯特林近似 (\ln n!\approx n(\ln n-1))：</p>
+</blockquote>
+<p>$$\ln C_{n,n_1}=\ln n!-\ln n_1!-\ln n_0! \tag{3.73}$$
+$$\ln m\approx n(\ln n-1)-n_1(\ln n_1-1)-n_0(\ln n_0-1) \tag{3.74}$$
+$$=n\ln n-n_1\ln n_1-n_0\ln n_0-[n-(n_1+n_0)] \tag{3.75}$$
+$$=(n_0+n_1)\ln n-n_1\ln n_1-n_0\ln n_0 \tag{3.76}$$
+$$=n_1(\ln n-\ln n_1)+n_0(\ln n-\ln n_0) \tag{3.77}$$
+$$=n_1\ln\frac{n}{n_1}+n_0\ln\frac{n}{n_0} \tag{3.78}$$
+$$=n\left(p_1\ln\frac{1}{p_1}+p_0\ln\frac{1}{p_0}\right). \tag{3.79}$$</p>
+<p>Substituting (p_1=n_1/n) and (p_0=n_0/n), then changing to base 2, yields</p>
+<blockquote>
+<p>代入 (p_1=n_1/n)、(p_0=n_0/n)，再改用以 2 为底的对数，得到：</p>
+</blockquote>
+<p>$$\log_2m=n\left(p_1\log_2\frac{1}{p_1}+p_0\log_2\frac{1}{p_0}\right)
+=n\sum_{i=0}^{1}p_i\log_2\frac{1}{p_i}\ \text{bits/message}. \tag{3.80}$$</p>
+<p>This is exactly the entropy of an (n)-digit binary message. The argument is not a fully rigorous proof, but captures the mechanism behind Shannon&#39;s result.</p>
+<blockquote>
+<p>这正是包含 (n) 个二进制数字的消息的熵。上述论证并非严格的完整证明，但抓住了香农结果背后的机制。</p>
+</blockquote>
+<h2 id="3-9-kolmogorov-complexity-柯尔莫哥洛夫复杂度">3.9 Kolmogorov Complexity / 柯尔莫哥洛夫复杂度<a class="heading-anchor" href="#3-9-kolmogorov-complexity-柯尔莫哥洛夫复杂度" aria-label="链接到本节">#</a></h2>
+<p>Andrey Kolmogorov independently developed the compression interpretation. Algorithmic, or Kolmogorov, complexity is the length of the shortest computer program capable of describing an object.</p>
+<blockquote>
+<p>Andrey Kolmogorov 独立发展了这种压缩解释。算法复杂度，也就是柯尔莫哥洛夫复杂度，是能够描述某个对象的最短计算机程序长度。</p>
+</blockquote>
+<p>For example, the first million digits of (\pi) can be generated by a program much shorter than one million digits. One formula is Leibniz&#39;s series,</p>
+<blockquote>
+<p>例如，(\pi) 的前一百万位可以由远短于一百万位的程序生成。Leibniz 级数为：</p>
+</blockquote>
+<p>$$\pi=4\left(1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+\frac{1}{9}-\cdots\right), \tag{3.81}$$</p>
+<p>or</p>
+<blockquote>
+<p>或写为：</p>
+</blockquote>
+<p>$$\pi=4\sum_{k=0}^{\infty}\frac{(-1)^k}{2k+1}. \tag{3.82}$$</p>
+<p>A simple loop can generate infinitely many digits. If the shortest such program has (n_\pi) binary digits, those digits must carry (n_\pi) bits; otherwise a shorter representation would exist. Thus an apparently random infinite sequence is represented by a finite program, and its Kolmogorov complexity is (n_\pi) bits. For a random sequence, Kolmogorov complexity is approximately its entropy.</p>
+<blockquote>
+<p>一个简单循环就可以不断生成数字。若最短程序包含 (n_\pi) 个二进制数字，这些数字必然携带 (n_\pi) 比特；否则还会存在更短表示。因此，看似随机的无限序列可以由有限程序表示，其柯尔莫哥洛夫复杂度为 (n_\pi) 比特。对随机序列而言，柯尔莫哥洛夫复杂度近似等于其熵。</p>
+</blockquote>
+<p>Kolmogorov complexity is non-computable: no definite algorithm can prove that a given program is the shortest, except exhaustive search over all programs. However brief a program for (\pi) may be, we can never be certain that a shorter one does not exist.</p>
+<blockquote>
+<p>柯尔莫哥洛夫复杂度是不可计算的：除了穷举全部程序之外，没有确定算法能够证明某个程序已经最短。无论生成 (\pi) 的程序多么简短，我们都无法确定不存在更短程序。</p>
+</blockquote>
+<p><strong>Figure 3.9. What if the Kolmogorov complexity of every object were zero? By Randall Munroe, reproduced with permission from xkcd.com.</strong></p>
+<blockquote>
+<p><strong>图 3.9　如果每个对象的柯尔莫哥洛夫复杂度都为零，会怎样？作者 Randall Munroe，经 xkcd.com 授权转载。</strong></p>
+</blockquote>
+<h2 id="3-10-summary-小结">3.10 Summary / 小结<a class="heading-anchor" href="#3-10-summary-小结" aria-label="链接到本节">#</a></h2>
+<p>Shannon&#39;s source coding theorem concerns efficient encoding of messages into codewords, which is a form of data compression. We first examined channel capacity, the maximum rate at which information can pass through a channel. Some codes are inefficient because each binary digit carries much less than the upper limit of one bit. We then considered sources whose symbols are dependent and found that they can be encoded as independent blocks. Consequently, the theorem applies not only to iid sources but also to natural sequences such as English and images.</p>
+<blockquote>
+<p>香农信源编码定理讨论如何把消息高效编码为码字，本质上是一种数据压缩。我们首先考察信道容量，即信息通过信道的最大速率。有些编码效率很低，因为每个二进制数字携带的信息远少于一比特上限。随后，我们考察符号相互依赖的信源，发现可以把它们编码为彼此独立的块。因此，该定理不仅适用于独立同分布信源，也适用于英语、图像等自然序列。</p>
+</blockquote>
+<hr>
+<h2 id="terminology-used-in-this-chapter-本章术语表">Terminology Used in This Chapter / 本章术语表<a class="heading-anchor" href="#terminology-used-in-this-chapter-本章术语表" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>source coding theorem</td>
+<td>信源编码定理</td>
+</tr>
+<tr>
+<td>discrete noiseless channel</td>
+<td>离散无噪信道</td>
+</tr>
+<tr>
+<td>channel capacity</td>
+<td>信道容量</td>
+</tr>
+<tr>
+<td>coding efficiency</td>
+<td>编码效率</td>
+</tr>
+<tr>
+<td>fixed-length code</td>
+<td>定长编码</td>
+</tr>
+<tr>
+<td>variable-length code</td>
+<td>变长编码</td>
+</tr>
+<tr>
+<td>data compression</td>
+<td>数据压缩</td>
+</tr>
+<tr>
+<td>Huffman coding</td>
+<td>霍夫曼编码</td>
+</tr>
+<tr>
+<td>prefix code</td>
+<td>前缀码</td>
+</tr>
+<tr>
+<td>codeword length</td>
+<td>码字长度</td>
+</tr>
+<tr>
+<td>conditional probability</td>
+<td>条件概率</td>
+</tr>
+<tr>
+<td>relative frequency</td>
+<td>相对频率</td>
+</tr>
+<tr>
+<td>block entropy</td>
+<td>块熵</td>
+</tr>
+<tr>
+<td>correlation length</td>
+<td>相关长度</td>
+</tr>
+<tr>
+<td>typical messages / typical set</td>
+<td>典型消息 / 典型集合</td>
+</tr>
+<tr>
+<td>counting argument</td>
+<td>计数论证</td>
+</tr>
+<tr>
+<td>binomial coefficient</td>
+<td>二项式系数</td>
+</tr>
+<tr>
+<td>Stirling&#39;s approximation</td>
+<td>斯特林近似</td>
+</tr>
+<tr>
+<td>algorithmic complexity</td>
+<td>算法复杂度</td>
+</tr>
+<tr>
+<td>Kolmogorov complexity</td>
+<td>柯尔莫哥洛夫复杂度</td>
+</tr>
+</tbody></table>
+</div></div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <a href="chapter-2-discrete-entropy.html" rel="prev"><span>上一篇</span><strong>离散变量的熵</strong></a>
+      <a href="chapter-4-noisy-channel-coding.html" rel="next"><span>下一篇</span><strong>有噪声信道编码定理</strong></a>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

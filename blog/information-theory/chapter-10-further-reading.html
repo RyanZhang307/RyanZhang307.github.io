@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>拓展阅读与附录｜Appendices A–H | Ryan Zhang</title>
+    <meta name="description" content="术语表、概率、对数、矩阵、微积分与习题补充材料。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#appendix-a-glossary-附录-a-术语表">Appendix A: Glossary / 附录 A：术语表</a></li><li class="toc-depth-2"><a href="#appendix-b-mathematical-symbols-附录-b-数学符号">Appendix B: Mathematical Symbols / 附录 B：数学符号</a></li><li class="toc-depth-2"><a href="#appendix-c-logarithms-附录-c-对数">Appendix C: Logarithms / 附录 C：对数</a></li><li class="toc-depth-2"><a href="#appendix-d-probability-density-functions-附录-d-概率密度函数">Appendix D: Probability Density Functions / 附录 D：概率密度函数</a></li><li class="toc-depth-2"><a href="#appendix-e-averages-from-distributions-附录-e-从分布求平均值">Appendix E: Averages From Distributions / 附录 E：从分布求平均值</a></li><li class="toc-depth-2"><a href="#appendix-f-the-rules-of-probability-附录-f-概率规则">Appendix F: The Rules of Probability / 附录 F：概率规则</a></li><li class="toc-depth-3"><a href="#independent-outcomes-独立结果">Independent Outcomes / 独立结果</a></li><li class="toc-depth-3"><a href="#conditional-probability-and-product-rule-条件概率与乘法规则">Conditional Probability and Product Rule / 条件概率与乘法规则</a></li><li class="toc-depth-3"><a href="#sum-rule-and-marginalisation-求和规则与边缘化">Sum Rule and Marginalisation / 求和规则与边缘化</a></li><li class="toc-depth-3"><a href="#bayes-rule-贝叶斯规则">Bayes' Rule / 贝叶斯规则</a></li><li class="toc-depth-2"><a href="#appendix-g-the-gaussian-distribution-附录-g-高斯分布">Appendix G: The Gaussian Distribution / 附录 G：高斯分布</a></li><li class="toc-depth-3"><a href="#the-central-limit-theorem-中心极限定理">The Central Limit Theorem / 中心极限定理</a></li><li class="toc-depth-3"><a href="#cumulative-distribution-function-累积分布函数">Cumulative Distribution Function / 累积分布函数</a></li><li class="toc-depth-2"><a href="#appendix-h-key-equations-附录-h-关键公式">Appendix H: Key Equations / 附录 H：关键公式</a></li><li class="toc-depth-3"><a href="#entropy-熵">Entropy / 熵</a></li><li class="toc-depth-3"><a href="#joint-entropy-联合熵">Joint Entropy / 联合熵</a></li><li class="toc-depth-3"><a href="#conditional-entropy-条件熵">Conditional Entropy / 条件熵</a></li><li class="toc-depth-3"><a href="#mutual-information-互信息">Mutual Information / 互信息</a></li><li class="toc-depth-3"><a href="#channel-capacity-信道容量">Channel Capacity / 信道容量</a></li><li class="toc-depth-3"><a href="#marginalisation-边缘化">Marginalisation / 边缘化</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 19 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 10</p>
+          <h1>拓展阅读与附录</h1>
+          <p class="article-subtitle">Appendices A–H</p>
+          <p class="lead">术语表、概率、对数、矩阵、微积分与习题补充材料。</p>
+          <div class="article-content"><h2 id="appendix-a-glossary-附录-a-术语表">Appendix A: Glossary / 附录 A：术语表<a class="heading-anchor" href="#appendix-a-glossary-附录-a-术语表" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>English explanation</th>
+<th>中文术语</th>
+<th>中文解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alphabet</td>
+<td>The set of symbols a variable or message may use.</td>
+<td>字母表 / 符号集</td>
+<td>一个变量或消息可以使用的全部符号所组成的集合。</td>
+</tr>
+<tr>
+<td>average</td>
+<td>A representative central value. For observations, it is the sample mean; for a distribution, it is the expected value.</td>
+<td>平均值</td>
+<td>表示数据中心位置的数值。对样本是算术平均，对分布是期望值。</td>
+</tr>
+<tr>
+<td>Bayes&#39; rule</td>
+<td>A rule that reverses a conditional probability by combining likelihood, prior and marginal likelihood.</td>
+<td>贝叶斯规则</td>
+<td>结合似然、先验概率和边缘似然，以反转条件概率的规则。</td>
+</tr>
+<tr>
+<td>binary digit</td>
+<td>One of the two digits 0 and 1.</td>
+<td>二进制数字</td>
+<td>0 或 1 这两个数字之一。</td>
+</tr>
+<tr>
+<td>binary number</td>
+<td>A number represented using powers of 2.</td>
+<td>二进制数</td>
+<td>使用 2 的各次幂表示的数。</td>
+</tr>
+<tr>
+<td>binary symmetric channel</td>
+<td>A binary channel in which either input bit has the same probability of being flipped.</td>
+<td>二元对称信道</td>
+<td>输入 0 或 1 时具有相同翻转概率的二元信道。</td>
+</tr>
+<tr>
+<td>binomial coefficient</td>
+<td>The number of ways to choose (k) unordered items from (n) items.</td>
+<td>二项式系数</td>
+<td>从 (n) 个元素中无序选择 (k) 个元素的方法数。</td>
+</tr>
+<tr>
+<td>bit</td>
+<td>The unit of information obtained when a base-2 logarithm is used.</td>
+<td>比特</td>
+<td>使用以 2 为底的对数时得到的信息量单位。</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>A group of eight binary digits.</td>
+<td>字节</td>
+<td>由 8 个二进制数字组成的单位。</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>The greatest reliable information rate supported by a channel.</td>
+<td>信道容量</td>
+<td>信道能够支持的最大可靠信息传输速率。</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>A physical or abstract medium that maps an input to an output, possibly with noise.</td>
+<td>信道</td>
+<td>把输入映射为输出的物理或抽象媒介，过程中可能含有噪声。</td>
+</tr>
+<tr>
+<td>code</td>
+<td>A rule for representing source messages with codewords.</td>
+<td>编码</td>
+<td>用码字表示信源消息的规则。</td>
+</tr>
+<tr>
+<td>codebook</td>
+<td>The complete mapping between messages and codewords.</td>
+<td>码本</td>
+<td>消息与码字之间全部对应关系的集合。</td>
+</tr>
+<tr>
+<td>codeword</td>
+<td>A particular sequence used to represent a message.</td>
+<td>码字</td>
+<td>用来表示某条消息的特定符号序列。</td>
+</tr>
+<tr>
+<td>coding efficiency</td>
+<td>How closely a code approaches the relevant theoretical limit.</td>
+<td>编码效率</td>
+<td>编码性能接近相应理论极限的程度。</td>
+</tr>
+<tr>
+<td>conditional probability</td>
+<td>The probability of one event given that another is known to have occurred.</td>
+<td>条件概率</td>
+<td>已知另一事件发生时，某事件发生的概率。</td>
+</tr>
+<tr>
+<td>conditional entropy</td>
+<td>The average uncertainty remaining in one variable after another is observed.</td>
+<td>条件熵</td>
+<td>观察到另一个变量后，目标变量中平均剩余的不确定性。</td>
+</tr>
+<tr>
+<td>continuous</td>
+<td>Able to take any value in an interval.</td>
+<td>连续的</td>
+<td>能够取某个区间内任意数值的。</td>
+</tr>
+<tr>
+<td>cumulative distribution function</td>
+<td>The probability that a random variable is no greater than a specified value.</td>
+<td>累积分布函数</td>
+<td>随机变量不大于指定数值的概率。</td>
+</tr>
+<tr>
+<td>differential entropy</td>
+<td>The continuous-variable analogue of discrete entropy.</td>
+<td>微分熵</td>
+<td>离散熵在连续变量情形下的对应量。</td>
+</tr>
+<tr>
+<td>discrete</td>
+<td>Able to take values from a countable set.</td>
+<td>离散的</td>
+<td>只能从可数集合中取值的。</td>
+</tr>
+<tr>
+<td>disjoint</td>
+<td>Having no outcome in common.</td>
+<td>互斥的 / 不相交的</td>
+<td>两个事件没有共同结果。</td>
+</tr>
+<tr>
+<td>encoding</td>
+<td>Transforming a message into a representation suitable for storage or transmission.</td>
+<td>编码过程</td>
+<td>把消息转换成适合存储或传输的表示。</td>
+</tr>
+<tr>
+<td>ensemble</td>
+<td>A conceptual collection of possible systems, samples or messages governed by one distribution.</td>
+<td>系综</td>
+<td>由同一概率分布支配的一组可能系统、样本或消息。</td>
+</tr>
+<tr>
+<td>entropy</td>
+<td>The expected Shannon information of a random variable.</td>
+<td>熵</td>
+<td>随机变量的香农信息量的期望值。</td>
+</tr>
+<tr>
+<td>expected value</td>
+<td>A probability-weighted average over all possible values.</td>
+<td>期望值</td>
+<td>对全部可能取值按其概率加权所得的平均值。</td>
+</tr>
+<tr>
+<td>histogram</td>
+<td>Counts or relative frequencies grouped into finite-width bins.</td>
+<td>直方图</td>
+<td>把观测值分箱后显示各箱计数或相对频率的图。</td>
+</tr>
+<tr>
+<td>iid</td>
+<td>Independent and identically distributed.</td>
+<td>独立同分布</td>
+<td>各随机变量彼此独立并具有相同概率分布。</td>
+</tr>
+<tr>
+<td>independence</td>
+<td>Knowledge of one outcome does not change the probability of another.</td>
+<td>独立性</td>
+<td>知道一个结果不会改变另一个结果的概率。</td>
+</tr>
+<tr>
+<td>information</td>
+<td>A reduction in uncertainty; for an outcome (x), its Shannon information is (log_2[1/p(x)]).</td>
+<td>信息</td>
+<td>不确定性的减少；结果 (x) 的香农信息量为 (log_2[1/p(x)])。</td>
+</tr>
+<tr>
+<td>integration</td>
+<td>The continuous counterpart of summation, often interpreted as area under a curve.</td>
+<td>积分</td>
+<td>求和在连续情形下的对应运算，常可解释为曲线下面积。</td>
+</tr>
+<tr>
+<td>joint probability</td>
+<td>The probability that specified values of two or more variables occur together.</td>
+<td>联合概率</td>
+<td>两个或多个变量同时取指定数值的概率。</td>
+</tr>
+<tr>
+<td>Kolmogorov complexity</td>
+<td>The length of the shortest program that generates a specified object.</td>
+<td>柯尔莫哥洛夫复杂度</td>
+<td>能生成指定对象的最短程序长度。</td>
+</tr>
+<tr>
+<td>Kullback-Leibler divergence</td>
+<td>The expected log-ratio between two distributions; a directed measure of their difference.</td>
+<td>Kullback-Leibler 散度</td>
+<td>两个分布概率比的对数期望，是一种有方向的分布差异度量。</td>
+</tr>
+<tr>
+<td>law of large numbers</td>
+<td>Sample averages approach the population expectation as sample size grows.</td>
+<td>大数定律</td>
+<td>当样本量增大时，样本平均趋近期望值。</td>
+</tr>
+<tr>
+<td>logarithm</td>
+<td>The exponent to which a base must be raised to produce a number.</td>
+<td>对数</td>
+<td>为得到某个数而必须把底数提升到的幂次。</td>
+</tr>
+<tr>
+<td>mean</td>
+<td>Another name for an average or expected value.</td>
+<td>均值</td>
+<td>平均值或期望值的另一种说法。</td>
+</tr>
+<tr>
+<td>message</td>
+<td>A sequence of source symbols intended for communication.</td>
+<td>消息</td>
+<td>准备用于通信的一串信源符号。</td>
+</tr>
+<tr>
+<td>marginal distribution</td>
+<td>The distribution of one variable obtained by summing or integrating a joint distribution over the others.</td>
+<td>边缘分布</td>
+<td>对联合分布中的其他变量求和或积分后得到的单变量分布。</td>
+</tr>
+<tr>
+<td>monotonic</td>
+<td>Always non-decreasing or always non-increasing.</td>
+<td>单调的</td>
+<td>始终不减或始终不增的。</td>
+</tr>
+<tr>
+<td>mutual information</td>
+<td>The average information one variable provides about another.</td>
+<td>互信息</td>
+<td>一个变量平均向另一个变量提供的信息量。</td>
+</tr>
+<tr>
+<td>noise</td>
+<td>Unwanted randomness or disturbance that changes a signal or observation.</td>
+<td>噪声</td>
+<td>改变信号或观测值的非期望随机扰动。</td>
+</tr>
+<tr>
+<td>outcome</td>
+<td>One possible result of an experiment or random process.</td>
+<td>结果</td>
+<td>一次实验或随机过程可能出现的某个结果。</td>
+</tr>
+<tr>
+<td>outcome value</td>
+<td>The numerical or symbolic value associated with an outcome.</td>
+<td>结果值</td>
+<td>与某个结果对应的数值或符号。</td>
+</tr>
+<tr>
+<td>outer product</td>
+<td>A product of two vectors that produces a matrix of all pairwise component products.</td>
+<td>外积</td>
+<td>两个向量相乘并生成全部分量两两乘积矩阵的运算。</td>
+</tr>
+<tr>
+<td>parity</td>
+<td>Whether the number of 1s in a binary sequence is even or odd.</td>
+<td>奇偶校验</td>
+<td>二进制序列中 1 的数量为偶数还是奇数。</td>
+</tr>
+<tr>
+<td>precision</td>
+<td>The fineness or number of distinguishable levels in a representation or measurement.</td>
+<td>精度</td>
+<td>表示或测量所能区分的细致程度或层级数量。</td>
+</tr>
+<tr>
+<td>prefix code</td>
+<td>A code in which no codeword is the prefix of another.</td>
+<td>前缀码</td>
+<td>任一码字都不是另一码字前缀的编码。</td>
+</tr>
+<tr>
+<td>probability</td>
+<td>A number between 0 and 1 expressing uncertainty about an outcome; it may be interpreted through belief or long-run frequency.</td>
+<td>概率</td>
+<td>0 到 1 之间、表示结果不确定性的数；可解释为信念程度或长期频率。</td>
+</tr>
+<tr>
+<td>probability density function</td>
+<td>A non-negative function whose integral over a region gives the probability of that region and whose total integral is 1.</td>
+<td>概率密度函数</td>
+<td>在某区间上的积分给出该区间概率、且全域积分为 1 的非负函数。</td>
+</tr>
+<tr>
+<td>probability distribution</td>
+<td>A specification of probabilities for all possible values of a random variable.</td>
+<td>概率分布</td>
+<td>为随机变量全部可能取值指定概率的规则。</td>
+</tr>
+<tr>
+<td>probability function</td>
+<td>A function assigning probabilities to the values of a discrete random variable.</td>
+<td>概率函数</td>
+<td>为离散随机变量各取值分配概率的函数。</td>
+</tr>
+<tr>
+<td>quantum computer</td>
+<td>A computer that processes quantum states and can exploit superposition and interference.</td>
+<td>量子计算机</td>
+<td>处理量子态并可利用叠加与干涉的计算机。</td>
+</tr>
+<tr>
+<td>random variable</td>
+<td>A variable whose possible values have specified probabilities.</td>
+<td>随机变量</td>
+<td>各可能取值由概率分布规定的变量。</td>
+</tr>
+<tr>
+<td>redundancy</td>
+<td>Predictable structure beyond the minimum information needed to specify a message.</td>
+<td>冗余</td>
+<td>超出确定消息所需最少信息量的可预测结构。</td>
+</tr>
+<tr>
+<td>relative entropy</td>
+<td>Another name for Kullback-Leibler divergence.</td>
+<td>相对熵</td>
+<td>Kullback-Leibler 散度的另一名称。</td>
+</tr>
+<tr>
+<td>relative frequency</td>
+<td>The number of occurrences divided by the total number of trials.</td>
+<td>相对频率</td>
+<td>某结果出现次数除以试验总次数。</td>
+</tr>
+<tr>
+<td>sample space</td>
+<td>The set of all possible outcomes.</td>
+<td>样本空间</td>
+<td>全部可能结果组成的集合。</td>
+</tr>
+<tr>
+<td>standard deviation</td>
+<td>The square root of variance; a measure of spread in the units of the variable.</td>
+<td>标准差</td>
+<td>方差的平方根，以变量原单位度量分散程度。</td>
+</tr>
+<tr>
+<td>stationary source</td>
+<td>A source whose probability law does not change with time.</td>
+<td>平稳信源</td>
+<td>概率规律不随时间改变的信源。</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>An elementary member of an alphabet.</td>
+<td>符号</td>
+<td>字母表中的基本元素。</td>
+</tr>
+<tr>
+<td>theorem</td>
+<td>A proposition established from stated assumptions by logical argument.</td>
+<td>定理</td>
+<td>从明确假设出发，经逻辑论证成立的命题。</td>
+</tr>
+<tr>
+<td>uncertainty</td>
+<td>Lack of knowledge about which outcome will occur.</td>
+<td>不确定性</td>
+<td>对将出现哪个结果缺乏确定知识。</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>A quantity or symbol that may take different values.</td>
+<td>变量</td>
+<td>可以取不同数值的量或符号。</td>
+</tr>
+<tr>
+<td>variance</td>
+<td>The expected squared deviation from the mean.</td>
+<td>方差</td>
+<td>随机变量相对均值的平方偏差的期望。</td>
+</tr>
+</tbody></table>
+</div><p>The principal glossary equations are:</p>
+<blockquote>
+<p>术语表中的主要公式如下：</p>
+</blockquote>
+<p>$$
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i, \qquad
+E[X]=\sum_{i=1}^{m}p(x_i)x_i. \tag{A.1-A.2}
+$$</p>
+<p>$$
+{n\choose k}=\frac{n!}{k!(n-k)!}. \tag{A.3}
+$$</p>
+<p>$$
+H(X)=\sum_{i=1}^{m}p(x_i)\log_2\frac{1}{p(x_i)}. \tag{A.4}
+$$</p>
+<p>$$
+D_{\mathrm{KL}}(P|Q)=\sum_i p(x_i)\log_2\frac{p(x_i)}{q(x_i)}. \tag{A.5}
+$$</p>
+<p>$$
+v_X=E[(X-\mu)^2]=E[X^2]-\mu^2, \qquad \sigma_X=\sqrt{v_X}. \tag{A.6-A.7}
+$$</p>
+<h2 id="appendix-b-mathematical-symbols-附录-b-数学符号">Appendix B: Mathematical Symbols / 附录 B：数学符号<a class="heading-anchor" href="#appendix-b-mathematical-symbols-附录-b-数学符号" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>English meaning</th>
+<th>中文含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(hat{x})</td>
+<td>An estimated value of (x).</td>
+<td>(x) 的估计值。</td>
+</tr>
+<tr>
+<td>(lvert x\rvert)</td>
+<td>Absolute value of (x).</td>
+<td>(x) 的绝对值。</td>
+</tr>
+<tr>
+<td>(leq,geq)</td>
+<td>Less than or equal to; greater than or equal to.</td>
+<td>小于等于；大于等于。</td>
+</tr>
+<tr>
+<td>(approx)</td>
+<td>Approximately equal to.</td>
+<td>约等于。</td>
+</tr>
+<tr>
+<td>(X\sim p(X))</td>
+<td>Random variable (X) has distribution (p(X)).</td>
+<td>随机变量 (X) 服从分布 (p(X))。</td>
+</tr>
+<tr>
+<td>(infty)</td>
+<td>Infinity.</td>
+<td>无穷大。</td>
+</tr>
+<tr>
+<td>(propto)</td>
+<td>Proportional to.</td>
+<td>正比于。</td>
+</tr>
+<tr>
+<td>(alpha)</td>
+<td>Number of different symbols in an alphabet.</td>
+<td>字母表中不同符号的数量。</td>
+</tr>
+<tr>
+<td>(Delta)</td>
+<td>A finite increment, such as bin width (Delta x).</td>
+<td>有限增量，例如箱宽 (Delta x)。</td>
+</tr>
+<tr>
+<td>(epsilon)</td>
+<td>A small quantity.</td>
+<td>小量。</td>
+</tr>
+<tr>
+<td>(eta, H)</td>
+<td>A noise value and, where defined, a noise random variable.</td>
+<td>一个噪声取值，以及按上下文定义的噪声随机变量。</td>
+</tr>
+<tr>
+<td>(mu)</td>
+<td>Mean value.</td>
+<td>均值。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ho)</td>
+<td>Correlation.</td>
+<td>相关性。</td>
+</tr>
+<tr>
+<td>(sigma)</td>
+<td>Standard deviation.</td>
+<td>标准差。</td>
+</tr>
+<tr>
+<td>(Sigma)</td>
+<td>Summation.</td>
+<td>求和。</td>
+</tr>
+<tr>
+<td>(mathcal A_X)</td>
+<td>Alphabet or set of possible values of (X).</td>
+<td>(X) 的字母表或可能取值集合。</td>
+</tr>
+<tr>
+<td>(C)</td>
+<td>Channel capacity.</td>
+<td>信道容量。</td>
+</tr>
+<tr>
+<td>(e)</td>
+<td>Base of natural logarithms, approximately (2.71828).</td>
+<td>自然对数的底，约为 (2.71828)。</td>
+</tr>
+<tr>
+<td>(E[X])</td>
+<td>Expected value of (X).</td>
+<td>(X) 的期望值。</td>
+</tr>
+<tr>
+<td>(g)</td>
+<td>Encoding function, for example (mathbf{x}=g(mathbf{s})).</td>
+<td>编码函数，例如 (mathbf{x}=g(mathbf{s}))。</td>
+</tr>
+<tr>
+<td>(h(x))</td>
+<td>Shannon information of outcome (x).</td>
+<td>结果 (x) 的香农信息量。</td>
+</tr>
+<tr>
+<td>(ar h(x))</td>
+<td>Average Shannon information in a finite sample.</td>
+<td>有限样本中的平均香农信息量。</td>
+</tr>
+<tr>
+<td>(H(X))</td>
+<td>Entropy of (X).</td>
+<td>(X) 的熵。</td>
+</tr>
+<tr>
+<td>(H(X\mid Y))</td>
+<td>Conditional entropy of (X) given (Y).</td>
+<td>给定 (Y) 时 (X) 的条件熵。</td>
+</tr>
+<tr>
+<td>(H(X,Y))</td>
+<td>Joint entropy of (X) and (Y).</td>
+<td>(X) 与 (Y) 的联合熵。</td>
+</tr>
+<tr>
+<td>(I(X,Y))</td>
+<td>Mutual information between (X) and (Y).</td>
+<td>(X) 与 (Y) 的互信息。</td>
+</tr>
+<tr>
+<td>(ln x,log_2x)</td>
+<td>Natural logarithm and base-2 logarithm. Unqualified logarithms in the book use base 2.</td>
+<td>自然对数和以 2 为底的对数；本书未标底的对数采用底 2。</td>
+</tr>
+<tr>
+<td>(m)</td>
+<td>Number of possible messages, codewords or alphabet symbols.</td>
+<td>可能消息、码字或字母表符号的数量。</td>
+</tr>
+<tr>
+<td>(M)</td>
+<td>Number of histogram bins.</td>
+<td>直方图箱数。</td>
+</tr>
+<tr>
+<td>(N)</td>
+<td>Noise variance in the Gaussian-channel capacity equation.</td>
+<td>高斯信道容量公式中的噪声方差。</td>
+</tr>
+<tr>
+<td>(n)</td>
+<td>Number of observations or elements in a sequence.</td>
+<td>观测数或序列元素数。</td>
+</tr>
+<tr>
+<td>(p(X),p(x))</td>
+<td>Distribution of (X); probability or density at (X=x).</td>
+<td>(X) 的分布；在 (X=x) 处的概率或密度。</td>
+</tr>
+<tr>
+<td>(p(X,Y),p(x,y))</td>
+<td>Joint distribution; joint probability or density at (x,y).</td>
+<td>联合分布；在 (x,y) 处的联合概率或密度。</td>
+</tr>
+<tr>
+<td>(p(x\mid y))</td>
+<td>Conditional probability of (x) given (y).</td>
+<td>给定 (y) 时 (x) 的条件概率。</td>
+</tr>
+<tr>
+<td>(R)</td>
+<td>Information rate.</td>
+<td>信息传输速率。</td>
+</tr>
+<tr>
+<td>(S,s,mathbf{s})</td>
+<td>Message random variable, one message value and a message vector.</td>
+<td>消息随机变量、一个消息取值和消息向量。</td>
+</tr>
+<tr>
+<td>(v_X)</td>
+<td>Variance of (X).</td>
+<td>(X) 的方差。</td>
+</tr>
+<tr>
+<td>(W)</td>
+<td>Total number of microstates.</td>
+<td>微观状态总数。</td>
+</tr>
+<tr>
+<td>(X,x,mathbf{x})</td>
+<td>Random variable, one value and a vector of values.</td>
+<td>随机变量、一个取值和取值向量。</td>
+</tr>
+<tr>
+<td>(X_{\Delta})</td>
+<td>A variable quantised into intervals of width (Delta x).</td>
+<td>量化到宽度为 (Delta x) 的区间中的变量。</td>
+</tr>
+<tr>
+<td>(Y,y)</td>
+<td>Random variable and one of its values, often a channel output.</td>
+<td>随机变量及其一个取值，常表示信道输出。</td>
+</tr>
+</tbody></table>
+</div><h2 id="appendix-c-logarithms-附录-c-对数">Appendix C: Logarithms / 附录 C：对数<a class="heading-anchor" href="#appendix-c-logarithms-附录-c-对数" aria-label="链接到本节">#</a></h2>
+<p>A logarithm states the power to which a base must be raised. Since (10^2=100), (log_{10}100=2). The inverse operation is exponentiation: if (y=log_a x), then (x=a^y).</p>
+<blockquote>
+<p>对数表示底数必须提升到的幂次。因为 (10^2=100)，所以 (log_{10}100=2)。其逆运算是乘方：若 (y=log_a x)，则 (x=a^y)。</p>
+</blockquote>
+<p>Logarithms are useful because they turn multiplication into addition:</p>
+<blockquote>
+<p>对数的重要作用是把乘法转换为加法：</p>
+</blockquote>
+<p>$$
+\log_b(nm)=\log_b n+\log_b m, \tag{C.6}
+$$</p>
+<p>$$
+nm=b^{\log_b n+\log_b m}. \tag{C.7}
+$$</p>
+<p>The change-of-base rule is</p>
+<blockquote>
+<p>换底公式为：</p>
+</blockquote>
+<p>$$
+\log_b x=\frac{\log_a x}{\log_a b}. \tag{C.8}
+$$</p>
+<p>Natural logarithms have base (e) and are written (ln x). Unless otherwise stated, the book uses base-2 logarithms. Figure C.1 compares the monotonic logarithmic functions with bases 2 and 10.</p>
+<blockquote>
+<p>自然对数以 (e) 为底，写作 (ln x)。除非另有说明，本书采用以 2 为底的对数。图 C.1 比较了以 2 和 10 为底的单调对数函数。</p>
+</blockquote>
+<h2 id="appendix-d-probability-density-functions-附录-d-概率密度函数">Appendix D: Probability Density Functions / 附录 D：概率密度函数<a class="heading-anchor" href="#appendix-d-probability-density-functions-附录-d-概率密度函数" aria-label="链接到本节">#</a></h2>
+<p>A function maps values from a domain to a range. A probability density function (pdf) maps every possible value of a continuous variable to a non-negative density. Probability is area, not the height at a single point.</p>
+<blockquote>
+<p>函数把定义域中的值映射到值域。概率密度函数把连续变量的每个可能取值映射为非负密度。概率对应曲线下面积，而不是某一点的曲线高度。</p>
+</blockquote>
+<p>A histogram approximates a pdf. Divide observations into (M) bins of width (Delta x), let (a_i) be the area of bin (i), and let (A) be the total area:</p>
+<blockquote>
+<p>直方图可以近似概率密度函数。把观测值分入 (M) 个宽度为 (Delta x) 的箱，令 (a_i) 为第 (i) 个箱的面积，(A) 为总面积：</p>
+</blockquote>
+<p>$$
+A=\sum_{i=1}^{M}a_i. \tag{D.1}
+$$</p>
+<p>The normalised bin probabilities sum to 1, and the width of a bin is</p>
+<blockquote>
+<p>归一化后的各箱概率之和为 1，箱宽为：</p>
+</blockquote>
+<p>$$
+\sum_{i=1}^{M}P_i=1, \qquad \Delta x=x_i^{\max}-x_i^{\min}. \tag{D.2-D.3}
+$$</p>
+<p>For bin (i), probability equals area and density equals area divided by width:</p>
+<blockquote>
+<p>对第 (i) 个箱，概率等于面积，而密度等于面积除以宽度：</p>
+</blockquote>
+<p>$$
+P_i=p(x_i)\Delta x, \qquad p(x_i)=\frac{P_i}{\Delta x}. \tag{D.4-D.6}
+$$</p>
+<p>As (Delta x) approaches zero, the sum becomes an integral. A valid pdf satisfies</p>
+<blockquote>
+<p>当 (Delta x) 趋于零时，求和变为积分。有效的概率密度函数满足：</p>
+</blockquote>
+<p>$$
+\sum_{i=1}^{M}p(x_i)\Delta x\longrightarrow \int_{\mathcal X}p(x),dx=1. \tag{D.7-D.8}
+$$</p>
+<p>Figure D.1 shows a normalised histogram approaching a smooth pdf as bins become thinner. Figure D.2 shows that the probability of an interval is the area between its boundaries and the pdf curve.</p>
+<blockquote>
+<p>图 D.1 展示归一化直方图如何在箱变窄时逼近平滑的概率密度函数。图 D.2 展示某区间的概率就是该区间边界与密度曲线围成的面积。</p>
+</blockquote>
+<h2 id="appendix-e-averages-from-distributions-附录-e-从分布求平均值">Appendix E: Averages From Distributions / 附录 E：从分布求平均值<a class="heading-anchor" href="#appendix-e-averages-from-distributions-附录-e-从分布求平均值" aria-label="链接到本节">#</a></h2>
+<p>For a discrete variable, the mean, average and expected value are the probability-weighted sum of possible values:</p>
+<blockquote>
+<p>对离散变量，均值、平均值和期望值都是各可能取值按概率加权后的总和：</p>
+</blockquote>
+<p>$$
+E[X]=\sum_{i=1}^{m}p(x_i)x_i. \tag{E.1}
+$$</p>
+<p>For example, values (4,5,6) with probabilities (0.1,0.2,0.7) have expectation</p>
+<blockquote>
+<p>例如，取值 (4,5,6) 的概率分别为 (0.1,0.2,0.7)，其期望为：</p>
+</blockquote>
+<p>$$
+E[X]=(0.1)(4)+(0.2)(5)+(0.7)(6)=5.6. \tag{E.2-E.5}
+$$</p>
+<p>More generally, the expected value of a function (h(X)) is</p>
+<blockquote>
+<p>更一般地，函数 (h(X)) 的期望为：</p>
+</blockquote>
+<p>$$
+E[h(X)]=\sum_{i=1}^{m}p(x_i)h(x_i). \tag{E.6-E.9}
+$$</p>
+<p>If (h(x)=\log_2[1/p(x)]), this expectation is entropy:</p>
+<blockquote>
+<p>若 (h(x)=\log_2[1/p(x)])，这个期望就是熵：</p>
+</blockquote>
+<p>$$
+E[h(X)]=\sum_i p(x_i)\log_2\frac{1}{p(x_i)}=H(X). \tag{E.10-E.11}
+$$</p>
+<p>For a continuous variable, summation is replaced by integration:</p>
+<blockquote>
+<p>对连续变量，求和由积分代替：</p>
+</blockquote>
+<p>$$
+E[h(X)]=\int_{\mathcal X}p(x)h(x),dx. \tag{E.12}
+$$</p>
+<p>Choosing Shannon information for (h(x)) gives differential entropy:</p>
+<blockquote>
+<p>令 (h(x)) 为香农信息量，即得到微分熵：</p>
+</blockquote>
+<p>$$
+H(X)=\int_{\mathcal X}p(x)\log_2\frac{1}{p(x)},dx. \tag{E.13-E.14}
+$$</p>
+<h2 id="appendix-f-the-rules-of-probability-附录-f-概率规则">Appendix F: The Rules of Probability / 附录 F：概率规则<a class="heading-anchor" href="#appendix-f-the-rules-of-probability-附录-f-概率规则" aria-label="链接到本节">#</a></h2>
+<h3 id="independent-outcomes-独立结果">Independent Outcomes / 独立结果<a class="heading-anchor" href="#independent-outcomes-独立结果" aria-label="链接到本节">#</a></h3>
+<p>If two outcomes are independent, their joint probability is the product of their individual probabilities:</p>
+<blockquote>
+<p>若两个结果彼此独立，其联合概率等于各自概率的乘积：</p>
+</blockquote>
+<p>$$
+p(x,y)=p(x)p(y).
+$$</p>
+<p>For a coin with (p(h)=0.9) and (p(t)=0.1), two flips give (p(h,h)=0.81), (p(t,t)=0.01), and a head and tail in either order with probability (0.18). Table F.1 expresses the expected counts out of 100 pairs and distinguishes ordered sequences ((h,t)) from unordered combinations ({h,t}).</p>
+<blockquote>
+<p>对一枚 (p(h)=0.9)、(p(t)=0.1) 的硬币，连续投掷两次得到双正面的概率为 (0.81)，双反面的概率为 (0.01)，一正一反而不计顺序的概率为 (0.18)。表 F.1 用 100 对投掷的期望计数说明这些结果，并区分有序序列 ((h,t)) 与无序组合 ({h,t})。</p>
+</blockquote>
+<h3 id="conditional-probability-and-product-rule-条件概率与乘法规则">Conditional Probability and Product Rule / 条件概率与乘法规则<a class="heading-anchor" href="#conditional-probability-and-product-rule-条件概率与乘法规则" aria-label="链接到本节">#</a></h3>
+<p>$$
+p(x\mid y)=\frac{p(x,y)}{p(y)}, \tag{F.4}
+$$</p>
+<p>$$
+p(x,y)=p(x\mid y)p(y). \tag{F.5}
+$$</p>
+<p>The vertical bar is read as &quot;given&quot;. The product rule follows directly by multiplying the conditional-probability definition by (p(y)).</p>
+<blockquote>
+<p>竖线读作“给定”。把条件概率定义的两边乘以 (p(y))，就得到乘法规则。</p>
+</blockquote>
+<h3 id="sum-rule-and-marginalisation-求和规则与边缘化">Sum Rule and Marginalisation / 求和规则与边缘化<a class="heading-anchor" href="#sum-rule-and-marginalisation-求和规则与边缘化" aria-label="链接到本节">#</a></h3>
+<p>For a discrete variable,</p>
+<blockquote>
+<p>对离散变量：</p>
+</blockquote>
+<p>$$
+p(x)=\sum_i p(x,y_i)=\sum_i p(x\mid y_i)p(y_i). \tag{F.6-F.7}
+$$</p>
+<p>For a continuous variable,</p>
+<blockquote>
+<p>对连续变量：</p>
+</blockquote>
+<p>$$
+p(x)=\int p(x,y),dy=\int p(x\mid y)p(y),dy. \tag{F.8}
+$$</p>
+<p>This operation removes (Y) from the joint distribution and produces the marginal probability of (X).</p>
+<blockquote>
+<p>这个运算从联合分布中消去 (Y)，得到 (X) 的边缘概率。</p>
+</blockquote>
+<h3 id="bayes-rule-贝叶斯规则">Bayes&#39; Rule / 贝叶斯规则<a class="heading-anchor" href="#bayes-rule-贝叶斯规则" aria-label="链接到本节">#</a></h3>
+<p>Because (p(y,x)=p(x,y)), the two product-rule expressions can be equated:</p>
+<blockquote>
+<p>因为 (p(y,x)=p(x,y))，可以令乘法规则的两种写法相等：</p>
+</blockquote>
+<p>$$
+p(y\mid x)p(x)=p(x\mid y)p(y). \tag{F.9-F.10}
+$$</p>
+<p>Therefore,</p>
+<blockquote>
+<p>因此：</p>
+</blockquote>
+<p>$$
+p(y\mid x)=\frac{p(x\mid y)p(y)}{p(x)}. \tag{F.11}
+$$</p>
+<p>In Bayesian terminology, (p(y\mid x)) is the posterior, (p(x\mid y)) the likelihood, (p(y)) the prior, and (p(x)) the marginal likelihood or evidence. The same relation applies to complete distributions:</p>
+<blockquote>
+<p>在贝叶斯术语中，(p(y\mid x)) 是后验概率，(p(x\mid y)) 是似然，(p(y)) 是先验概率，(p(x)) 是边缘似然或证据。同一关系也适用于完整分布：</p>
+</blockquote>
+<p>$$
+p(Y\mid X)=\frac{p(X\mid Y)p(Y)}{p(X)}. \tag{F.12}
+$$</p>
+<h2 id="appendix-g-the-gaussian-distribution-附录-g-高斯分布">Appendix G: The Gaussian Distribution / 附录 G：高斯分布<a class="heading-anchor" href="#appendix-g-the-gaussian-distribution-附录-g-高斯分布" aria-label="链接到本节">#</a></h2>
+<p>A Gaussian probability density function, also called a normal distribution or bell curve, with mean (mu) and standard deviation (sigma) is</p>
+<blockquote>
+<p>均值为 (mu)、标准差为 (sigma) 的高斯概率密度函数，也称正态分布或钟形曲线：</p>
+</blockquote>
+<p>$$
+p(x)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]. \tag{G.1}
+$$</p>
+<p>Writing</p>
+<blockquote>
+<p>令：</p>
+</blockquote>
+<p>$$
+z=\frac{(x-\mu)^2}{2\sigma^2}, \tag{G.2}
+$$</p>
+<p>gives (p(x)=ke^{-z}), where (k=1/(\sigma\sqrt{2\pi})). The density is greatest at (x=\mu). Changing (mu) shifts the curve, while increasing (sigma) spreads it out. Figure G.1(a) shows the standard Gaussian with (mu=0) and (sigma=1).</p>
+<blockquote>
+<p>于是 (p(x)=ke^{-z})，其中 (k=1/(\sigma\sqrt{2\pi}))。密度在 (x=\mu) 处最大。改变 (mu) 会平移曲线，增大 (sigma) 会使曲线更分散。图 G.1(a) 展示 (mu=0,sigma=1) 的标准高斯分布。</p>
+</blockquote>
+<h3 id="the-central-limit-theorem-中心极限定理">The Central Limit Theorem / 中心极限定理<a class="heading-anchor" href="#the-central-limit-theorem-中心极限定理" aria-label="链接到本节">#</a></h3>
+<p>As the number of observations in each sample grows, the distribution of sample means drawn from almost any parent distribution becomes increasingly Gaussian. Many physical quantities are affected by multiple factors and are therefore weighted sums or averages, which helps explain the prevalence of Gaussian distributions in nature.</p>
+<blockquote>
+<p>随着每个样本中的观测数量增大，从几乎任意母分布得到的样本均值分布会越来越接近高斯分布。许多物理量受多个因素共同影响，实质上是加权和或平均，这有助于解释高斯分布为何在自然界中普遍出现。</p>
+</blockquote>
+<h3 id="cumulative-distribution-function-累积分布函数">Cumulative Distribution Function / 累积分布函数<a class="heading-anchor" href="#cumulative-distribution-function-累积分布函数" aria-label="链接到本节">#</a></h3>
+<p>The Gaussian cumulative distribution function is the area under the pdf from negative infinity to (x):</p>
+<blockquote>
+<p>高斯累积分布函数是从负无穷到 (x) 的概率密度曲线下面积：</p>
+</blockquote>
+<p>$$
+\Phi(x)=\frac{1}{\sigma\sqrt{2\pi}}\int_{-\infty}^{x}
+\exp\left[-\frac{(t-\mu)^2}{2\sigma^2}\right]dt. \tag{G.3}
+$$</p>
+<p>Thus (Phi(x)=P(X\leq x)). Figure G.1(b) plots this cumulative function for the standard Gaussian.</p>
+<blockquote>
+<p>因而 (Phi(x)=P(X\leq x))。图 G.1(b) 绘出了标准高斯分布的累积分布函数。</p>
+</blockquote>
+<h2 id="appendix-h-key-equations-附录-h-关键公式">Appendix H: Key Equations / 附录 H：关键公式<a class="heading-anchor" href="#appendix-h-key-equations-附录-h-关键公式" aria-label="链接到本节">#</a></h2>
+<h3 id="entropy-熵">Entropy / 熵<a class="heading-anchor" href="#entropy-熵" aria-label="链接到本节">#</a></h3>
+<p>For a discrete random variable,</p>
+<blockquote>
+<p>对离散随机变量：</p>
+</blockquote>
+<p>$$
+H(X)=\sum_{i=1}^{m}p(x_i)\log_2\frac{1}{p(x_i)}. \tag{H.1}
+$$</p>
+<p>For a continuous random variable,</p>
+<blockquote>
+<p>对连续随机变量：</p>
+</blockquote>
+<p>$$
+H(X)=\int_{\mathcal X}p(x)\log_2\frac{1}{p(x)},dx. \tag{H.2}
+$$</p>
+<h3 id="joint-entropy-联合熵">Joint Entropy / 联合熵<a class="heading-anchor" href="#joint-entropy-联合熵" aria-label="链接到本节">#</a></h3>
+<p>$$
+H(X,Y)=\sum_{i=1}^{m}\sum_{j=1}^{n}p(x_i,y_j)
+\log_2\frac{1}{p(x_i,y_j)}, \tag{H.3}
+$$</p>
+<p>$$
+H(X,Y)=\int_{\mathcal X}\int_{\mathcal Y}p(x,y)
+\log_2\frac{1}{p(x,y)},dy,dx. \tag{H.4}
+$$</p>
+<p>The information diagram identity is</p>
+<blockquote>
+<p>信息图中的恒等式为：</p>
+</blockquote>
+<p>$$
+H(X,Y)=I(X,Y)+H(X\mid Y)+H(Y\mid X). \tag{H.5}
+$$</p>
+<h3 id="conditional-entropy-条件熵">Conditional Entropy / 条件熵<a class="heading-anchor" href="#conditional-entropy-条件熵" aria-label="链接到本节">#</a></h3>
+<p>$$
+H(Y\mid X)=\sum_i\sum_j p(x_i,y_j)
+\log_2\frac{1}{p(y_j\mid x_i)}, \tag{H.6}
+$$</p>
+<p>$$
+H(X\mid Y)=\sum_i\sum_j p(x_i,y_j)
+\log_2\frac{1}{p(x_i\mid y_j)}. \tag{H.7}
+$$</p>
+<p>For continuous variables, replace the sums by integrals:</p>
+<blockquote>
+<p>对连续变量，把求和替换为积分：</p>
+</blockquote>
+<p>$$
+H(X\mid Y)=\int!!\int p(x,y)\log_2\frac{1}{p(x\mid y)},dx,dy, \tag{H.8}
+$$</p>
+<p>$$
+H(Y\mid X)=\int!!\int p(x,y)\log_2\frac{1}{p(y\mid x)},dx,dy. \tag{H.9}
+$$</p>
+<p>Equivalent identities and the chain rule are</p>
+<blockquote>
+<p>等价恒等式与熵的链式法则为：</p>
+</blockquote>
+<p>$$
+H(X\mid Y)=H(X,Y)-H(Y), \tag{H.10}
+$$</p>
+<p>$$
+H(Y\mid X)=H(X,Y)-H(X), \tag{H.11}
+$$</p>
+<p>$$
+H(X,Y)=H(X)+H(Y\mid X)=H(Y)+H(X\mid Y). \tag{H.12}
+$$</p>
+<h3 id="mutual-information-互信息">Mutual Information / 互信息<a class="heading-anchor" href="#mutual-information-互信息" aria-label="链接到本节">#</a></h3>
+<p>$$
+I(X,Y)=\sum_i\sum_j p(x_i,y_j)
+\log_2\frac{p(x_i,y_j)}{p(x_i)p(y_j)}, \tag{H.13}
+$$</p>
+<p>$$
+I(X,Y)=\int!!\int p(x,y)
+\log_2\frac{p(x,y)}{p(x)p(y)},dx,dy. \tag{H.14}
+$$</p>
+<p>Equivalent forms are</p>
+<blockquote>
+<p>等价形式为：</p>
+</blockquote>
+<p>$$
+I(X,Y)=H(X)+H(Y)-H(X,Y), \tag{H.15}
+$$</p>
+<p>$$
+I(X,Y)=H(X)-H(X\mid Y), \tag{H.16}
+$$</p>
+<p>$$
+I(X,Y)=H(Y)-H(Y\mid X), \tag{H.17}
+$$</p>
+<p>$$
+I(X,Y)=H(X,Y)-[H(X\mid Y)+H(Y\mid X)]. \tag{H.18}
+$$</p>
+<h3 id="channel-capacity-信道容量">Channel Capacity / 信道容量<a class="heading-anchor" href="#channel-capacity-信道容量" aria-label="链接到本节">#</a></h3>
+<p>Channel capacity is the largest mutual information attainable by choosing the input distribution:</p>
+<blockquote>
+<p>信道容量是通过选择输入分布所能达到的最大互信息：</p>
+</blockquote>
+<p>$$
+C=\max_{p(X)}I(X,Y). \tag{H.19}
+$$</p>
+<h3 id="marginalisation-边缘化">Marginalisation / 边缘化<a class="heading-anchor" href="#marginalisation-边缘化" aria-label="链接到本节">#</a></h3>
+<p>For discrete variables,</p>
+<blockquote>
+<p>对离散变量：</p>
+</blockquote>
+<p>$$
+p(x_i)=\sum_j p(x_i,y_j), \qquad p(y_j)=\sum_i p(x_i,y_j). \tag{H.20-H.21}
+$$</p>
+<p>For continuous variables,</p>
+<blockquote>
+<p>对连续变量：</p>
+</blockquote>
+<p>$$
+p(x)=\int_{\mathcal Y}p(x,y),dy, \qquad
+p(y)=\int_{\mathcal X}p(x,y),dx. \tag{H.22}
+$$</p>
+</div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <a href="chapter-9-information-as-currency.html" rel="prev"><span>上一篇</span><strong>信息即大自然的货币</strong></a>
+      <span></span>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

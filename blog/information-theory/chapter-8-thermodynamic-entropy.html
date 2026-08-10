@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>热力学熵和信息｜Thermodynamic Entropy and Information | Ryan Zhang</title>
+    <meta name="description" content="连接 Shannon 熵、Boltzmann 熵、Maxwell 妖与 Landauer 原理。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#8-1-introduction-引言">8.1 Introduction / 引言</a></li><li class="toc-depth-2"><a href="#8-2-physics-entropy-and-disorder-物理学-熵与无序">8.2 Physics, Entropy and Disorder / 物理学、熵与无序</a></li><li class="toc-depth-2"><a href="#8-3-information-and-thermodynamic-entropy-信息与热力学熵">8.3 Information and Thermodynamic Entropy / 信息与热力学熵</a></li><li class="toc-depth-2"><a href="#8-4-ensembles-macrostates-and-microstates-系综-宏观态与微观态">8.4 Ensembles, Macrostates and Microstates / 系综、宏观态与微观态</a></li><li class="toc-depth-2"><a href="#8-5-pricing-information-the-landauer-limit-信息的代价-landauer-极限">8.5 Pricing Information: The Landauer Limit / 信息的代价：Landauer 极限</a></li><li class="toc-depth-2"><a href="#8-6-the-second-law-of-thermodynamics-热力学第二定律">8.6 The Second Law of Thermodynamics / 热力学第二定律</a></li><li class="toc-depth-2"><a href="#8-7-maxwell-s-demon-麦克斯韦妖">8.7 Maxwell's Demon / 麦克斯韦妖</a></li><li class="toc-depth-2"><a href="#8-8-quantum-computation-量子计算">8.8 Quantum Computation / 量子计算</a></li><li class="toc-depth-2"><a href="#8-9-summary-小结">8.9 Summary / 小结</a></li><li class="toc-depth-2"><a href="#terminology-术语表">Terminology / 术语表</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 7 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 08</p>
+          <h1>热力学熵和信息</h1>
+          <p class="article-subtitle">Thermodynamic Entropy and Information</p>
+          <p class="lead">连接 Shannon 熵、Boltzmann 熵、Maxwell 妖与 Landauer 原理。</p>
+          <div class="article-content"><h2 id="8-1-introduction-引言">8.1 Introduction / 引言<a class="heading-anchor" href="#8-1-introduction-引言" aria-label="链接到本节">#</a></h2>
+<p>Thermodynamic entropy and Shannon entropy arose in different fields but share the same mathematical structure. Both count uncertainty over microscopic possibilities consistent with what is known macroscopically.</p>
+<blockquote>
+<p>热力学熵与香农熵产生于不同领域，却具有相同的数学结构。二者都衡量：在已知宏观条件下，微观可能性还存在多少不确定性。</p>
+</blockquote>
+<h2 id="8-2-physics-entropy-and-disorder-物理学-熵与无序">8.2 Physics, Entropy and Disorder / 物理学、熵与无序<a class="heading-anchor" href="#8-2-physics-entropy-and-disorder-物理学-熵与无序" aria-label="链接到本节">#</a></h2>
+<p>A gas confined to one half of a box can occupy far fewer molecular arrangements than a gas spread through the entire box. After a partition is removed, molecules naturally spread because overwhelmingly more arrangements correspond to the dispersed state.</p>
+<blockquote>
+<p>局限在箱子一半区域内的气体，其分子排列方式远少于充满整个箱子的气体。隔板移除后，分子会自然扩散，因为对应于弥散状态的排列方式多得不可压倒性地占优势。</p>
+</blockquote>
+<p>Boltzmann&#39;s entropy formula is</p>
+<blockquote>
+<p>Boltzmann 熵公式为：</p>
+</blockquote>
+<p>$$S=k_B\ln\Omega,$$</p>
+<p>where (\Omega) is the number of microscopic states compatible with a macrostate and (k_B) is Boltzmann&#39;s constant.</p>
+<blockquote>
+<p>其中，(\Omega) 是与某个宏观态相容的微观态数量，(k_B) 是 Boltzmann 常数。</p>
+</blockquote>
+<p><strong>Figure 8.1. Many more molecular arrangements place gas throughout a container than confine it to one side. Figure 8.2 contrasts a macrostate with its many compatible microstates.</strong></p>
+<blockquote>
+<p><strong>图 8.1　让气体遍布容器的分子排列远多于把它限制在一侧的排列。图 8.2 对比一个宏观态及与其相容的众多微观态。</strong></p>
+</blockquote>
+<h2 id="8-3-information-and-thermodynamic-entropy-信息与热力学熵">8.3 Information and Thermodynamic Entropy / 信息与热力学熵<a class="heading-anchor" href="#8-3-information-and-thermodynamic-entropy-信息与热力学熵" aria-label="链接到本节">#</a></h2>
+<p>If (\Omega) microstates are equally probable, the Shannon entropy is</p>
+<blockquote>
+<p>如果 (\Omega) 个微观态等概率出现，香农熵为：</p>
+</blockquote>
+<p>$$H=\log_2\Omega\ \text{bits}.$$</p>
+<p>Using natural logarithms,</p>
+<blockquote>
+<p>使用自然对数时：</p>
+</blockquote>
+<p>$$H_{\mathrm{nat}}=\ln\Omega\ \text{nats},$$</p>
+<p>so thermodynamic entropy is Shannon entropy multiplied by (k_B):</p>
+<blockquote>
+<p>因而热力学熵就是香农熵乘以 (k_B)：</p>
+</blockquote>
+<p>$$S=k_BH_{\mathrm{nat}}=k_B\ln\Omega.$$</p>
+<p>For non-uniform microstate probabilities,</p>
+<blockquote>
+<p>对非均匀微观态概率：</p>
+</blockquote>
+<p>$$S=-k_B\sum_i p_i\ln p_i.$$</p>
+<p>Information about the exact microstate reduces uncertainty and therefore reduces the observer&#39;s entropy assignment, even though the physical system itself has not been mechanically altered.</p>
+<blockquote>
+<p>关于确切微观态的信息会降低不确定性，因此降低观察者赋予系统的熵，尽管物理系统本身并未被机械改变。</p>
+</blockquote>
+<p><strong>Figure 8.3. Different microstates can share the same macrostate; distinguishing them requires information.</strong></p>
+<blockquote>
+<p><strong>图 8.3　不同微观态可以具有相同宏观态；区分它们需要信息。</strong></p>
+</blockquote>
+<h2 id="8-4-ensembles-macrostates-and-microstates-系综-宏观态与微观态">8.4 Ensembles, Macrostates and Microstates / 系综、宏观态与微观态<a class="heading-anchor" href="#8-4-ensembles-macrostates-and-microstates-系综-宏观态与微观态" aria-label="链接到本节">#</a></h2>
+<p>An ensemble is a conceptual collection of systems prepared under the same macroscopic conditions. A macrostate specifies global quantities such as energy, volume and particle number; a microstate specifies every microscopic degree of freedom. Probabilities over the ensemble define entropy.</p>
+<blockquote>
+<p>系综是在相同宏观条件下制备的一组概念性系统。宏观态规定能量、体积、粒子数等整体量；微观态规定每个微观自由度。系综上的概率分布定义熵。</p>
+</blockquote>
+<p>In the microcanonical ensemble, compatible microstates are equiprobable. In the canonical ensemble, a system exchanges energy with a heat bath and microstate probabilities follow the Boltzmann distribution</p>
+<blockquote>
+<p>在微正则系综中，相容微观态等概率。在正则系综中，系统与热库交换能量，微观态概率服从 Boltzmann 分布：</p>
+</blockquote>
+<p>$$p_i=\frac{e^{-E_i/(k_BT)}}{Z},\qquad Z=\sum_i e^{-E_i/(k_BT)}.$$</p>
+<h2 id="8-5-pricing-information-the-landauer-limit-信息的代价-landauer-极限">8.5 Pricing Information: The Landauer Limit / 信息的代价：Landauer 极限<a class="heading-anchor" href="#8-5-pricing-information-the-landauer-limit-信息的代价-landauer-极限" aria-label="链接到本节">#</a></h2>
+<p>Landauer&#39;s principle states that logically irreversible erasure of one bit must dissipate at least</p>
+<blockquote>
+<p>Landauer 原理指出，对一比特进行逻辑不可逆擦除，至少必须耗散：</p>
+</blockquote>
+<p>$$E_{\min}=k_BT\ln2$$</p>
+<p>of energy as heat at temperature (T). Erasure maps two possible logical states to one, decreasing information-bearing entropy by one bit; the environment&#39;s entropy must increase enough to compensate.</p>
+<blockquote>
+<p>的能量，并在温度 (T) 下以热的形式释放。擦除把两个可能逻辑状态映射为一个，使信息载体熵减少一比特；环境熵必须相应增加。</p>
+</blockquote>
+<p>At room temperature this energy is tiny, but it provides a fundamental physical price for irreversible computation. Reversible computation can in principle avoid this cost until information is discarded.</p>
+<blockquote>
+<p>室温下这一能量极小，却给出了不可逆计算的基本物理代价。可逆计算原则上可以推迟这种代价，直到信息真正被丢弃。</p>
+</blockquote>
+<h2 id="8-6-the-second-law-of-thermodynamics-热力学第二定律">8.6 The Second Law of Thermodynamics / 热力学第二定律<a class="heading-anchor" href="#8-6-the-second-law-of-thermodynamics-热力学第二定律" aria-label="链接到本节">#</a></h2>
+<p>The second law states that the total entropy of an isolated system does not decrease:</p>
+<blockquote>
+<p>热力学第二定律指出，孤立系统的总熵不会减少：</p>
+</blockquote>
+<p>$$\Delta S_{\mathrm{total}}\ge0.$$</p>
+<p>This statistical law reflects the overwhelming dominance of high-multiplicity macrostates. Microscopic dynamics may be reversible, but transitions from common equilibrium macrostates to extremely special low-entropy macrostates are extraordinarily improbable.</p>
+<blockquote>
+<p>这条统计规律源于高重数宏观态在数量上的压倒性优势。微观动力学可以是可逆的，但系统从常见平衡宏观态自发转变为极特殊低熵宏观态的概率极低。</p>
+</blockquote>
+<p>Information acquisition alone does not violate the second law: the complete measurement, memory and erasure cycle must be included in the entropy accounting.</p>
+<blockquote>
+<p>单独获取信息并不违反第二定律：计算熵收支时必须包括完整的测量、存储和擦除循环。</p>
+</blockquote>
+<h2 id="8-7-maxwell-s-demon-麦克斯韦妖">8.7 Maxwell&#39;s Demon / 麦克斯韦妖<a class="heading-anchor" href="#8-7-maxwell-s-demon-麦克斯韦妖" aria-label="链接到本节">#</a></h2>
+<p>Maxwell imagined a demon controlling a door between two gas chambers. By allowing fast molecules one way and slow molecules the other, it appears to create a temperature difference without work, decreasing gas entropy and enabling perpetual extraction of energy.</p>
+<blockquote>
+<p>Maxwell 设想一个妖控制两个气室之间的小门。它让快分子向一侧通过、慢分子向另一侧通过，看似无需做功就能制造温差、降低气体熵并持续提取能量。</p>
+</blockquote>
+<p>The resolution is informational. The demon must measure molecules, store results and eventually reset memory. Landauer erasure produces at least enough entropy to offset the apparent decrease. The demon converts information into work but cannot complete a cycle for free.</p>
+<blockquote>
+<p>解决方案来自信息论。妖必须测量分子、存储结果，并最终重置记忆。Landauer 擦除产生的熵至少足以抵消表面上的熵减。妖可以把信息转化为功，却无法免费完成循环。</p>
+</blockquote>
+<p><strong>Figures 8.4-8.5. Maxwell&#39;s demon sorts molecules through a door; an impossible power station based on the demon illustrates why information processing costs must be included.</strong></p>
+<blockquote>
+<p><strong>图 8.4-8.5　麦克斯韦妖通过小门筛选分子；基于妖的“不可能电站”说明为什么必须计入信息处理代价。</strong></p>
+</blockquote>
+<h2 id="8-8-quantum-computation-量子计算">8.8 Quantum Computation / 量子计算<a class="heading-anchor" href="#8-8-quantum-computation-量子计算" aria-label="链接到本节">#</a></h2>
+<p>A classical bit is either 0 or 1; a qubit can occupy a superposition</p>
+<blockquote>
+<p>经典比特取 0 或 1；量子比特可以处于叠加态：</p>
+</blockquote>
+<p>$$|\psi\rangle=\alpha|0\rangle+\beta|1\rangle,
+\qquad |\alpha|^2+|\beta|^2=1.$$</p>
+<p>Measurement produces classical outcomes with probabilities (|\alpha|^2) and (|\beta|^2). Quantum gates are reversible unitary transformations, which helps separate logical processing from irreversible measurement and erasure.</p>
+<blockquote>
+<p>测量以 (|\alpha|^2) 和 (|\beta|^2) 的概率产生经典结果。量子门是可逆的幺正变换，这有助于把逻辑处理与不可逆测量、擦除区分开来。</p>
+</blockquote>
+<p>Entanglement creates correlations stronger than classical descriptions permit, but it does not allow faster-than-light classical communication. Quantum information obeys its own entropy, the von Neumann entropy,</p>
+<blockquote>
+<p>纠缠产生超越经典描述的相关性，却不能实现超光速经典通信。量子信息使用 von Neumann 熵：</p>
+</blockquote>
+<p>$$S(\rho)=-\operatorname{Tr}(\rho\log\rho).$$</p>
+<h2 id="8-9-summary-小结">8.9 Summary / 小结<a class="heading-anchor" href="#8-9-summary-小结" aria-label="链接到本节">#</a></h2>
+<p>Thermodynamic and information entropy both quantify uncertainty over microscopic alternatives. The second law is statistical, Landauer&#39;s principle gives irreversible information erasure a minimum heat cost, and Maxwell&#39;s demon fails once its complete information-processing cycle is counted. Quantum computation exploits reversible transformations and distinctly quantum forms of information.</p>
+<blockquote>
+<p>热力学熵和信息熵都量化微观备选状态的不确定性。第二定律是统计规律，Landauer 原理为不可逆信息擦除规定最低热代价，而在计入完整信息处理循环后，麦克斯韦妖无法违反第二定律。量子计算则利用可逆变换和量子特有的信息形式。</p>
+</blockquote>
+<h2 id="terminology-术语表">Terminology / 术语表<a class="heading-anchor" href="#terminology-术语表" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>thermodynamic entropy</td>
+<td>热力学熵</td>
+</tr>
+<tr>
+<td>macrostate</td>
+<td>宏观态</td>
+</tr>
+<tr>
+<td>microstate</td>
+<td>微观态</td>
+</tr>
+<tr>
+<td>ensemble</td>
+<td>系综</td>
+</tr>
+<tr>
+<td>multiplicity</td>
+<td>重数</td>
+</tr>
+<tr>
+<td>Boltzmann constant</td>
+<td>Boltzmann 常数</td>
+</tr>
+<tr>
+<td>partition function</td>
+<td>配分函数</td>
+</tr>
+<tr>
+<td>Landauer limit</td>
+<td>Landauer 极限</td>
+</tr>
+<tr>
+<td>second law of thermodynamics</td>
+<td>热力学第二定律</td>
+</tr>
+<tr>
+<td>Maxwell&#39;s demon</td>
+<td>麦克斯韦妖</td>
+</tr>
+<tr>
+<td>qubit</td>
+<td>量子比特</td>
+</tr>
+<tr>
+<td>von Neumann entropy</td>
+<td>von Neumann 熵</td>
+</tr>
+</tbody></table>
+</div></div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <a href="chapter-7-continuous-channel-capacity.html" rel="prev"><span>上一篇</span><strong>连续信道容量</strong></a>
+      <a href="chapter-9-information-as-currency.html" rel="next"><span>下一篇</span><strong>信息即大自然的货币</strong></a>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

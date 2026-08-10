@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>绪论｜Information Theory: A Tutorial Introduction | Ryan Zhang</title>
+    <meta name="description" content="全书结构、前言与信息论学习路线概览。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#matlab-and-python-computer-code-matlab-与-python-计算机代码">MatLab and Python Computer Code / MatLab 与 Python 计算机代码</a></li><li class="toc-depth-2"><a href="#powerpoint-slides-of-figures-图形的-powerpoint-幻灯片">PowerPoint Slides of Figures / 图形的 PowerPoint 幻灯片</a></li><li class="toc-depth-2"><a href="#corrections-勘误">Corrections / 勘误</a></li><li class="toc-depth-2"><a href="#acknowledgments-致谢">Acknowledgments / 致谢</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 6 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 00</p>
+          <h1>绪论</h1>
+          <p class="article-subtitle">Information Theory: A Tutorial Introduction</p>
+          <p class="lead">全书结构、前言与信息论学习路线概览。</p>
+          <div class="article-content"><p><strong>Author / 作者：James V. Stone / 詹姆斯·V. 斯通</strong></p>
+<blockquote>
+<p><strong>编排说明：</strong> 本文采用“英文原文在前、中文译文在后”的段落对照形式。公式、变量、图表编号、图题和参考文献序号按原书保留</p>
+</blockquote>
+<hr>
+<h1 id="matlab-and-python-computer-code-matlab-与-python-计算机代码">Preface / 前言<a class="heading-anchor" href="#matlab-and-python-computer-code-matlab-与-python-计算机代码" aria-label="链接到本节">#</a></h1>
+<p>This book is intended to provide a coherent and succinct account of information theory. In order to develop an intuitive understanding of key ideas, new topics are first presented in an informal tutorial style before being described more formally. In particular, the equations which underpin the mathematical foundations of information theory are introduced on a need-to-know basis, and the meaning of these equations is made clear by explanatory text and diagrams.</p>
+<blockquote>
+<p>本书旨在对信息论作出连贯而简明的介绍。为了帮助读者形成对关键思想的直观理解，每个新主题都会先以非正式的教程方式呈现，然后再作更为形式化的描述。尤其是，构成信息论数学基础的方程只在实际需要时引入，并通过解释性文字和图示阐明这些方程的含义。</p>
+</blockquote>
+<p>In mathematics, rigour follows insight, and not vice versa. Kepler, Newton, Fourier and Einstein developed their theories from deep intuitive insights about the structure of the physical world, which requires, but is fundamentally different from, the raw logic of pure mathematics. Accordingly, this book provides insights into how information theory works, and why it works in that way. This is entirely consistent with Shannon&#39;s own approach. In a famously brief book, Shannon prefaced his account of information theory for continuous variables with these words:</p>
+<blockquote>
+<p>在数学中，严谨性源于洞见，而不是洞见源于严谨性。开普勒、牛顿、傅里叶和爱因斯坦的理论，都建立在他们对物理世界结构的深刻直觉洞察之上。这种洞察需要纯数学的基本逻辑，却与纯数学的原始逻辑有着本质区别。因此，本书着重帮助读者理解信息论如何运作，以及它为什么以这种方式运作。这与香农本人的做法完全一致。在一本以简短著称的著作中，香农在讨论连续变量的信息论之前写道：</p>
+</blockquote>
+<blockquote>
+<p>We will not attempt in the continuous case to obtain our results with the greatest generality, or with the extreme rigor of pure mathematics, since this would involve a great deal of abstract measure theory and would obscure the main thread of the analysis. ... The occasional liberties taken with limiting processes in the present analysis can be justified in all cases of practical interest.</p>
+<p>对于连续变量的情形，我们不打算以最大的普适性或纯数学的极端严谨性来推导结果，因为那将涉及大量抽象测度论，并会掩盖分析的主线。……在当前分析中，我们偶尔对极限过程采取的较为宽松的处理，对于所有具有实际意义的情形都可以得到合理说明。</p>
+</blockquote>
+<p><em>Shannon C and Weaver W, 1949</em><sup>50</sup>.</p>
+<p>In a similar vein, Jaynes protested that:</p>
+<blockquote>
+<p>与此相似，杰恩斯曾抗议道：</p>
+</blockquote>
+<blockquote>
+<p>Nowadays, if you introduce a variable x without repeating the incantation that it is some set or &#39;space&#39; X, you are accused of dealing with an undefined problem ...</p>
+<p>如今，如果你引入变量 (x) 时，没有反复念诵“它属于某个集合或‘空间’ (X)”这句咒语，就会有人指责你处理的是一个未定义的问题……</p>
+</blockquote>
+<p><em>Jaynes ET and Bretthorst GL, 2003</em><sup>26</sup>.</p>
+<p>Even though this is no excuse for sloppy mathematics, it is a clear recommendation that we should not mistake a particular species of pedantry for mathematical rigour. The spirit of this liberating and somewhat cavalier approach is purposely adopted in this book, which is intended to provide insights, rather than incantations, regarding how information theory is relevant to problems of practical interest.</p>
+<blockquote>
+<p>尽管这绝不是数学马虎的借口，但它清楚地提醒我们，不应把某种形式的迂腐误认为数学严谨性。本书有意采用这种令人解放、略显不拘一格的精神，目的在于帮助读者洞察信息论与实际问题的关系，而不是提供一套形式化的“咒语”。</p>
+</blockquote>
+<h2 id="powerpoint-slides-of-figures-图形的-powerpoint-幻灯片">MatLab and Python Computer Code / MatLab 与 Python 计算机代码<a class="heading-anchor" href="#powerpoint-slides-of-figures-图形的-powerpoint-幻灯片" aria-label="链接到本节">#</a></h2>
+<p>It often aids understanding to be able to examine well-documented computer code which provides an example of a particular calculation or method. To support this, MatLab and Python code implementing key information-theoretic methods can be found online. The code also reproduces some of the figures in this book.</p>
+<blockquote>
+<p>阅读带有完整注释、用于演示特定计算或方法的计算机代码，往往有助于理解。为此，实现信息论关键方法的 MatLab 和 Python 代码可以在线获取。这些代码还可以复现本书中的部分图形。</p>
+</blockquote>
+<p>MatLab code can be downloaded from here:</p>
+<p><a href="http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryMatlab.html" target="_blank" rel="noreferrer">http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryMatlab.html</a></p>
+<blockquote>
+<p>MatLab 代码可从以上网址下载。</p>
+</blockquote>
+<p>Python code can be downloaded from here:</p>
+<p><a href="http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryPython.html" target="_blank" rel="noreferrer">http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryPython.html</a></p>
+<blockquote>
+<p>Python 代码可从以上网址下载。</p>
+</blockquote>
+<h2 id="corrections-勘误">PowerPoint Slides of Figures / 图形的 PowerPoint 幻灯片<a class="heading-anchor" href="#corrections-勘误" aria-label="链接到本节">#</a></h2>
+<p>Most of the figures used in this book are available for teaching purposes as a PDF file and as PowerPoint slides. These can be downloaded from:</p>
+<p><a href="http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryFigures.html" target="_blank" rel="noreferrer">http://jim-stone.staff.shef.ac.uk/BookInfoTheory/InfoTheoryFigures.html</a></p>
+<blockquote>
+<p>本书使用的大多数图形都提供教学用途的 PDF 文件和 PowerPoint 幻灯片，可从以上网址下载。</p>
+</blockquote>
+<h2 id="acknowledgments-致谢">Corrections / 勘误<a class="heading-anchor" href="#acknowledgments-致谢" aria-label="链接到本节">#</a></h2>
+<p>Please email corrections to <a href="mailto:j.v.stone@sheffield.ac.uk">j.v.stone@sheffield.ac.uk</a>.</p>
+<blockquote>
+<p>如发现错误，请发送电子邮件至 <a href="mailto:j.v.stone@sheffield.ac.uk">j.v.stone@sheffield.ac.uk</a>。</p>
+</blockquote>
+<p>A list of corrections can be found at:</p>
+<p><a href="http://jim-stone.staff.shef.ac.uk/BookInfoTheory/Corrections.html" target="_blank" rel="noreferrer">http://jim-stone.staff.shef.ac.uk/BookInfoTheory/Corrections.html</a></p>
+<blockquote>
+<p>勘误表可在以上网址查看。</p>
+</blockquote>
+<h2 id="acknowledgments-致谢">Acknowledgments / 致谢<a class="heading-anchor" href="#acknowledgments-致谢" aria-label="链接到本节">#</a></h2>
+<p>Thanks to John de Pledge, John Porrill, Royston Sellman, and Steve Snow for interesting discussions on the interpretation of information theory, and to John de Pledge for writing the Python code.</p>
+<blockquote>
+<p>感谢 John de Pledge、John Porrill、Royston Sellman 和 Steve Snow 围绕信息论的解释所进行的精彩讨论，并感谢 John de Pledge 编写 Python 代码。</p>
+</blockquote>
+<p>For reading draft versions of this book, I am very grateful to Oscar Barquero-Perez, Taylor Bond, David Buckley, Jeremy Dickman, Stephen Eglen, Charles Fox, Nikki Hunkin, Danielle Matthews, Guy Mikawa, Xiang Mou, John de Pledge, John Porrill, Royston Sellman, Steve Snow, Tom Stafford, Paul Warren and Stuart Wilson. Shashank Vatedka deserves a special mention for checking the mathematics in a final draft of this book. Thanks to Caroline Orr for meticulous copy-editing and proofreading.</p>
+<blockquote>
+<p>我非常感谢 Oscar Barquero-Perez、Taylor Bond、David Buckley、Jeremy Dickman、Stephen Eglen、Charles Fox、Nikki Hunkin、Danielle Matthews、Guy Mikawa、Xiang Mou、John de Pledge、John Porrill、Royston Sellman、Steve Snow、Tom Stafford、Paul Warren 和 Stuart Wilson 阅读本书的各版草稿。尤其要感谢 Shashank Vatedka 对本书最终草稿中的数学内容进行核查。感谢 Caroline Orr 一丝不苟地完成文字编辑和校对工作。</p>
+</blockquote>
+<p>Online code for estimating the entropy of English was adapted from code by Neal Patwari (MatLab) and Clement Pit-Claudel (Python).</p>
+<blockquote>
+<p>用于估计英语熵的在线代码，改编自 Neal Patwari 的 MatLab 代码和 Clement Pit-Claudel 的 Python 代码。</p>
+</blockquote>
+<p>For permission to use the photograph of Claude Shannon, thanks to the Massachusetts Institute of Technology.</p>
+<blockquote>
+<p>感谢麻省理工学院授权使用克劳德·香农的照片。</p>
+</blockquote>
+<p>Jim Stone.</p>
+<blockquote>
+<p>吉姆·斯通</p>
+</blockquote>
+<hr>
+</div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <span></span>
+      <a href="chapter-1-what-is-information.html" rel="next"><span>下一篇</span><strong>什么是信息</strong></a>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

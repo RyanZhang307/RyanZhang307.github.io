@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>连续随机变量的熵｜Entropy of Continuous Variables | Ryan Zhang</title>
+    <meta name="description" content="从离散化极限到微分熵，以及坐标变换和最大熵分布。">
+    <link rel="stylesheet" href="../../assets/styles.css">
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true },
+        options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+        <span class="brand-mark">RZ</span>
+        <span>Ryan Zhang</span>
+      </a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="../../index.html">首页</a>
+        <a href="../index.html" aria-current="page">文章</a>
+        <a href="../../resume.html">简历</a>
+        <a href="../../index.html#projects">项目</a>
+      </nav>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
+      </button>
+    </header>
+    <main class="chapter-shell">
+      <aside class="chapter-toc card">
+        <a class="back-link" href="index.html">← 信息论专题</a>
+        <p class="eyebrow">On this page</p>
+        <h2>本章目录</h2>
+        <ol class="chapter-toc-list"><li class="toc-depth-2"><a href="#5-1-introduction-引言">5.1 Introduction / 引言</a></li><li class="toc-depth-2"><a href="#5-2-the-trouble-with-entropy-熵的困难">5.2 The Trouble With Entropy / 熵的困难</a></li><li class="toc-depth-2"><a href="#5-3-differential-entropy-微分熵">5.3 Differential Entropy / 微分熵</a></li><li class="toc-depth-2"><a href="#5-4-under-estimating-entropy-熵的低估">5.4 Under-Estimating Entropy / 熵的低估</a></li><li class="toc-depth-2"><a href="#5-5-properties-of-differential-entropy-微分熵的性质">5.5 Properties of Differential Entropy / 微分熵的性质</a></li><li class="toc-depth-2"><a href="#5-6-maximum-entropy-distributions-最大熵分布">5.6 Maximum Entropy Distributions / 最大熵分布</a></li><li class="toc-depth-3"><a href="#uniform-distribution-均匀分布">Uniform Distribution / 均匀分布</a></li><li class="toc-depth-3"><a href="#exponential-distribution-指数分布">Exponential Distribution / 指数分布</a></li><li class="toc-depth-3"><a href="#gaussian-distribution-高斯分布">Gaussian Distribution / 高斯分布</a></li><li class="toc-depth-2"><a href="#5-7-making-sense-of-differential-entropy-理解微分熵">5.7 Making Sense of Differential Entropy / 理解微分熵</a></li><li class="toc-depth-2"><a href="#5-8-what-is-half-a-bit-of-information-什么是半比特信息">5.8 What is Half a Bit of Information? / 什么是半比特信息？</a></li><li class="toc-depth-2"><a href="#5-9-summary-小结">5.9 Summary / 小结</a></li><li class="toc-depth-2"><a href="#terminology-术语表">Terminology / 术语表</a></li></ol>
+      </aside>
+      <div class="chapter-flow">
+        <article class="article chapter-article card">
+          <div class="post-meta">
+            <time datetime="2026-08-11">2026.08.11</time>
+            <span>信息论</span>
+            <span>约 7 分钟</span>
+          </div>
+          <p class="chapter-number">Chapter 05</p>
+          <h1>连续随机变量的熵</h1>
+          <p class="article-subtitle">Entropy of Continuous Variables</p>
+          <p class="lead">从离散化极限到微分熵，以及坐标变换和最大熵分布。</p>
+          <div class="article-content"><h2 id="5-1-introduction-引言">5.1 Introduction / 引言<a class="heading-anchor" href="#5-1-introduction-引言" aria-label="链接到本节">#</a></h2>
+<p>Discrete entropy is defined by probabilities assigned to separate outcomes. Continuous variables have infinitely many possible values, so a direct application leads to difficulties and requires differential entropy.</p>
+<blockquote>
+<p>离散熵建立在彼此分离的结果概率之上。连续变量具有无限多个可能取值，直接套用离散定义会产生困难，因此需要引入微分熵。</p>
+</blockquote>
+<h2 id="5-2-the-trouble-with-entropy-熵的困难">5.2 The Trouble With Entropy / 熵的困难<a class="heading-anchor" href="#5-2-the-trouble-with-entropy-熵的困难" aria-label="链接到本节">#</a></h2>
+<p>A continuous distribution can be approximated by a histogram with bin width (\Delta x). If bin (i) has probability (p_i), histogram entropy is</p>
+<blockquote>
+<p>连续分布可以用箱宽为 (\Delta x) 的直方图近似。若第 (i) 个箱的概率为 (p_i)，直方图熵为：</p>
+</blockquote>
+<p>$$H(X_\Delta)=\sum_i p_i\log\frac1{p_i}.$$</p>
+<p>As bins become narrower, their number grows and each probability shrinks. Consequently (H(X_\Delta)) increases without bound as (\Delta x\to0). The divergence is caused by measurement precision rather than by the intrinsic shape of the density.</p>
+<blockquote>
+<p>随着箱宽变窄，箱数增加，每个箱的概率减小。因此当 (\Delta x\to0) 时，(H(X_\Delta)) 会无界增长。这种发散源于测量精度，而不是概率密度本身的形状。</p>
+</blockquote>
+<p><strong>Figure 5.1. A histogram of 5,000 hypothetical human heights shows how probabilities depend on bin width.</strong></p>
+<blockquote>
+<p><strong>图 5.1　5,000 个假想身高值的直方图，展示概率如何随箱宽变化。</strong></p>
+</blockquote>
+<h2 id="5-3-differential-entropy-微分熵">5.3 Differential Entropy / 微分熵<a class="heading-anchor" href="#5-3-differential-entropy-微分熵" aria-label="链接到本节">#</a></h2>
+<p>For density (p(x)), differential entropy removes the divergent resolution term:</p>
+<blockquote>
+<p>对概率密度 (p(x))，微分熵去除了与分辨率有关的发散项：</p>
+</blockquote>
+<p>$$h(X)=-\int p(x)\log p(x),dx
+=\int p(x)\log\frac1{p(x)},dx.$$</p>
+<p>The relationship to a fine histogram is approximately</p>
+<blockquote>
+<p>它与细分直方图熵的关系近似为：</p>
+</blockquote>
+<p>$$H(X_\Delta)\approx h(X)+\log\frac1{\Delta x},$$
+$$h(X)\approx H(X_\Delta)-\log\frac1{\Delta x}.$$</p>
+<p>Unlike discrete entropy, differential entropy can be negative. This does not imply negative physical information; it reflects the chosen coordinate scale and the removal of the resolution term.</p>
+<blockquote>
+<p>与离散熵不同，微分熵可以为负。这并不表示物理信息为负，而是反映坐标尺度以及分辨率项被移除后的结果。</p>
+</blockquote>
+<p><strong>Figure 5.2. Decreasing histogram bin width increases discrete histogram entropy, while the corrected differential entropy remains stable.</strong></p>
+<blockquote>
+<p><strong>图 5.2　缩小直方图箱宽会增加离散直方图熵，而校正后的微分熵保持稳定。</strong></p>
+</blockquote>
+<h2 id="5-4-under-estimating-entropy-熵的低估">5.4 Under-Estimating Entropy / 熵的低估<a class="heading-anchor" href="#5-4-under-estimating-entropy-熵的低估" aria-label="链接到本节">#</a></h2>
+<p>Entropy estimated from finite samples is biased downward because unobserved bins are treated as having zero probability. The problem worsens when the sample is small relative to the number of possible outcomes. Larger samples, sensible binning, or bias-corrected estimators are required.</p>
+<blockquote>
+<p>根据有限样本估计熵通常存在向下偏差，因为未观察到的箱被当作概率为零。当样本量相对于可能结果数过小时，问题更加严重。需要更大样本、合理分箱或经过偏差校正的估计器。</p>
+</blockquote>
+<h2 id="5-5-properties-of-differential-entropy-微分熵的性质">5.5 Properties of Differential Entropy / 微分熵的性质<a class="heading-anchor" href="#5-5-properties-of-differential-entropy-微分熵的性质" aria-label="链接到本节">#</a></h2>
+<p>For a differentiable one-to-one transformation (Y=g(X)),</p>
+<blockquote>
+<p>对可微的一一变换 (Y=g(X))：</p>
+</blockquote>
+<p>$$h(Y)=h(X)+E\left[\log\left|\frac{dY}{dX}\right|\right].$$</p>
+<p>For scaling (Y=cX),</p>
+<blockquote>
+<p>对尺度变换 (Y=cX)：</p>
+</blockquote>
+<p>$$h(Y)=h(X)+\log|c|.$$</p>
+<p>Thus doubling a continuous variable adds one bit, whereas merely doubling the labels of a discrete variable does not change discrete entropy. Translation (Y=X+c) has derivative one and leaves differential entropy unchanged.</p>
+<blockquote>
+<p>因此，把连续变量放大两倍会增加一比特微分熵；而仅把离散变量的标签数值加倍不会改变离散熵。平移 (Y=X+c) 的导数为 1，所以微分熵不变。</p>
+</blockquote>
+<h2 id="5-6-maximum-entropy-distributions-最大熵分布">5.6 Maximum Entropy Distributions / 最大熵分布<a class="heading-anchor" href="#5-6-maximum-entropy-distributions-最大熵分布" aria-label="链接到本节">#</a></h2>
+<p>Maximum-entropy distributions express the greatest uncertainty compatible with stated constraints.</p>
+<blockquote>
+<p>最大熵分布表示在给定约束下能够具有的最大不确定性。</p>
+</blockquote>
+<h3 id="uniform-distribution-均匀分布">Uniform Distribution / 均匀分布<a class="heading-anchor" href="#uniform-distribution-均匀分布" aria-label="链接到本节">#</a></h3>
+<p>On a fixed interval ([0,a]), the uniform density maximises entropy:</p>
+<blockquote>
+<p>在固定区间 ([0,a]) 上，均匀密度使熵最大：</p>
+</blockquote>
+<p>$$p(x)=\frac1a,\qquad X\sim U(0,a),$$
+$$h(X)=\log a\ \text{bits}.$$</p>
+<p>Doubling the range adds one bit.</p>
+<blockquote>
+<p>把取值范围加倍会增加一比特。</p>
+</blockquote>
+<p><strong>Figure 5.3. A uniform distribution on zero to two has maximum entropy among distributions restricted to that range.</strong></p>
+<blockquote>
+<p><strong>图 5.3　在 0 到 2 的固定范围内，均匀分布具有最大熵。</strong></p>
+</blockquote>
+<h3 id="exponential-distribution-指数分布">Exponential Distribution / 指数分布<a class="heading-anchor" href="#exponential-distribution-指数分布" aria-label="链接到本节">#</a></h3>
+<p>For a non-negative variable with fixed mean (\mu), the exponential distribution maximises entropy:</p>
+<blockquote>
+<p>对均值固定为 (\mu) 的非负变量，指数分布使熵最大：</p>
+</blockquote>
+<p>$$p(x)=\frac1\mu e^{-x/\mu},\quad x\ge0,\qquad X\sim\operatorname{Exp}(\mu),$$
+$$h(X)=\log(e\mu)\ \text{bits}.$$</p>
+<p><strong>Figure 5.4. Exponential density with mean (\mu=1).</strong></p>
+<blockquote>
+<p><strong>图 5.4　均值为 (\mu=1) 的指数密度。</strong></p>
+</blockquote>
+<h3 id="gaussian-distribution-高斯分布">Gaussian Distribution / 高斯分布<a class="heading-anchor" href="#gaussian-distribution-高斯分布" aria-label="链接到本节">#</a></h3>
+<p>Among all real-valued distributions with fixed mean (\mu) and variance (\sigma^2), the Gaussian has maximum entropy:</p>
+<blockquote>
+<p>在均值 (\mu)、方差 (\sigma^2) 固定的所有实值分布中，高斯分布具有最大熵：</p>
+</blockquote>
+<p>$$p(x)=\frac1{\sqrt{2\pi\sigma^2}}\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right],$$
+$$h(X)=\frac12\log(2\pi e\sigma^2)=2.05+\log\sigma\ \text{bits}.$$</p>
+<p><strong>Figure 5.5. Gaussian density with mean zero and its entropy determined by standard deviation.</strong></p>
+<blockquote>
+<p><strong>图 5.5　均值为零的高斯密度，其熵由标准差决定。</strong></p>
+</blockquote>
+<h2 id="5-7-making-sense-of-differential-entropy-理解微分熵">5.7 Making Sense of Differential Entropy / 理解微分熵<a class="heading-anchor" href="#5-7-making-sense-of-differential-entropy-理解微分熵" aria-label="链接到本节">#</a></h2>
+<p>Differential entropy is not an absolute count of distinguishable outcomes. It is best interpreted relative to a reference scale or through differences in entropy. Mutual information, which subtracts entropy terms so that scale-dependent parts cancel, remains invariant under invertible coordinate transformations.</p>
+<blockquote>
+<p>微分熵不是可区分结果数量的绝对计数。它更适合相对于参考尺度，或通过熵差来解释。互信息由多个熵项相减，尺度相关部分会抵消，因此在可逆坐标变换下保持不变。</p>
+</blockquote>
+<h2 id="5-8-what-is-half-a-bit-of-information-什么是半比特信息">5.8 What is Half a Bit of Information? / 什么是半比特信息？<a class="heading-anchor" href="#5-8-what-is-half-a-bit-of-information-什么是半比特信息" aria-label="链接到本节">#</a></h2>
+<p>If residual uncertainty after receiving (h) bits is measured as a proportion of its original value,</p>
+<blockquote>
+<p>如果把接收 (h) 比特信息后的剩余不确定性，表示为原始不确定性的比例，则：</p>
+</blockquote>
+<p>$$U=2^{-h}.$$</p>
+<p>One bit halves uncertainty:</p>
+<blockquote>
+<p>一比特使不确定性减半：</p>
+</blockquote>
+<p>$$U=2^{-1}=\frac12.$$</p>
+<p>Half a bit leaves</p>
+<blockquote>
+<p>半比特留下：</p>
+</blockquote>
+<p>$$U=2^{-1/2}\approx0.71.$$</p>
+<p>Receiving two successive half-bits multiplies residual uncertainty twice, (0.71^2\approx0.5), equivalent to one full bit. A quarter-bit leaves (2^{-1/4}\approx0.84).</p>
+<blockquote>
+<p>连续接收两个半比特，会把剩余不确定性连续乘以两次 0.71，即 (0.71^2\approx0.5)，等价于一整比特。四分之一比特留下 (2^{-1/4}\approx0.84) 的不确定性。</p>
+</blockquote>
+<p><strong>Figures 5.6-5.7. Residual uncertainty decreases exponentially with received information.</strong></p>
+<blockquote>
+<p><strong>图 5.6-5.7　剩余不确定性随接收信息量呈指数下降。</strong></p>
+</blockquote>
+<h2 id="5-9-summary-小结">5.9 Summary / 小结<a class="heading-anchor" href="#5-9-summary-小结" aria-label="链接到本节">#</a></h2>
+<p>Continuous variables require differential entropy because ordinary histogram entropy diverges as resolution increases. Differential entropy depends on scale, can be negative, and transforms predictably under changes of variables. Uniform, exponential and Gaussian distributions maximise entropy under different constraints. Fractions of a bit have a precise interpretation as multiplicative reductions in residual uncertainty.</p>
+<blockquote>
+<p>连续变量需要微分熵，因为普通直方图熵会随分辨率提高而发散。微分熵依赖尺度，可以为负，并在变量变换下按确定规律变化。均匀、指数和高斯分布分别在不同约束下使熵最大。比特的小数部分可以精确解释为剩余不确定性的乘法缩减。</p>
+</blockquote>
+<h2 id="terminology-术语表">Terminology / 术语表<a class="heading-anchor" href="#terminology-术语表" aria-label="链接到本节">#</a></h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>English</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>differential entropy</td>
+<td>微分熵</td>
+</tr>
+<tr>
+<td>probability density</td>
+<td>概率密度</td>
+</tr>
+<tr>
+<td>histogram bin width</td>
+<td>直方图箱宽</td>
+</tr>
+<tr>
+<td>change of variables</td>
+<td>变量变换</td>
+</tr>
+<tr>
+<td>maximum entropy distribution</td>
+<td>最大熵分布</td>
+</tr>
+<tr>
+<td>uniform distribution</td>
+<td>均匀分布</td>
+</tr>
+<tr>
+<td>exponential distribution</td>
+<td>指数分布</td>
+</tr>
+<tr>
+<td>Gaussian distribution</td>
+<td>高斯分布</td>
+</tr>
+<tr>
+<td>residual uncertainty</td>
+<td>剩余不确定性</td>
+</tr>
+</tbody></table>
+</div></div>
+        </article>
+        <nav class="chapter-pagination" aria-label="章节导航">
+      <a href="chapter-4-noisy-channel-coding.html" rel="prev"><span>上一篇</span><strong>有噪声信道编码定理</strong></a>
+      <a href="chapter-6-continuous-mutual-information.html" rel="next"><span>下一篇</span><strong>连续互信息</strong></a>
+    </nav>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>© <span data-year></span> Ryan Zhang</span>
+      <a href="index.html">返回信息论专题</a>
+    </footer>
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>
