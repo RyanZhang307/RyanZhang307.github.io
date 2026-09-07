@@ -3,3 +3,4 @@ Thumbs.db
 *.log
 .vscode/.ropeproject
 node_modules/
+content/information-theory/

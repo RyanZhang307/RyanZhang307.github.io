@@ -1,102 +1,111 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>简历 | Ryan Zhang</title>
-    <meta name="description" content="Ryan Zhang 的在线简历。">
+    <title>Curriculum Vitae | Ruiyuan Zhang</title>
+    <meta name="description" content="Academic curriculum vitae of Ruiyuan Zhang, PhD candidate at JAIST.">
+    <meta property="og:title" content="Ruiyuan Zhang | Curriculum Vitae">
+    <meta property="og:image" content="https://ryanzhang307.github.io/assets/ruiyuan-academic-og.png">
     <link rel="stylesheet" href="assets/styles.css">
   </head>
-  <body>
+  <body class="academic-resume">
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="Ryan Zhang 首页">
-        <span class="brand-mark">RZ</span>
-        <span>Ryan Zhang</span>
-      </a>
-      <nav class="nav-links" aria-label="主要导航">
-        <a href="index.html">首页</a>
-        <a href="blog/">文章</a>
-        <a href="resume.html" aria-current="page">简历</a>
-        <a href="index.html#projects">项目</a>
+      <a class="brand" href="index.html" aria-label="Ruiyuan Zhang home"><span class="brand-mark">RZ</span><span>Ruiyuan Zhang</span></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="blog/">Blog</a>
       </nav>
-      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
-        <span class="theme-switch-track" aria-hidden="true">
-          <span class="theme-switch-knob"></span>
-        </span>
-      </button>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="Switch color theme"><span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span></button>
     </header>
 
-    <main class="page-shell">
-      <section class="page-hero card">
-        <p class="eyebrow">Resume</p>
-        <h1>Ryan Zhang</h1>
-        <p>这是在线简历页。你可以把教育经历、工作经历、项目经历和联系方式逐步补充到这里。</p>
+    <main class="cv-shell">
+      <header class="cv-header">
+        <div>
+          <p class="eyebrow">Curriculum vitae</p>
+          <h1>Ruiyuan Zhang</h1>
+          <p>PhD Candidate · Reinforcement Learning · Large Language Models · Computer Graphics</p>
+        </div>
+        <div class="cv-contact">
+          <a href="mailto:ryanzhang@jaist.ac.jp">ryanzhang@jaist.ac.jp</a>
+          <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">github.com/RyanZhang307 ↗</a>
+          <button class="print-button" type="button" data-print>Print / Save PDF</button>
+        </div>
+      </header>
+
+      <section class="cv-section">
+        <h2>Profile</h2>
+        <div class="cv-section-content"><p>Third-year PhD candidate in Information Science at the Japan Advanced Institute of Science and Technology. My work studies how learning agents can acquire useful reward signals, explore efficiently, and create controllable structured content. Current interests include LLM-based reward generation, reinforcement learning, and neural methods for 3D botanical modeling.</p></div>
       </section>
 
-      <section class="resume-layout">
-        <aside class="resume-side card">
-          <img class="resume-avatar" src="https://github.com/RyanZhang307.png" alt="Ryan Zhang 的 GitHub 头像">
-          <h2>联系方式</h2>
-          <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="mailto:your-email@example.com">your-email@example.com</a>
-          <h2>方向</h2>
-          <p>Web 应用、学习工具、个人知识管理、长期写作。</p>
-        </aside>
+      <section class="cv-section">
+        <h2>Education</h2>
+        <div class="cv-section-content cv-entries">
+          <article class="cv-entry"><div><h3>Japan Advanced Institute of Science and Technology</h3><p>PhD in Information Science</p><p class="cv-detail">Advisors: Prof. Xianchao Zhu and Prof. Van-Nam Huynh</p></div><time>Apr 2024 — Present</time></article>
+          <article class="cv-entry"><div><h3>University of Electronic Science and Technology of China</h3><p>MSc in Computer Science and Technology</p><p class="cv-detail">GPA: 3.69 / 4.0 · Supervisor: Prof. William Zhu</p></div><time>Sep 2019 — Jun 2022</time></article>
+          <article class="cv-entry"><div><h3>Northwest A&amp;F University</h3><p>BEng in Software Engineering</p><p class="cv-detail">GPA: 3.58 / 4.0 · Ranked 1 / 99 for three years</p></div><time>Sep 2015 — Jun 2019</time></article>
+        </div>
+      </section>
 
-        <div class="resume-content card">
-          <section>
-            <h2>个人简介</h2>
-            <p>关注技术实践、学习方法和内容沉淀。希望把项目、笔记和思考整理成一个持续更新的公开主页。</p>
-          </section>
+      <section class="cv-section">
+        <h2>Research experience</h2>
+        <div class="cv-section-content cv-entries">
+          <article class="cv-entry"><div><h3>The Chinese University of Hong Kong, Shenzhen</h3><p>Research Assistant</p><p class="cv-detail">Supervisor: Prof. Guiliang Liu</p></div><time>Nov 2022 — Aug 2023</time></article>
+        </div>
+      </section>
 
-          <section>
-            <h2>项目经历</h2>
-            <article class="resume-item">
-              <h3>日语词汇练习场</h3>
-              <p>基于词汇与例句数据制作的日语学习工具，包含课程筛选、N 级筛选、单词卡、闯关、例句阅读和词库检索。</p>
-              <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">https://ryan-nihongo.vercel.app/</a>
-            </article>
-            <article class="resume-item">
-              <h3>Quiet Room</h3>
-              <p>专注和放松场景应用，包含多语言界面、主题切换、环境音、计时器、呼吸节奏和轻量聊天助手。</p>
-              <a href="https://quiet-heart.vercel.app/" target="_blank" rel="noreferrer">https://quiet-heart.vercel.app/</a>
-            </article>
-            <article class="resume-item">
-              <h3>TransferBox</h3>
-              <p>设备间文件传输工具，通过连接码或扫码建立连接，支持双向发送文件、拖放选择和接收列表管理。</p>
-              <a href="https://transferbox.vercel.app/" target="_blank" rel="noreferrer">https://transferbox.vercel.app/</a>
-            </article>
-            <article class="resume-item">
-              <h3>掌心花 · Gesture Bloom</h3>
-              <p>手势驱动的粒子花朵交互实验，使用摄像头识别手掌张合，以连续手势控制花瓣绽放与合拢。</p>
-              <a href="https://gesture-flower-web.vercel.app/" target="_blank" rel="noreferrer">https://gesture-flower-web.vercel.app/</a>
-            </article>
-            <article class="resume-item">
-              <h3>个人主页与博客</h3>
-              <p>使用 GitHub Pages 托管，作为简历、项目、博客和读书笔记入口。</p>
-            </article>
-          </section>
+      <section class="cv-section" id="publications">
+        <h2>Publications</h2>
+        <ol class="cv-section-content cv-publications">
+          <li><span class="pub-year">2026</span><div><h3>Episodic Progress Reward Models for LLM-based Reward Generation in Reinforcement Learning</h3><p><strong>Ruiyuan Zhang</strong>, Xianchao Zhu, Van-Nam Huynh · <em>Under review</em></p></div></li>
+          <li><span class="pub-year">2026</span><div><h3>AE-PRM: Adaptive Episodic Progress Reward Models for Text-guided Reward Generations in Reinforcement Learning</h3><p><strong>Ruiyuan Zhang</strong>, Xianchao Zhu, Xiaojie Zhen, Van-Nam Huynh · <em>Under review</em></p></div></li>
+          <li><span class="pub-year">2026</span><div><h3>BotanyCraft: A Versatile AI Agent for Controllable Generation of Structured 3D Botanical Plants</h3><p><strong>Ruiyuan Zhang</strong>, Zhihao Liu, Van-Nam Huynh · <em>Under review</em></p></div></li>
+          <li><span class="pub-year">2024</span><div><h3>DeepTreeSketch: Neural Graph Reasoning for Faithful 3D Tree Modeling from Sketches</h3><p>Zhihao Liu, Yu Li, Fangyuan Tu, <strong>Ruiyuan Zhang</strong>, Zhanglin Chen, Naoto Yokoya · <em>CHI 2024</em></p></div></li>
+          <li><span class="pub-year">2022</span><div><h3>Improved Sample Efficiency by Episodic Memory Hit Ratio Deep Q-networks</h3><p><strong>Ruiyuan Zhang</strong>, Xianchao Zhu, William Zhu · <em>Journal of Applied and Numerical Optimization</em></p><a href="http://jano.biemdas.com/archives/1278" target="_blank" rel="noreferrer">Paper ↗</a></div></li>
+          <li><span class="pub-year">2022</span><div><h3>MDMD Options Discovery for Accelerating Exploration in Sparse-reward Domains</h3><p>Xianchao Zhu, <strong>Ruiyuan Zhang</strong>, William Zhu · <em>Knowledge-Based Systems</em></p><a href="https://www.sciencedirect.com/science/article/pii/S0950705122000181" target="_blank" rel="noreferrer">Paper ↗</a></div></li>
+          <li><span class="pub-year">2022</span><div><h3>Improved the Sample Efficiency of Episodic Reinforcement Learning by Forcing State Representations</h3><p><strong>Ruiyuan Zhang</strong>, William Zhu · <em>International Conference on Automation Control, Algorithm and Intelligent</em></p><a href="https://ui.adsabs.harvard.edu/abs/2022SPIE12253E..1IZ/abstract" target="_blank" rel="noreferrer">Paper ↗</a></div></li>
+          <li><span class="pub-year">2022</span><div><h3>Visual Transfer for Reinforcement Learning via Gradient Penalty based Wasserstein Domain Confusion</h3><p>Xianchao Zhu, <strong>Ruiyuan Zhang</strong>, William Zhu · <em>Journal of Nonlinear and Variational Analysis</em></p><a href="http://jnva.biemdas.com/archives/1667" target="_blank" rel="noreferrer">Paper ↗</a></div></li>
+          <li><span class="pub-year">2022</span><div><h3>WDIBS: Wasserstein Deterministic Information Bottleneck for State Abstraction to Balance State-compression and Performance</h3><p>Xianchao Zhu, Tianyi Huang, <strong>Ruiyuan Zhang</strong>, William Zhu · <em>Applied Intelligence</em></p><a href="https://link.springer.com/article/10.1007/s10489-021-02787-4" target="_blank" rel="noreferrer">Paper ↗</a></div></li>
+        </ol>
+      </section>
 
-          <section>
-            <h2>技能与工具</h2>
-            <ul class="tag-list">
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>GitHub Pages</li>
-              <li>Vercel</li>
-              <li>Markdown</li>
-            </ul>
-          </section>
+      <section class="cv-section">
+        <h2>Selected projects</h2>
+        <div class="cv-section-content cv-entries">
+          <article class="cv-entry"><div><h3>Beyond Induction Circuits: Task Vectors and In-context Learning</h3><p class="cv-detail">Mechanistic interpretability study of task representation in language models.</p></div><time>2025</time></article>
+          <article class="cv-entry"><div><h3>LLMs for Constraint-Guided Policy Learning</h3><p class="cv-detail">Language-model assistance for incorporating constraints into reinforcement learning.</p></div><time>2023</time></article>
+          <article class="cv-entry"><div><h3>Paper-cutting Artwork Generation with Unpaired GAN</h3><p class="cv-detail">Generative modeling for traditional visual art.</p></div><time>2019</time></article>
+          <article class="cv-entry"><div><h3>3D Visual Simulation of Grape Growth and Downy Mildew</h3><p class="cv-detail">Interactive botanical visualization and disease simulation.</p></div><time>2017</time></article>
+          <article class="cv-entry"><div><h3>Minecraft-style World Built with Unity 3D</h3></div><time>2019</time></article>
+          <article class="cv-entry"><div><h3>Tree Skeleton Reconstruction</h3></div><time>2021</time></article>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        <h2>Honors & awards</h2>
+        <ul class="cv-section-content cv-awards">
+          <li><span>2020</span> Second-class Graduate Scholarship, UESTC</li>
+          <li><span>2019</span> First-class Graduate Scholarship, UESTC</li>
+          <li><span>2019</span> Merit Student, Northwest A&amp;F University</li>
+          <li><span>2018</span> President Scholarship, Northwest A&amp;F University</li>
+          <li><span>2017</span> Provincial Second Prize, China Undergraduate Mathematical Contest in Modeling</li>
+          <li><span>2017</span> Provincial Third Prize, Lanqiao Cup Programming Competition</li>
+        </ul>
+      </section>
+
+      <section class="cv-section">
+        <h2>Skills</h2>
+        <div class="cv-section-content cv-skills">
+          <div><h3>Programming</h3><p>Python, C/C++, OpenGL</p></div>
+          <div><h3>Machine learning</h3><p>PyTorch, TensorFlow, OpenCV</p></div>
+          <div><h3>Languages</h3><p>Chinese (native), English (IELTS 6.5), Japanese (junior)</p></div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <span>© <span data-year></span> Ryan Zhang</span>
-      <a href="index.html">返回首页</a>
-    </footer>
-
+    <footer class="site-footer academic-footer"><span>© <span data-year></span> Ruiyuan Zhang</span><a href="index.html">Back to home</a></footer>
     <script src="assets/main.js"></script>
   </body>
 </html>

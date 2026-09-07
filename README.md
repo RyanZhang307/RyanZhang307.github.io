@@ -1,6 +1,6 @@
 # RyanZhang307.github.io
 
-这是 Ryan Zhang 的 GitHub Pages 个人主页。当前视觉方向参考 Fuwari：个人侧栏、文章信息流、柔和卡片和浅/深色切换。
+这是 Ruiyuan Zhang 的 GitHub Pages 学术主页，集中展示研究方向、论文、经历、项目和学习笔记。
 
 线上地址：
 
@@ -65,15 +65,31 @@ GitHub Pages 会自动更新：
 https://ryanzhang307.github.io
 ```
 
+## 信息论文章源文件
+
+信息论 Markdown 原稿不进入公开仓库，默认保存在仓库同级目录：
+
+```text
+../private-content/information-theory/
+```
+
+生成后的 HTML 仍在 `blog/information-theory/` 中公开访问。更新原稿后运行：
+
+```bash
+npm run build:information-theory
+```
+
+也可以通过 `INFORMATION_THEORY_SOURCE_DIR` 指定其他本地私有目录。
+
 ## 文件结构
 
-- `index.html`：Fuwari 风格首页、个人侧栏、文章入口、项目入口
-- `resume.html`：简历内容
+- `index.html`：学术主页、研究方向、论文与项目入口
+- `resume.html`：完整在线学术简历，可打印为 PDF
 - `blog/index.html`：博客列表
 - `blog/first-note.html`：第一篇文章
 - `assets/styles.css`：整体视觉样式
 - `assets/main.js`：年份、导航阴影和浅/深色切换
-- `assets/hero-notes.svg`：首页视觉图
+- `assets/research/`：论文与研究项目配图
 - `tools/dev-server.mjs`：本地预览服务器
 - `tools/check-site.mjs`：本地链接检查
 

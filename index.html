@@ -1,167 +1,139 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ryan Zhang | 个人主页</title>
-    <meta name="description" content="Ryan Zhang 的个人主页，记录项目、简历、阅读、思考和学习笔记。">
-    <meta property="og:title" content="Ryan Zhang | 个人主页">
-    <meta property="og:description" content="项目、简历、阅读、思考和学习笔记。">
+    <title>Ruiyuan Zhang | Reinforcement Learning Researcher</title>
+    <meta name="description" content="Ruiyuan Zhang is a PhD candidate at JAIST researching reinforcement learning, large language models, and computer graphics.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/hero-notes.svg">
+    <meta property="og:title" content="Ruiyuan Zhang | Researcher">
+    <meta property="og:description" content="Reinforcement Learning · Large Language Models · Computer Graphics">
+    <meta property="og:image" content="https://ryanzhang307.github.io/assets/ruiyuan-academic-og.png">
+    <meta property="og:url" content="https://ryanzhang307.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="assets/styles.css">
   </head>
-  <body>
+  <body class="academic-home">
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="Ryan Zhang 首页">
+      <a class="brand" href="#about" aria-label="Ruiyuan Zhang home">
         <span class="brand-mark">RZ</span>
-        <span>Ryan Zhang</span>
+        <span>Ruiyuan Zhang</span>
       </a>
-      <nav class="nav-links" aria-label="主要导航">
-        <a href="index.html" aria-current="page">首页</a>
-        <a href="blog/">文章</a>
-        <a href="resume.html">简历</a>
-        <a href="#projects">项目</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+        <a href="blog/">Blog</a>
       </nav>
-      <button class="theme-switch" type="button" data-theme-toggle aria-label="切换深色模式">
-        <span class="theme-switch-track" aria-hidden="true">
-          <span class="theme-switch-knob"></span>
-        </span>
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="Switch color theme">
+        <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-knob"></span></span>
       </button>
     </header>
 
-    <main class="site-shell">
-      <aside class="profile-sidebar" aria-label="个人信息">
-        <section class="profile-card card">
-          <img class="profile-avatar" src="https://github.com/RyanZhang307.png" alt="Ryan Zhang 的 GitHub 头像">
-          <h1>Ryan Zhang</h1>
-          <p class="profile-title">学习者 / 写作者 / Web 应用实践者</p>
-          <p class="profile-copy">把项目、阅读、语言学习和阶段性思考整理成长期可维护的个人知识库。</p>
-          <div class="profile-links" aria-label="社交链接">
-            <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="mailto:your-email@example.com">Email</a>
-          </div>
-        </section>
-
-        <section class="mini-card card">
-          <h2>现在关注</h2>
-          <ul class="compact-list">
-            <li>强化学习(Reinforcement Learning)</li>
-            <li>大语言模型(Large Language Models)</li>
-            <li>信息论(Information Theory)</li>
-            <li>优化(Optimization)</li>
-          </ul>
-        </section>
-
-        <section class="mini-card card">
-          <h2>标签</h2>
-          <div class="tag-cloud">
-            <a href="blog/#information-theory">Information Theory</a>
-            <a href="blog/#academic-writing">Academic Writing</a>
-          </div>
-        </section>
+    <main class="academic-shell">
+      <aside class="academic-profile" aria-label="Profile">
+        <img class="academic-avatar" src="assets/ruiyuan-zhang.jpg" alt="Portrait of Ruiyuan Zhang">
+        <h1>Ruiyuan Zhang</h1>
+        <p class="profile-role">PhD Candidate</p>
+        <p class="profile-affiliation">Japan Advanced Institute of Science and Technology</p>
+        <ul class="profile-meta">
+          <li><span aria-hidden="true">⌖</span> Ishikawa, Japan</li>
+          <li><span aria-hidden="true">✉</span> <a href="mailto:ryanzhang@jaist.ac.jp">ryanzhang@jaist.ac.jp</a></li>
+        </ul>
+        <div class="profile-links">
+          <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="resume.html">Curriculum Vitae →</a>
+        </div>
       </aside>
 
-      <div class="content-flow">
-        <section class="welcome-card card">
-          <div class="welcome-text">
-            <p class="eyebrow">Personal Garden</p>
-            <h2>把学习过程写成可以回看的东西。</h2>
-            <p>这里会放产品、博客，以及 Information Theory 和 Academic Writing 的读书思考笔记。</p>
-            <div class="action-row">
-              <a class="button primary" href="blog/">阅读文章</a>
-              <a class="button secondary" href="resume.html">查看简历</a>
-            </div>
-          </div>
-          <img class="welcome-visual" src="assets/hero-notes.svg" alt="桌面、书本与笔记组成的学习场景">
-        </section>
-
-        <section class="feed-section" aria-labelledby="latest-title">
-          <div class="section-heading">
-            <p class="eyebrow">Latest</p>
-            <h2 id="latest-title">最近更新</h2>
-          </div>
-          <div class="post-feed">
-            <a class="post-card card" href="blog/information-theory/">
-              <div class="post-meta">
-                <time datetime="2026-08-11">2026.08.11</time>
-                <span>信息论</span>
-              </div>
-              <h3>信息论：教程式导论</h3>
-              <p>从信息与熵出发，走到编码定理、连续信道，以及信息在物理与生命系统中的应用。</p>
-              <span class="post-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="post-card card" href="blog/first-note.html">
-              <div class="post-meta">
-                <time datetime="2026-08-01">2026.08.01</time>
-                <span>随笔</span>
-              </div>
-              <h3>第一篇记录：为什么把学习放到网页上</h3>
-              <p>个人主页不只是展示，也可以成为长期积累的索引。</p>
-              <span class="post-arrow" aria-hidden="true">→</span>
-            </a>
+      <div class="academic-content">
+        <section class="academic-intro" id="about">
+          <p class="eyebrow">About me</p>
+          <h2>Building agents that learn, reason, and create.</h2>
+          <p class="intro-lead">I am a third-year PhD candidate in Information Science at JAIST, advised by Prof. Xianchao Zhu and Prof. Van-Nam Huynh.</p>
+          <p>My research spans deep reinforcement learning, large language models, and computer graphics. I am particularly interested in reward generation, efficient exploration, controllable 3D content creation, and the connections between learning systems and structured visual worlds.</p>
+          <div class="intro-actions">
+            <a class="button-primary" href="#publications">View publications</a>
+            <a class="button-secondary" href="resume.html">Full CV</a>
           </div>
         </section>
 
-        <section class="feed-section" id="projects" aria-labelledby="projects-title">
+        <section class="academic-section" id="research">
           <div class="section-heading">
-            <p class="eyebrow">Products</p>
-            <h2 id="projects-title">产品</h2>
+            <div><p class="eyebrow">Research</p><h2>Research interests</h2></div>
+            <p>Three connected directions shape my current work.</p>
           </div>
-          <div class="project-grid">
-            <article class="project-card card accent-teal">
-              <p class="project-label">Japanese Learning</p>
-              <h3>日语词汇练习场</h3>
-              <p>一起来学日语吧。</p>
-              <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+          <div class="interest-grid">
+            <article class="interest-item"><span class="interest-index">01</span><h3>Reinforcement Learning</h3><p>Reward modeling, sample-efficient learning, episodic memory, exploration, and robust policy optimization.</p></article>
+            <article class="interest-item"><span class="interest-index">02</span><h3>Large Language Models</h3><p>LLM-generated reward functions, progress reasoning, task vectors, and constraint-guided policy learning.</p></article>
+            <article class="interest-item"><span class="interest-index">03</span><h3>Computer Graphics</h3><p>Controllable 3D botanical modeling, sketch-based generation, geometry processing, and visual simulation.</p></article>
+          </div>
+        </section>
+
+        <section class="academic-section" id="publications">
+          <div class="section-heading">
+            <div><p class="eyebrow">Selected work</p><h2>Publications</h2></div>
+            <a class="text-link" href="resume.html#publications">Complete list →</a>
+          </div>
+          <div class="publication-list">
+            <article class="publication-item featured-publication">
+              <img src="assets/research/eprm.png" alt="Episodic Progress Reward Models experiment overview" loading="lazy">
+              <div><p class="publication-meta">Under review · 2026</p><h3>Episodic Progress Reward Models for LLM-based Reward Generation in Reinforcement Learning</h3><p><strong>Ruiyuan Zhang</strong>, Xianchao Zhu, Van-Nam Huynh</p><span class="publication-topic">LLM × Reinforcement Learning</span></div>
             </article>
-            <article class="project-card card accent-pink">
-              <p class="project-label">Focus Tool</p>
-              <h3>Quiet Room</h3>
-              <p>冥想LLM。</p>
-              <a href="https://quiet-heart.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+            <article class="publication-item">
+              <img src="assets/research/ae-prm.png" alt="AE-PRM evaluation plots" loading="lazy">
+              <div><p class="publication-meta">Under review · 2026</p><h3>AE-PRM: Adaptive Episodic Progress Reward Models for Text-guided Reward Generations in Reinforcement Learning</h3><p><strong>Ruiyuan Zhang</strong>, Xianchao Zhu, Xiaojie Zhen, Van-Nam Huynh</p></div>
             </article>
-            <article class="project-card card accent-gold">
-              <p class="project-label">File Transfer</p>
-              <h3>TransferBox</h3>
-              <p>快速文件传输。</p>
-              <a href="https://transferbox.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+            <article class="publication-item">
+              <img src="assets/research/botanycraft.png" alt="BotanyCraft controllable 3D botanical plant generation" loading="lazy">
+              <div><p class="publication-meta">Under review · 2026</p><h3>BotanyCraft: A Versatile AI Agent for Controllable Generation of Structured 3D Botanical Plants</h3><p><strong>Ruiyuan Zhang</strong>, Zhihao Liu, Van-Nam Huynh</p></div>
             </article>
-            <article class="project-card card">
-              <p class="project-label">Creative Coding</p>
-              <h3>掌心花 · Gesture Bloom</h3>
-              <p>CG / CV+HCI。</p>
-              <a href="https://gesture-flower-web.vercel.app/" target="_blank" rel="noreferrer">打开项目</a>
+            <article class="publication-item">
+              <img src="assets/research/deeptreesketch.png" alt="DeepTreeSketch workflow from sketch to 3D tree" loading="lazy">
+              <div><p class="publication-meta">CHI · 2024</p><h3>DeepTreeSketch: Neural Graph Reasoning for Faithful 3D Tree Modeling from Sketches</h3><p>Zhihao Liu, Yu Li, Fangyuan Tu, <strong>Ruiyuan Zhang</strong>, Zhanglin Chen, Naoto Yokoya</p></div>
+            </article>
+            <article class="publication-item">
+              <img src="assets/research/mdmd.png" alt="MDMD options discovery method overview" loading="lazy">
+              <div><p class="publication-meta">Knowledge-Based Systems · 2022</p><h3>MDMD Options Discovery for Accelerating Exploration in Sparse-reward Domains</h3><p>Xianchao Zhu, <strong>Ruiyuan Zhang</strong>, William Zhu</p><a class="text-link" href="https://www.sciencedirect.com/science/article/pii/S0950705122000181" target="_blank" rel="noreferrer">Paper ↗</a></div>
             </article>
           </div>
         </section>
 
-        <section class="feed-section" aria-labelledby="notes-title">
-          <div class="section-heading">
-            <p class="eyebrow">Reading Notes</p>
-            <h2 id="notes-title">读书与思考</h2>
+        <section class="academic-section" id="experience">
+          <div class="section-heading"><div><p class="eyebrow">Background</p><h2>Experience & education</h2></div></div>
+          <div class="timeline">
+            <article class="timeline-item"><p class="timeline-date">Apr 2024 — Present</p><div><h3>PhD in Information Science</h3><p>Japan Advanced Institute of Science and Technology</p></div></article>
+            <article class="timeline-item"><p class="timeline-date">Nov 2022 — Aug 2023</p><div><h3>Research Assistant</h3><p>The Chinese University of Hong Kong, Shenzhen · Supervisor: Prof. Guiliang Liu</p></div></article>
+            <article class="timeline-item"><p class="timeline-date">Sep 2019 — Jun 2022</p><div><h3>MSc in Computer Science and Technology</h3><p>University of Electronic Science and Technology of China · GPA 3.69 / 4.0</p></div></article>
+            <article class="timeline-item"><p class="timeline-date">Sep 2015 — Jun 2019</p><div><h3>BEng in Software Engineering</h3><p>Northwest A&amp;F University · Ranked 1 / 99 for three years</p></div></article>
           </div>
-          <div class="note-grid">
-            <a class="note-card card" href="blog/information-theory/">
-              <span class="note-index">01</span>
-              <h3>Information Theory</h3>
-              <p>围绕信息、熵、编码、通信与学习系统，整理教材、论文和自己的推导与理解。</p>
-            </a>
-            <a class="note-card card" href="blog/#academic-writing">
-              <span class="note-index">02</span>
-              <h3>Academic Writing</h3>
-              <p>记录论文结构、论证、文献阅读、学术表达与修改方法，沉淀可复用的写作工作流。</p>
-            </a>
+        </section>
+
+        <section class="academic-section" id="projects">
+          <div class="section-heading"><div><p class="eyebrow">Selected projects</p><h2>Beyond papers</h2></div><p>Research prototypes and useful experiments.</p></div>
+          <div class="project-grid academic-projects">
+            <article class="project-card"><span class="project-kicker">Interpretability · 2025</span><h3>Beyond Induction Circuits</h3><p>Task vectors and in-context learning mechanisms in transformer language models.</p></article>
+            <article class="project-card"><span class="project-kicker">RL × LLM · 2023</span><h3>Constraint-Guided Policy Learning</h3><p>Using language models to encode task constraints and guide policy optimization.</p></article>
+            <article class="project-card project-card-image"><img src="assets/research/paper-cutting.png" alt="AI-generated paper-cutting artwork" loading="lazy"><div><span class="project-kicker">Generative art · 2019</span><h3>Paper-cutting Artwork Generation</h3><p>Unpaired GAN-based generation for traditional paper-cutting visual styles.</p></div></article>
+            <article class="project-card project-card-image"><img src="assets/research/grape-simulation.png" alt="3D grape growth simulation" loading="lazy"><div><span class="project-kicker">Graphics · 2017</span><h3>3D Grape Growth Simulation</h3><p>Visual simulation of grape growth and downy mildew progression.</p></div></article>
           </div>
+          <div class="product-strip">
+            <p>Other things I build</p>
+            <a href="https://ryan-nihongo.vercel.app/" target="_blank" rel="noreferrer">Japanese Vocabulary Lab ↗</a>
+            <a href="https://quiet-heart.vercel.app/" target="_blank" rel="noreferrer">Quiet Room ↗</a>
+            <a href="https://transferbox.vercel.app/" target="_blank" rel="noreferrer">TransferBox ↗</a>
+            <a href="https://gesture-flower-web.vercel.app/" target="_blank" rel="noreferrer">Gesture Bloom ↗</a>
+          </div>
+        </section>
+
+        <section class="academic-section" id="notes">
+          <div class="notes-callout"><div><p class="eyebrow">Notes & writing</p><h2>A public notebook for ideas in progress.</h2><p>I write about information theory, learning systems, and the tools I build along the way.</p></div><a class="button-primary" href="blog/">Read the blog</a></div>
         </section>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <span>© <span data-year></span> Ryan Zhang</span>
-      <a href="https://github.com/RyanZhang307" target="_blank" rel="noreferrer">github.com/RyanZhang307</a>
-    </footer>
-
+    <footer class="site-footer academic-footer"><span>© <span data-year></span> Ruiyuan Zhang</span><span>Built for curiosity and careful work.</span></footer>
     <script src="assets/main.js"></script>
   </body>
 </html>

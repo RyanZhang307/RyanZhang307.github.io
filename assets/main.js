@@ -47,6 +47,11 @@
     });
   });
 
+  const printButton = document.querySelector("[data-print]");
+  if (printButton) {
+    printButton.addEventListener("click", () => window.print());
+  }
+
   const header = document.querySelector("[data-header]");
   if (!header) return;
 

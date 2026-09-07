@@ -3,7 +3,10 @@ const { join, resolve } = require("node:path");
 const { marked, Renderer } = require("marked");
 
 const root = resolve(__dirname, "..");
-const sourceDir = join(root, "content", "information-theory");
+// Keep private Markdown sources outside the public GitHub Pages repository.
+const sourceDir = process.env.INFORMATION_THEORY_SOURCE_DIR
+  ? resolve(process.env.INFORMATION_THEORY_SOURCE_DIR)
+  : resolve(root, "..", "private-content", "information-theory");
 const outputDir = join(root, "blog", "information-theory");
 const publishedDate = "2026-08-11";
 
@@ -214,9 +217,9 @@ function tocMarkup(headings) {
 
 function siteHeader(current = "blog") {
   return `<header class="site-header" data-header>
-      <a class="brand" href="../../index.html" aria-label="Ryan Zhang 首页">
+      <a class="brand" href="../../index.html" aria-label="Ruiyuan Zhang 首页">
         <span class="brand-mark">RZ</span>
-        <span>Ryan Zhang</span>
+        <span>Ruiyuan Zhang</span>
       </a>
       <nav class="nav-links" aria-label="主要导航">
         <a href="../../index.html">首页</a>
@@ -232,7 +235,7 @@ function siteHeader(current = "blog") {
 
 function siteFooter() {
   return `<footer class="site-footer">
-      <span>© <span data-year></span> Ryan Zhang</span>
+      <span>© <span data-year></span> Ruiyuan Zhang</span>
       <a href="index.html">返回信息论专题</a>
     </footer>`;
 }
@@ -252,7 +255,7 @@ function documentShell({ title, description, body, math = false }) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${escapeHtml(title)} | Ryan Zhang</title>
+    <title>${escapeHtml(title)} | Ruiyuan Zhang</title>
     <meta name="description" content="${escapeHtml(description)}">
     <link rel="stylesheet" href="../../assets/styles.css">${mathScripts ? `\n    ${mathScripts}` : ""}
   </head>
