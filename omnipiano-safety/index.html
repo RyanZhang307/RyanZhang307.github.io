@@ -3,48 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="OmniPiano 多手 safety 任务可视化编辑器：选择关节、定义 cost、导出任务草案。">
-  <meta name="color-scheme" content="light">
-  <title>OmniPiano · Safety Task Studio</title>
+  <meta name="description" content="OmniPiano Safety Task Builder：选择手、手指和关节，生成 safety cost 草案。">
+  <meta name="color-scheme" content="dark">
+  <title>OmniPiano · Safety Task Builder</title>
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./power.css">
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="./"><span class="brand-icon" aria-hidden="true">OP</span><span>OmniPiano <span class="brand-muted">/ Safety Studio</span></span></a><span class="preview-badge"><i></i> 交互原型 · v0.1</span></header>
-  <main>
-    <div class="intro"><div><p class="eyebrow">CONSTRAINT AUTHORING WORKSPACE</p><h1>为每一只手，定义安全边界。</h1><p class="subtitle">选择身体部位，将你的研究假设变成可检查、可导出的 cost 定义。</p></div><a class="text-link" href="#export">查看生成结果 <span aria-hidden="true">↗</span></a></div>
-    <div class="workspace">
-      <aside class="setup panel">
-        <div class="section-head"><span class="step">01</span><h2>配置演奏场景</h2></div>
-        <label class="field-title" for="hand-count">手的数量</label><div class="count-buttons" id="hand-count" role="group" aria-label="手的数量"></div>
-        <label class="field-title" for="song">配套曲目</label><select id="song"><option value="gymnopeidieno.1">Gymnopédie No. 1</option><option value="twinkletwinklerousseau">Twinkle Twinkle · Rousseau</option><option value="clairdelune">Clair de lune</option><option value="PicturesGreatKiev-FourHand-MA-Duet-Territorial">Great Kiev · Four-hand</option><option value="ForElise-FourHand-MA-Duet-Territorial">Für Elise · Four-hand</option></select><p class="hint">来自此前讨论的曲目。任意手数搭配仅为设计候选，不表示已验证可演奏。</p>
-        <label class="field-title" for="task-name">任务名称</label><input id="task-name" value="CustomJointSafety-v0" maxlength="80" pattern="[A-Za-z][A-Za-z0-9_-]*">
-        <div class="divider"></div><div class="section-head"><span class="step">02</span><h2>定义约束规则</h2></div>
-        <label class="field-title" for="cost-type">Cost 类型</label><select id="cost-type"><option value="joint_range">关节活动范围</option><option value="joint_velocity">关节运动速度</option><option value="hand_power">指定手总功率</option></select>
-        <p class="hint" id="type-help"></p>
-        <label class="field-title" for="threshold" id="threshold-label">保留原始活动范围</label><div class="number-row"><input id="threshold" type="number" min="1" max="100" step="1" value="50"><span id="threshold-unit">%</span></div>
-        <label class="field-title" for="aggregation">规则内聚合</label><select id="aggregation"></select>
-        <label class="field-title" for="weight">Cost 权重</label><input id="weight" type="number" min="0" step="0.1" value="1">
-        <button class="primary full" id="add-rule">＋ 添加到任务</button><p class="hint">先在右侧点选目标，再添加规则。多条规则的 cost 相加。</p>
-        <div class="scope-note"><strong>定义约束 ≠ 改变物理模型</strong><p>“受伤”在此表示限制某部位的使用。不会锁死关节、修改力矩上限或改变动力学；OT reward 保持独立。</p></div>
-      </aside>
-      <section class="canvas-column">
-        <div class="panel anatomy-panel"><div class="canvas-heading"><div><p class="eyebrow">BODY TARGET SELECTOR</p><h2>点选需要保护的关节</h2></div><span class="count-pill" id="selection-count">0 个目标</span></div>
-          <div class="hand-tabs" id="hand-tabs" role="group" aria-label="选择当前手"></div>
-          <div class="diagram-heading"><span id="active-hand-label"></span><span>关节拓扑示意 · 非 3D 仿真</span></div>
-          <div class="joint-map" id="joint-map" aria-label="关节选择示意图"></div>
-          <div class="map-toolbar"><div class="legend"><span><i></i> 未选中</span><span><i class="selected"></i> 已选中</span></div><div><button class="quiet" id="select-middle">本手全部 J2</button><button class="quiet" id="clear-selection">清空选择</button></div></div>
-          <div class="target-strip" id="target-strip"></div>
-          <p class="hint diagram-note">每指展示 J1–J3 子集；名称对应模型关节后缀，不等同于人类解剖命名。手标签对应现有 HandSpec；此图不表示实际空间距离或键盘分区。</p>
-        </div>
-        <div class="lower-grid">
-          <section class="panel rules-panel"><div class="canvas-heading"><h2>任务中的规则</h2><span class="small-label" id="rule-count">0 RULES</span></div><div id="rules"></div><div class="budget-row"><label for="budget">Episode cost limit <span>候选值 · 非正式 benchmark 参数</span></label><input id="budget" type="number" min="0" step="0.1" value="10"></div><p class="hint">C = Σₜ Σᵣ cᵣ(t)，未折扣累计，不按时长或手数自动缩放。修改规则后需重新解释预算；不会为达标而自动调阈值。</p></section>
-          <section class="panel preview-panel"><p class="eyebrow">COST SANITY PREVIEW</p><h2>边界之外，会发生什么？</h2><p class="hint">仅演示编辑中的规则。所有选中目标使用同一个人工输入，不是 rollout 或实验结果。</p><label class="field-title" for="sample" id="sample-label">关节在原始范围中的位置</label><input id="sample" type="range" min="0" max="100" value="85"><div class="sample-ticks"><span id="sample-left">0%</span><output id="sample-value">85%</output><span id="sample-right">100%</span></div><div class="cost-result"><div><span>单步规则 cost</span><output id="sample-cost">0.100</output></div><span id="sample-state" class="status-chip">超出边界</span></div><code id="formula"></code></section>
-        </div>
-      </section>
-    </div>
-    <section id="export" class="panel export-panel"><div class="export-heading"><div><div class="section-head"><span class="step">03</span><h2>生成可复查的任务草案</h2></div><p class="hint">JSON 保存设计；Python 是可独立计算 cost 的函数模板，尚未接入 MuJoCo / 环境注册。</p></div><button class="primary" id="generate">生成任务草案 <span aria-hidden="true">↗</span></button></div><div class="export-toolbar"><div role="group" aria-label="输出格式" class="code-tabs"><button id="json-tab" aria-pressed="true">task.json</button><button id="python-tab" aria-pressed="false">cost.py</button></div><div><button class="quiet" id="copy">复制</button><button class="quiet" id="download">下载文件 ↓</button></div></div><pre id="code" tabindex="0"></pre><div class="export-foot"><span id="snapshot-status">尚未生成</span><span>无服务器 · 配置只在当前页面内处理</span></div></section>
-    <footer><span>OMNIPIANO / SAFETY RESEARCH TOOLS</span><p>下一步接入：关节 / 传感器绑定 → BaseConstraint 适配 → 环境注册 → smoke test。本页面不执行这些步骤。</p></footer>
-  </main><div id="toast" role="status" aria-live="polite"></div><noscript>请启用 JavaScript 以使用关节选择与代码生成。</noscript><script type="module" src="./app.js"></script>
+  <main class="shell">
+    <header class="page-head">
+      <div><a class="back" href="../">OMNIPIANO / SAFETY</a><h1>Safety Task Builder</h1><p>选择需要保护的部位，生成一条 safety cost 草案。</p></div>
+      <span class="prototype"><i></i> Prototype</span>
+    </header>
+
+    <section class="setup" aria-labelledby="setup-title">
+      <h2 id="setup-title" class="sr-only">基础配置</h2>
+      <label>手数<select id="hand-count"><option value="2">2 手</option><option value="3">3 手</option><option value="4" selected>4 手</option><option value="5">5 手</option></select></label>
+      <label>伤害 / 约束类型<select id="cost-type"><option value="joint_range">关节活动范围</option><option value="joint_velocity">关节运动速度</option><option value="hand_power">指定手总功率</option></select></label>
+      <label>聚合方式<select id="aggregation"></select></label>
+    </section>
+
+    <section class="step-section" aria-labelledby="hand-title">
+      <div class="step-heading"><span>1</span><div><h2 id="hand-title">选择一只手</h2><p>多手布局沿用当前环境中的 HandSpec 名称。</p></div></div>
+      <div id="hand-options" class="option-grid hand-grid" role="group" aria-label="选择手"></div>
+    </section>
+
+    <section id="finger-step" class="step-section" aria-labelledby="finger-title">
+      <div class="step-heading"><span>2</span><div><h2 id="finger-title">选择手指</h2><p>一次生成一个目标关节，之后可以继续添加。</p></div></div>
+      <div id="finger-options" class="option-grid finger-grid" role="group" aria-label="选择手指"></div>
+    </section>
+
+    <section id="joint-step" class="step-section" aria-labelledby="joint-title">
+      <div class="step-heading"><span>3</span><div><h2 id="joint-title">选择关节</h2><p>J1–J3 是模型中的关节后缀，不是人体解剖编号。</p></div></div>
+      <div id="joint-options" class="option-grid joint-grid" role="group" aria-label="选择关节"></div>
+    </section>
+
+    <section class="step-section compact" aria-labelledby="params-title">
+      <div class="step-heading"><span id="params-step">4</span><div><h2 id="params-title">设置 cost 参数</h2><p id="type-help"></p></div></div>
+      <div class="parameter-grid">
+        <label><span id="threshold-label">阈值</span><div class="input-unit"><input id="threshold" type="number"><em id="threshold-unit"></em></div></label>
+        <label>Cost 权重<input id="weight" type="number" min="0" step="0.1" value="1"></label>
+        <label>Episode cost limit<input id="budget" type="number" min="0" step="0.1" value="10"></label>
+      </div>
+      <details><summary>任务信息（可选）</summary><div class="advanced-grid">
+        <label>任务名称<input id="task-name" value="CustomJointSafety-v0" maxlength="80"></label>
+        <label>配套曲目<select id="song"><option value="gymnopeidieno.1">Gymnopédie No. 1</option><option value="twinkletwinklerousseau">Twinkle Twinkle · Rousseau</option><option value="clairdelune">Clair de lune</option><option value="PicturesGreatKiev-FourHand-MA-Duet-Territorial">Great Kiev · Four-hand</option><option value="ForElise-FourHand-MA-Duet-Territorial">Für Elise · Four-hand</option></select></label>
+      </div></details>
+    </section>
+
+    <section class="generate-card">
+      <div><span class="selection-label">当前目标</span><strong id="selection-summary"></strong><p id="selection-explanation"></p></div>
+      <button id="generate" class="primary">生成任务草案 <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section id="result" class="result" aria-labelledby="result-title" hidden>
+      <div class="result-head"><div><span class="success-dot"></span><h2 id="result-title">草案已生成</h2><p>这是 cost 定义，不会改变关节物理状态，也尚未注册环境。</p></div><button id="close-result" class="icon-button" aria-label="收起结果">×</button></div>
+      <dl class="summary-list"><div><dt>Target</dt><dd id="result-target"></dd></div><div><dt>Cost</dt><dd id="result-cost"></dd></div><div><dt>Threshold</dt><dd id="result-threshold"></dd></div><div><dt>Budget</dt><dd id="result-budget"></dd></div></dl>
+      <div class="result-actions"><button id="download-json">下载 JSON</button><button id="download-python">下载 Python</button><button id="add-another" class="text-button">＋ 再添加一个目标</button></div>
+      <details class="code-details"><summary>查看生成内容</summary><div class="code-tabs" role="group" aria-label="输出格式"><button id="json-tab" aria-pressed="true">task.json</button><button id="python-tab" aria-pressed="false">cost.py</button></div><pre id="code" tabindex="0"></pre></details>
+    </section>
+
+    <aside class="boundary"><strong>这个页面现在做什么？</strong><p>定义目标和 cost 计算方式，并导出草案。真实接入仍需完成 MuJoCo 传感器绑定、BaseConstraint 适配、环境注册与 smoke test。</p></aside>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

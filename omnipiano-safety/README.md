@@ -6,8 +6,8 @@ Static, client-only extension to the existing GitHub Pages site. No training cod
 
 - Select 2–5 hands using the current default HandSpec names.
 - Select physical joint suffixes J1–J3 for each finger (a subset, not a complete anatomical model).
-- Add central-range, angular-velocity or selected-hand total-power rules. Multiple rules are summed.
-- Inspect a synthetic single-step cost, and export a frozen JSON specification and a Python numeric evaluator.
+- Create central-range, angular-velocity or selected-hand total-power rules. Use **再添加一个目标** to combine targets; rules are summed.
+- Review a compact generated summary and export a frozen JSON specification or Python numeric evaluator.
 - Thresholds and episode budgets are explicitly candidate values. There is no automatic initialization masking or performance-driven calibration.
 - Choosing a song does not validate its suitability for a morphology.
 
@@ -30,7 +30,7 @@ Use actuator transmission force/velocity sensors for power. Do not infer a one-t
 
 ## Export semantics
 
-The left editor stages a new rule; clicking **添加到任务** adds it to saved rules. Later editor changes do not modify saved rules. Changing morphology asks before clearing saved rules. **生成任务草案** snapshots saved rules plus song, name and budget. Export is disabled if that saved task changes. Removing all rules or invalid parameters prevents generation. A zero-cost example does not establish benchmark validity.
+The page follows one hierarchy: hand count and cost type, hand, finger, joint, then parameters. Whole-hand power intentionally skips finger and joint. **生成任务草案** snapshots the visible target plus optional previously saved targets. **再添加一个目标** saves the current rule before returning to target selection. Changing hand count or cost type clears saved targets because target identity or units change. Song and task name are optional advanced fields. Invalid parameters prevent generation.
 
 ## Validation
 
