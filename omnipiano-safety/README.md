@@ -2,6 +2,8 @@
 
 Static, client-only extension to the existing GitHub Pages site. No training code, credentials, results or private data are included. Open the deployed `/omnipiano-safety/` route in a modern browser. The JavaScript modules require HTTP(S), not a file URL. No dependency installation or bundler is required.
 
+The interface supports Chinese and English. The header toggle changes visible copy, dynamic choices, generated summaries, validation feedback, and accessibility labels. The preference is stored locally in the browser; exported task semantics are language-independent.
+
 ## Scope
 
 - Select 2–5 hands using the current default HandSpec names.

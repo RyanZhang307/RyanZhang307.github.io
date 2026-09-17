@@ -11,58 +11,58 @@
 <body>
   <main class="shell">
     <header class="page-head">
-      <div><a class="back" href="../">OMNIPIANO / SAFETY</a><h1>Safety Task Builder</h1><p>选择需要保护的部位，生成一条 safety cost 草案。</p></div>
-      <span class="prototype"><i></i> Prototype</span>
+      <div><a class="back" href="../">OMNIPIANO / SAFETY</a><h1>Safety Task Builder</h1><p data-i18n="subtitle">选择需要保护的部位，生成一条 safety cost 草案。</p></div>
+      <div class="header-actions"><button id="language-toggle" class="language-toggle" type="button" aria-label="Switch to English">EN</button><span class="prototype"><i></i> Prototype</span></div>
     </header>
 
     <section class="setup" aria-labelledby="setup-title">
-      <h2 id="setup-title" class="sr-only">基础配置</h2>
-      <label>手数<select id="hand-count"><option value="2">2 手</option><option value="3">3 手</option><option value="4" selected>4 手</option><option value="5">5 手</option></select></label>
-      <label>伤害 / 约束类型<select id="cost-type"><option value="joint_range">关节活动范围</option><option value="joint_velocity">关节运动速度</option><option value="hand_power">指定手总功率</option></select></label>
-      <label>聚合方式<select id="aggregation"></select></label>
+      <h2 id="setup-title" class="sr-only" data-i18n="basicConfig">基础配置</h2>
+      <label><span data-i18n="handCount">手数</span><select id="hand-count"><option value="2" data-i18n="hands2">2 手</option><option value="3" data-i18n="hands3">3 手</option><option value="4" data-i18n="hands4" selected>4 手</option><option value="5" data-i18n="hands5">5 手</option></select></label>
+      <label><span data-i18n="costType">伤害 / 约束类型</span><select id="cost-type"><option value="joint_range" data-i18n="jointRange">关节活动范围</option><option value="joint_velocity" data-i18n="jointVelocity">关节运动速度</option><option value="hand_power" data-i18n="handPower">指定手总功率</option></select></label>
+      <label><span data-i18n="aggregation">聚合方式</span><select id="aggregation"></select></label>
     </section>
 
     <section class="step-section" aria-labelledby="hand-title">
-      <div class="step-heading"><span>1</span><div><h2 id="hand-title">选择一只手</h2><p>多手布局沿用当前环境中的 HandSpec 名称。</p></div></div>
-      <div id="hand-options" class="option-grid hand-grid" role="group" aria-label="选择手"></div>
+      <div class="step-heading"><span>1</span><div><h2 id="hand-title" data-i18n="chooseHand">选择一只手</h2><p data-i18n="chooseHandHelp">多手布局沿用当前环境中的 HandSpec 名称。</p></div></div>
+      <div id="hand-options" class="option-grid hand-grid" role="group" aria-label="选择手" data-i18n-aria="chooseHand"></div>
     </section>
 
     <section id="finger-step" class="step-section" aria-labelledby="finger-title">
-      <div class="step-heading"><span>2</span><div><h2 id="finger-title">选择手指</h2><p>一次生成一个目标关节，之后可以继续添加。</p></div></div>
-      <div id="finger-options" class="option-grid finger-grid" role="group" aria-label="选择手指"></div>
+      <div class="step-heading"><span>2</span><div><h2 id="finger-title" data-i18n="chooseFinger">选择手指</h2><p data-i18n="chooseFingerHelp">一次生成一个目标关节，之后可以继续添加。</p></div></div>
+      <div id="finger-options" class="option-grid finger-grid" role="group" aria-label="选择手指" data-i18n-aria="chooseFinger"></div>
     </section>
 
     <section id="joint-step" class="step-section" aria-labelledby="joint-title">
-      <div class="step-heading"><span>3</span><div><h2 id="joint-title">选择关节</h2><p>J1–J3 是模型中的关节后缀，不是人体解剖编号。</p></div></div>
-      <div id="joint-options" class="option-grid joint-grid" role="group" aria-label="选择关节"></div>
+      <div class="step-heading"><span>3</span><div><h2 id="joint-title" data-i18n="chooseJoint">选择关节</h2><p data-i18n="chooseJointHelp">J1–J3 是模型中的关节后缀，不是人体解剖编号。</p></div></div>
+      <div id="joint-options" class="option-grid joint-grid" role="group" aria-label="选择关节" data-i18n-aria="chooseJoint"></div>
     </section>
 
     <section class="step-section compact" aria-labelledby="params-title">
-      <div class="step-heading"><span id="params-step">4</span><div><h2 id="params-title">设置 cost 参数</h2><p id="type-help"></p></div></div>
+      <div class="step-heading"><span id="params-step">4</span><div><h2 id="params-title" data-i18n="setParams">设置 cost 参数</h2><p id="type-help"></p></div></div>
       <div class="parameter-grid">
         <label><span id="threshold-label">阈值</span><div class="input-unit"><input id="threshold" type="number"><em id="threshold-unit"></em></div></label>
-        <label>Cost 权重<input id="weight" type="number" min="0" step="0.1" value="1"></label>
+        <label><span data-i18n="costWeight">Cost 权重</span><input id="weight" type="number" min="0" step="0.1" value="1"></label>
         <label>Episode cost limit<input id="budget" type="number" min="0" step="0.1" value="10"></label>
       </div>
-      <details><summary>任务信息（可选）</summary><div class="advanced-grid">
-        <label>任务名称<input id="task-name" value="CustomJointSafety-v0" maxlength="80"></label>
-        <label>配套曲目<select id="song"><option value="gymnopeidieno.1">Gymnopédie No. 1</option><option value="twinkletwinklerousseau">Twinkle Twinkle · Rousseau</option><option value="clairdelune">Clair de lune</option><option value="PicturesGreatKiev-FourHand-MA-Duet-Territorial">Great Kiev · Four-hand</option><option value="ForElise-FourHand-MA-Duet-Territorial">Für Elise · Four-hand</option></select></label>
+      <details><summary data-i18n="taskInfo">任务信息（可选）</summary><div class="advanced-grid">
+        <label><span data-i18n="taskName">任务名称</span><input id="task-name" value="CustomJointSafety-v0" maxlength="80"></label>
+        <label><span data-i18n="song">配套曲目</span><select id="song"><option value="gymnopeidieno.1">Gymnopédie No. 1</option><option value="twinkletwinklerousseau">Twinkle Twinkle · Rousseau</option><option value="clairdelune">Clair de lune</option><option value="PicturesGreatKiev-FourHand-MA-Duet-Territorial">Great Kiev · Four-hand</option><option value="ForElise-FourHand-MA-Duet-Territorial">Für Elise · Four-hand</option></select></label>
       </div></details>
     </section>
 
     <section class="generate-card">
-      <div><span class="selection-label">当前目标</span><strong id="selection-summary"></strong><p id="selection-explanation"></p></div>
-      <button id="generate" class="primary">生成任务草案 <span aria-hidden="true">→</span></button>
+      <div><span class="selection-label" data-i18n="currentTarget">当前目标</span><strong id="selection-summary"></strong><p id="selection-explanation"></p></div>
+      <button id="generate" class="primary"><span data-i18n="generateDraft">生成任务草案</span> <span aria-hidden="true">→</span></button>
     </section>
 
     <section id="result" class="result" aria-labelledby="result-title" hidden>
-      <div class="result-head"><div><span class="success-dot"></span><h2 id="result-title">草案已生成</h2><p>这是 cost 定义，不会改变关节物理状态，也尚未注册环境。</p></div><button id="close-result" class="icon-button" aria-label="收起结果">×</button></div>
-      <dl class="summary-list"><div><dt>Target</dt><dd id="result-target"></dd></div><div><dt>Cost</dt><dd id="result-cost"></dd></div><div><dt>Threshold</dt><dd id="result-threshold"></dd></div><div><dt>Budget</dt><dd id="result-budget"></dd></div></dl>
-      <div class="result-actions"><button id="download-json">下载 JSON</button><button id="download-python">下载 Python</button><button id="add-another" class="text-button">＋ 再添加一个目标</button></div>
-      <details class="code-details"><summary>查看生成内容</summary><div class="code-tabs" role="group" aria-label="输出格式"><button id="json-tab" aria-pressed="true">task.json</button><button id="python-tab" aria-pressed="false">cost.py</button></div><pre id="code" tabindex="0"></pre></details>
+      <div class="result-head"><div><span class="success-dot"></span><h2 id="result-title" data-i18n="draftReady">草案已生成</h2><p data-i18n="draftReadyHelp">这是 cost 定义，不会改变关节物理状态，也尚未注册环境。</p></div><button id="close-result" class="icon-button" aria-label="收起结果">×</button></div>
+      <dl class="summary-list"><div><dt data-i18n="target">目标</dt><dd id="result-target"></dd></div><div><dt>Cost</dt><dd id="result-cost"></dd></div><div><dt data-i18n="threshold">阈值</dt><dd id="result-threshold"></dd></div><div><dt data-i18n="budget">预算</dt><dd id="result-budget"></dd></div></dl>
+      <div class="result-actions"><button id="download-json"><span data-i18n="download">下载</span> JSON</button><button id="download-python"><span data-i18n="download">下载</span> Python</button><button id="add-another" class="text-button" data-i18n="addAnother">＋ 再添加一个目标</button></div>
+      <details class="code-details"><summary data-i18n="viewGenerated">查看生成内容</summary><div class="code-tabs" role="group" aria-label="输出格式" data-i18n-aria="outputFormat"><button id="json-tab" aria-pressed="true">task.json</button><button id="python-tab" aria-pressed="false">cost.py</button></div><pre id="code" tabindex="0"></pre></details>
     </section>
 
-    <aside class="boundary"><strong>这个页面现在做什么？</strong><p>定义目标和 cost 计算方式，并导出草案。真实接入仍需完成 MuJoCo 传感器绑定、BaseConstraint 适配、环境注册与 smoke test。</p></aside>
+    <aside class="boundary"><strong data-i18n="scopeTitle">这个页面现在做什么？</strong><p data-i18n="scopeBody">定义目标和 cost 计算方式，并导出草案。真实接入仍需完成 MuJoCo 传感器绑定、BaseConstraint 适配、环境注册与 smoke test。</p></aside>
   </main>
   <div id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="./app.js"></script>
