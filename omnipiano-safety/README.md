@@ -9,7 +9,7 @@ The interface supports Chinese and English. The header toggle changes visible co
 - Select 2–5 hands using the current default HandSpec names.
 - Select physical joint suffixes J1–J3 for each finger (a subset, not a complete anatomical model).
 - Create central-range, angular-velocity or selected-hand total-power rules. Use **再添加一个目标** to combine targets; rules are summed.
-- Review a compact generated summary and export a frozen JSON specification or Python numeric evaluator.
+- Review the complete JSON or Python output online before downloading either file.
 - Thresholds and episode budgets are explicitly candidate values. There is no automatic initialization masking or performance-driven calibration.
 - Choosing a song does not validate its suitability for a morphology.
 
